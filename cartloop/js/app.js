@@ -704,32 +704,28 @@ function AssistWin({ p, id = 'win-assist', actions = true }) {
     <details><summary class="evlink">화면에서 읽은 텍스트 보기 (${r.via === 'llm' ? 'LLM으로 읽음' : '저장 결과'})</summary><pre class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin:6px 0 0;font-size:11.5px">${p.text}</pre></details>`}
   </div><//>`;
 }
-function EHRPage() {
+function EHRScene() {
   const db = S.db, E = S.ehr;
   const list = pendingList();
   const p = E.op ? db.pending[E.op] : null;
   useEffect(() => { if (!S.ehr.op && list.length) selectOp(list[0].op); else if (S.ehr.op && db.pending[S.ehr.op] && !S.ehr.result && !S.ehr.busy) doRead(); }, [E.op]);
   const doneN = Object.values(db.records).filter(r => r.date >= db.installDate).length;
-  return html`<div class="page wide">
-    <div class="head"><div><h1>EHR 화면을 읽어 청구 대조 알림을 띄웁니다</h1><p class="sub">설치 후에는 파일을 올리지 않습니다. 간호사가 쓰는 EHR 화면 옆에서 화면의 글자만 읽고, 원무 전송 전에 알려 줍니다.</p></div>
-      <div class="right">${S.batch ? html`<span class="small num">읽는 중 ${S.batch.d} / ${S.batch.n}</span><span class="bar" style="width:160px"><i style=${`width:${S.batch.d / S.batch.n * 100}%`}></i></span>`
-        : list.length ? html`<button class="btn" onClick=${() => runBatch()}>남은 ${list.length}건 모두 읽기</button>` : ''}</div></div>
-    ${!list.length ? html`<div class="card empty"><b>설치 후 수술 ${doneN}건을 모두 읽었습니다.</b><br />Loop DB v${db.version} · <a href="#/db">갱신 내역 보기</a> · <a href="#/sets">세트 개정안 보기</a> · <a href="#/validate">정답지 채점</a></div>` : html`
-    <div class="ehrgrid2">
-      <${Win} brand=${false} title=${`오늘의 수술 ${list.length}건`} sub=""><div class="oplist2">${list.map(x => html`<div class=${'opitem' + (x.op === E.op ? ' on' : '')} onClick=${() => selectOp(x.op)}>
-        <div class="row" style="gap:6px"><b class="mono">${x.op}</b><span class="small muted num">${x.date.slice(5)}</span></div>
-        <div class="small">${x.rec ? `${x.rec.surgeon} · ${(x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 22)}` : '기록지 없음'}</div></div>`)}</div><//>
-      <div class="pc"><div class="pccap"><span class="tag">입력 화면</span>수술실 간호사 PC에 떠 있는 기존 EHR 두 화면 <span style="margin-left:auto;display:flex;gap:10px;align-items:center"><span class="tag out">출력 화면</span>오른쪽 CartLoop 창</span></div>
-      <div class="pcscreen">
-        ${p && p.claim ? html`<div class="pcgrid">
-          <div class="stack" id="ehr-pair"><${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} /></div>
-          <${AssistWin} p=${p} />
-        </div>` : html`<div class="empty">왼쪽에서 수술을 고르세요.</div>`}
-        <div class="pctask"><span class="pctray"></span><span class="pcicons"><span class="winlogo"><i></i><i></i><i></i><i></i></span><span class="pcsearch">🔍 검색</span>
-          <span class="pcapp on"><span class="his-ico">H</span>OO병원 HIS</span><span class="pcapp on"><span style="width:22px;display:inline-flex"><${Logo} /></span>CartLoop</span></span>
-          <span class="pctray num">한 ㅣ ${p?.date || ''}</span></div>
-      </div><div class="pcstand"></div></div>
-    </div>`}
+  return html`<div class="scene">
+    <${HisWin} title="수술 스케줄" id="win-his-list" menu=${false} status=${`대기 ${list.length}건 · 기록 완료 ${doneN}건`}>
+      <div class="his-scroll tall"><table class="his-grid pick"><thead><tr><th>수술번호</th><th>일자</th><th>집도의</th><th>수술명</th></tr></thead><tbody>
+        ${list.map(x => html`<tr class=${x.op === E.op ? 'sel' : ''} onClick=${() => selectOp(x.op)}><td>${x.op}</td><td class="c">${x.date.slice(5)}</td><td class="c">${x.rec?.surgeon || ''}</td><td>${x.rec ? (x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 16) : '기록 없음'}</td></tr>`)}
+        ${!list.length && html`<tr><td colspan="4" style="color:#777;text-align:center;height:60px">대기 중인 수술이 없습니다</td></tr>`}
+      </tbody></table></div>
+    <//>
+    <div class="stack" id="ehr-pair">${p && p.claim ? html`<${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} />` : html`<${HisWin} title="수술간호기록" id="win-ehr-record"><div class="his-empty">수술 스케줄에서 수술을 선택하십시오.</div><//>`}</div>
+    <section class="appwin compact" id="cl-compact">
+      <div class="apptitle"><${Logo} /><b>CartLoop</b><span>청구 도우미</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${() => go('start')}>✕</i></span></div>
+      <div class="cltool"><a class="mini" href="#/start">☰ CartLoop 전체 창 열기</a>
+        ${S.batch ? html`<span class="small num" style="margin-left:auto">읽는 중 ${S.batch.d} / ${S.batch.n}</span>` : list.length ? html`<button class="mini" style="margin-left:auto" onClick=${() => runBatch()}>남은 ${list.length}건 모두 읽기</button>` : ''}</div>
+      ${p && p.claim ? html`<${AssistWin} p=${p} />` : html`<div class="wbody"><div class="hero"><div><div class="wh">${list.length ? html`EHR 화면을 <em>기다리고 있어요</em>` : html`설치 후 수술을 <em>모두 읽었어요</em>`}</div>
+        <p>${list.length ? 'EHR에서 수술을 열면 화면의 글자를 읽어 청구 목록과 대조합니다.' : `수술 ${doneN}건을 Loop DB v${db.version}에 반영했습니다.`}</p></div><img src="img/mascot.png" alt="" /></div>
+        ${!list.length && html`<div class="btnrow"><a class="btn" href="#/db">갱신 내역</a><a class="btn" href="#/sets">세트 개정안</a><a class="btn pri" href="#/validate">정답지 채점</a></div>`}</div>`}
+    </section>
   </div>`;
 }
 
@@ -915,11 +911,47 @@ function ValidResult({ V }) {
 }
 
 // ───────────────────────── 앱 ─────────────────────────
+const ROUTE_TITLE = { start: '처음 설정 · 파일 올리기', db: 'Loop DB', audit: '과거 대조', sets: '세트 개정안', ask: '우리 병원 재료 묻기', validate: '정답지 채점' };
+function Clock() {
+  const [now, setNow] = useState(new Date());
+  useEffect(() => { const t = setInterval(() => setNow(new Date()), 30000); return () => clearInterval(t); }, []);
+  return html`<span class="tray num"><span>한</span><span style="text-align:right">${now.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' })}<br />${now.toLocaleDateString('ko-KR')}</span></span>`;
+}
+function Taskbar({ route }) {
+  const inEhr = route === 'ehr';
+  return html`<div class="taskbar"><span></span>
+    <span class="tbicons"><span class="winlogo"><i></i><i></i><i></i><i></i></span><span class="tbsearch">🔍 검색</span>
+      <a class=${'tbapp' + (S.db ? ' run' : '') + (inEhr ? ' on' : '')} href=${S.db ? '#/ehr' : '#/start'} title="OO병원 HIS"><span class="his-ico">H</span>OO병원 HIS</a>
+      <a class=${'tbapp run' + (inEhr ? '' : ' on')} href=${inEhr ? '#/start' : '#/' + route} title="CartLoop"><span class="tblogo"><${Logo} /></span>CartLoop</a></span>
+    <${Clock} /></div>`;
+}
+function DeskIcons() {
+  const icon = (label, glyph, cls, href) => html`<a class="dicon" href=${href}><span class=${'dglyph ' + cls}>${glyph}</span><span>${label}</span></a>`;
+  return html`<div class="dicons">
+    ${icon('내 PC', '🖥', '', '#/' + S.route)}
+    ${icon('OO병원 HIS', 'H', 'his', S.db ? '#/ehr' : '#/start')}
+    ${icon('CartLoop', html`<${Logo} />`, 'cl', '#/start')}
+    ${icon('가상 데이터 셋', '📁', '', '#/start')}
+    ${icon('휴지통', '🗑', '', '#/' + S.route)}
+  </div>`;
+}
+// 웹을 열면 가상 윈도우 바탕화면이 보인다. CartLoop는 그 위에 떠 있는 프로그램 창이고, EHR(HIS)은 별개의 프로그램이다.
 function App() {
-  const pages = { start: StartPage, db: DBPage, audit: AuditPage, ehr: EHRPage, sets: SetsPage, ask: AskPage, validate: ValidatePage };
-  const route = S.db || S.route === 'start' ? S.route : 'start';
-  const Page = pages[route] || StartPage;
-  return html`<div class="shell"><${Side} /><main class="main"><${Page} /></main>${S.toast && html`<div class="toast" role="status">${S.toast}</div>`}</div>`;
+  const pages = { start: StartPage, db: DBPage, audit: AuditPage, sets: SetsPage, ask: AskPage, validate: ValidatePage };
+  let route = S.db || S.route === 'start' ? S.route : 'start';
+  if (route !== 'ehr' && !pages[route]) route = 'start';
+  const Page = pages[route];
+  return html`<div class="desktop">
+    <div class="deskarea">
+      <${DeskIcons} />
+      ${route === 'ehr' ? html`<${EHRScene} />` : html`<section class="appwin" id="cl-main">
+        <div class="apptitle"><${Logo} /><b>CartLoop</b><span>${ROUTE_TITLE[route]}</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x">✕</i></span></div>
+        <div class="shell"><${Side} /><main class="main"><${Page} /></main></div>
+      </section>`}
+    </div>
+    <${Taskbar} route=${route} />
+    ${S.toast && html`<div class="toast" role="status">${S.toast}</div>`}
+  </div>`;
 }
 
 (async () => {
