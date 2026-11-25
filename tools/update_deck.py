@@ -30,6 +30,34 @@ TEXTS = {  # 슬라이드 → [(도형 이름, 옛 글의 일부, 새 글)]
     21: [('TextBox 29', '3개월 v3', 'Loop DB 갱신 — 설치 때 v1 → 3개월 뒤 v4'),
          ('TextBox 38', '+117건', '수술 +101건, 새 표기 +78종. 사람이 입력한 것 없음')],
 }
+# 14 · 15 · 16 · 17장: 실제 구현 내용 (도형 이름이 겹치므로 옛 글의 일부로 찾는다)
+TEXTS.update({
+    14: [(None, '[사용 모델 입력]', 'Claude Haiku 5.5 (추출 · 별칭) · Sonnet 5.5 (규칙 · 답변)'),
+         (None, '[프레임워크 · 오케스트레이션 방식 입력]', '프레임워크 없이 직접 구현 · 에이전트 5개 · 20건 동시 호출'),
+         (None, '파일시스템 기반 · 파일과 링크로 저장', 'Loop DB(JSON) · 파일과 링크 구조로 열람'),
+         (None, '병원 전용 프라이빗 클라우드 (로컬 LLM)', '베타: 웹(Vercel) + 외부 LLM API · 목표: 병원 전용 클라우드')],
+    15: [('TextBox 33', 'ACDF', '12종 (TLIF · PLIF · MED · TKA · THA · ARCR · RTSA 등)'),
+         ('TextBox 35', '118건', '2023.01~2025.12 청구 3년치 · 마지막 3개월 101건은 설치 후 EHR 화면용'),
+         ('TextBox 37', '119건', '심은 오류 53건 · 세트 어긋남 2곳 · 기록 줄 1,699개의 정답 코드')],
+    16: [('TextBox 39', '술식 5종', '집도의 6명 × 술식 12종의 선호를 정해 3년치 1,240건을 만들고, 오류를 심은 뒤 정답지를 따로 보관'),
+         ('TextBox 47', 'xlsx · csv · txt', 'pdf · docx · csv · txt를 읽어 머리글 위치와 열의 뜻, 서식 항목으로 파일 종류를 스스로 판별')],
+    17: [(None, '(XLSX · CSV · PDF · HWP)', '파일 업로드 (CSV · XLSX · PDF · DOCX · TXT)'),
+         (None, '심평원 재료코드에 매핑', '병원 재료 마스터의 재료코드에 매핑'),
+         (None, '[파일 파서 · 문서 읽기 방식]', '브라우저에서 pdf.js와 자체 판독기로 읽음. PDF 표는 글자 위치로 열을 맞추고 빈 칸을 채움'),
+         (None, '[추출 에이전트: 모델 · 프롬프트 · 출력 형식]', 'Claude Haiku 5.5 · 기록지 1건당 1회 호출 · 정해진 JSON 형식으로 출력'),
+         (None, '[별칭 통합 방법: 규칙 · 임베딩 · LLM]', '코드가 적힌 줄에서 먼저 학습 → LLM이 품목군 제안 → 같은 수술의 청구 목록으로 검증. 규격은 숫자 대조 규칙'),
+         (None, '[KB 폴더 · 링크 구조, 갱신 조건]', 'Loop DB(JSON)에 별칭 · 세트 · 규칙 · 수술 저장. 수술 1건마다 반영, 한 달분을 읽으면 정리 후 버전 올림'),
+         (None, '[대조 로직 · 알림 기준 · 개정안 조건]', '판정은 규칙 기반 (LLM 미사용). 개정안은 임플란트 10건 중 8건, 소모품 20건 중 17건 기준')],
+})
+# 15장 표: (첫 칸에 들어 있는 말, [새 칸 글 ...])  None 은 그대로 둔다
+TABLE_15 = [
+    ('수술간호기록지', ['수술간호기록지  pdf · docx', '415건 (2025년) · 재료 1,417줄', '심평원 표준서식 17. 치료재료 · 삽입관 칸의 자유 텍스트. 재료코드 93개가 548가지 표기로 적힘 (한글 별칭, 약어, 오타)']),
+    ('치료재료 청구목록', [None, '42,861줄 · 수술 1,240건 · 수술당 39줄 안팎', '병원 재료코드, 품명, 규격, 수량, 단가, 급여구분. 기록지와 표기가 다름']),
+    ('재료 마스터', ['재료 마스터  csv', None, None]),
+    ('Case cart 세트 목록', ['Case cart 세트 목록  csv', '18세트 · 504줄', '집도의 · 술식별 세트와 버전. 한 세트의 두 품목은 실제 사용과 어긋나 있음']),
+    ('기준 변경 공지', [None, None, '시행일이 있는 산정 불가 · 정액 포함 · 수량 한도 · 단가 조정 · 사용 중지 · 세트 개정 기준 안내']),
+]
+RUN_EDITS = {15: [('생성 시드를 고정해 같은 데이터를 언제든 다시 만들 수 있음', '정답지는 생성 스크립트로 언제든 같은 결과를 다시 만들 수 있음')]}
 RESULTS_25 = ['99.99 %', '100 %', '0 %']
 TABLE_25 = {'A-1': '99.99% (10,415 / 10,416 필드)', 'A-2': '표기 100% (547 / 547) · 줄 100% (1,699 / 1,699)', 'A-3': '100% (504 / 504 항목)',
             'B-1': '재현율 100% (30 / 30) · 정밀도 100%', 'B-2': '100% (23 / 23) · 오탐 0건', 'B-3': '제안 3건 모두 정답과 일치 (설치 시점 2 · 3개월 뒤 1)'}
@@ -64,10 +92,34 @@ def main(src, dst, shots):
     for no, items in TEXTS.items():
         slide = prs.slides[no - 1]
         for name, part, new in items:
-            sh = next((s for s in slide.shapes if s.name == name and s.has_text_frame and part in s.text_frame.text), None)
+            sh = next((s for s in slide.shapes if (name is None or s.name == name) and s.has_text_frame and part in s.text_frame.text), None)
             if sh is None: print(f'!! {no}장 {name}: "{part}" 글을 찾지 못함'); continue
             old = sh.text_frame.text.replace('\n', ' '); set_text(sh.text_frame, new)
             print(f'{no}장 글 "{old}" → "{new}"')
+    # 15장 표
+    for sh in prs.slides[14].shapes:
+        if sh.shape_type != 19: continue
+        for row in sh.table.rows:
+            head = row.cells[0].text_frame.text
+            for key, cells in TABLE_15:
+                if key in head:
+                    for c, txt in zip(row.cells, cells):
+                        if txt is not None: set_text(c.text_frame, txt)
+                    print(f'15장 표 {key}: ' + ' | '.join(t or '(그대로)' for t in cells)[:120])
+    # 글자 묶음 안에서만 바꾸기 (앞의 굵은 머리말 서식을 지키려고)
+    for no, items in RUN_EDITS.items():
+        for sh in prs.slides[no - 1].shapes:
+            if not sh.has_text_frame: continue
+            for para in sh.text_frame.paragraphs:
+                for run in para.runs:
+                    for a, b in items:
+                        if a in run.text: run.text = run.text.replace(a, b); print(f'{no}장 글 "{a}" → "{b}"')
+    # 14~17장의 "구축된 서비스 바탕으로 수정" 상자와 "작성 필요" 표시
+    for no in range(14, 18):
+        slide = prs.slides[no - 1]
+        for sh in list(slide.shapes):
+            if sh.has_text_frame and (sh.text_frame.text.strip() == '구축된 서비스 바탕으로 수정' or sh.name == 'TODO marker'):
+                print(f'{no}장 지움: {sh.name} "{sh.text_frame.text.strip()}"'); sh._element.getparent().remove(sh._element)
     # 자리표시 지우기: 빨간 "예시" 상자, "실제 구현 화면 캡처로 교체 가능" 표시, 23장의 겹치는 로고
     for no in range(18, 23):
         slide = prs.slides[no - 1]
