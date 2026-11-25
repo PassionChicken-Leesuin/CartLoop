@@ -34,7 +34,7 @@ export function auditOp(db, op, { claim = db.claims[op], record = db.records[op]
     for (const l of record.lines) {
       if (!l.code) {
         if (l.family || l.how === 'unknown') alerts.push({ id: `${op}|unmapped|${l.alias}|${l.rawSpec}`, op, date, type: 'unmapped', code: '', name: l.rawName, spec: l.rawSpec, family: l.family || '', recQty: l.qty, claimQty: 0, amount: 0,
-          why: l.how === 'ambiguous' ? `규격만으로는 ${l.cands.length}개 품목 중 하나로 좁히지 못했습니다.` : '별칭 사전에 없는 표기입니다.' });
+          why: l.how === 'ambiguous' ? `규격만으로는 ${l.cands.length}개 품목 중 어느 것인지 가리지 못했어요.` : '별칭 사전에 없는 표기예요.' });
         continue;
       }
       rq[l.code] = (rq[l.code] || 0) + l.qty;
@@ -67,9 +67,9 @@ export function auditOp(db, op, { claim = db.claims[op], record = db.records[op]
       }
       const reliableRC = st.rec < 3 || st.pRC >= MIN_REL;
       if (reliableRC) for (const c of missing) add('missing', c, { recQty: rq[c], amount: rq[c] * (M[c].cap || 0), raw: rawOf[c],
-        why: `기록지에 ${rq[c]}${M[c].unit || '개'} 적혀 있으나 청구 목록에 없습니다.` });
+        why: `기록지에 ${rq[c]}${M[c].unit || '개'} 적혀 있는데 청구 목록에는 없어요.` });
       if (st.rec >= 3 && st.pCR >= MIN_REL_CR) for (const c of extra) add('unrecorded', c, { amount: -(cAmt[c] || 0),
-        why: `청구 목록에 ${cq[c]}${M[c].unit || '개'} 있으나 기록지에 없습니다.` });
+        why: `청구 목록에 ${cq[c]}${M[c].unit || '개'} 있는데 기록지에는 없어요.` });
     }
   }
 
@@ -86,7 +86,7 @@ export function auditOp(db, op, { claim = db.claims[op], record = db.records[op]
       const r = ruleFor('non_billable', r => r.codes.includes(code));
       if (!r || inForce(r)) add('non_billable', code, { amount: -(cAmt[code] || 0), rule: r?.no, why: r ? `${r.title} (${r.docNo})` : `재료 마스터 급여구분: ${m.benefit}` });
     }
-    if (cLines[code] > 1) add('duplicate', code, { why: `같은 재료코드가 ${cLines[code]}줄에 입력되어 있습니다.` });
+    if (cLines[code] > 1) add('duplicate', code, { why: `같은 재료코드가 ${cLines[code]}줄에 들어가 있어요.` });
   }
   for (const r of rules) {
     if (!inForce(r)) continue;
