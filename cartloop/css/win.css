@@ -363,3 +363,6 @@ button.tbapp:hover, button.tbapp.on { background: #ffffffd0; }
 
 /* 바탕화면 그림: img/wallpaper.jpg 가 있으면 그것을 쓰고, 없으면 비슷한 분위기의 그라데이션이 보인다 */
 .desktop { background: url(../img/wallpaper.jpg) center / cover no-repeat, radial-gradient(520px 300px at 78% 50%, #6fd0ff 0%, #1f8fe8 22%, #0b4f9e 48%, transparent 75%), linear-gradient(100deg, #02122b 0%, #05336e 55%, #041c40 100%); }
+
+/* 밝은 배경에서도 아이콘 글자가 읽히도록 */
+.dicon { text-shadow: 0 0 3px #000, 0 1px 4px #000c; font-weight: 600; }

@@ -59,7 +59,7 @@ window.addEventListener('hashchange', () => {
 // 프로그램 켜기 · 끄기
 function openApp(app) {
   if (app === 'his') {
-    if (!S.db) toast('HIS 시연 데이터는 CartLoop에서 파일을 분석해야 채워져요. 먼저 CartLoop를 켜서 파일을 올려주세요.', 4500);
+    if (!S.db) toast('HIS의 시연 데이터는 CartLoop에서 파일을 분석한 뒤에 채워집니다. 먼저 CartLoop를 켜서 파일을 올려주세요.', 4500);
     S.win.his = true; S.focus = 'his';
   } else if (app === 'cl') {
     const wasOpen = S.win.cl;
@@ -114,7 +114,7 @@ async function fetchSample(onProgress, keys) {
     while (i < man.files.length) {
       const k = i++; const f = man.files[k];
       const r = await fetch('sample/' + f.url);
-      if (!r.ok) throw new Error('샘플 파일을 받지 못했어요: ' + f.name);
+      if (!r.ok) throw new Error('샘플 파일을 받지 못했습니다: ' + f.name);
       out[k] = { name: f.name, buf: new Uint8Array(await r.arrayBuffer()) };
       onProgress(++done, man.files.length);
     }
@@ -196,7 +196,7 @@ async function startBuild() {
 }
 function pickFiles(fileList, append) {
   const list = [...fileList].filter(f => /\.(csv|tsv|xlsx|pdf|docx|txt)$/i.test(f.name));
-  if (!list.length) return toast('읽을 수 있는 파일이 없어요. CSV · XLSX · PDF · DOCX · TXT 파일을 올려주세요.');
+  if (!list.length) return toast('판독할 수 있는 파일이 없습니다. CSV · XLSX · PDF · DOCX · TXT 파일을 올려주세요.');
   stageFiles(async onProgress => {
     const out = []; let d = 0;
     for (const f of list) { out.push({ name: f.webkitRelativePath || f.name, buf: new Uint8Array(await f.arrayBuffer()) }); onProgress(++d, list.length); }
@@ -258,7 +258,7 @@ function Side() {
     ${item('validate', 7, '정답지 채점')}
     <div class="foot">
       ${db && html`<div class="dbchip"><b>Loop DB v${db.version}</b><br />수술 ${Object.keys(db.records).length}건 · 별칭 ${Object.keys(db.aliases).length}종<br />설치 기준일 ${db.installDate}</div>`}
-      <div>베타 버전이에요.<br />환자 · 수술 · 금액은 모두 가상이에요.</div>
+      <div>베타 버전입니다.<br />환자 · 수술 · 금액은 모두 가상입니다.</div>
       ${db && html`<button class="linkbtn" onClick=${resetAll}>처음부터 다시 (DB 지우기)</button>`}
     </div>
   </aside>`;
@@ -278,7 +278,7 @@ function UploadWin({ restored }) {
   const canStart = !!st?.files?.length;
   return html`<${Win} title="처음 설정" sub="1 / 2 파일 올리기" id="win-upload"><div class="wbody">
     <div class="wh">올려도 되는 파일을 <em>모두</em> 올려주세요</div>
-    <div class="wsubline">형식도 정리 상태도 상관없어요. 머리글이 어디 있는지, 열이 무슨 뜻인지는 CartLoop가 알아서 읽을게요. (CSV · XLSX · PDF · DOCX · TXT)</div>
+    <div class="wsubline">형식이나 정리 상태는 상관없습니다. 머리글의 위치와 각 열의 뜻은 CartLoop가 직접 판독합니다. (CSV · XLSX · PDF · DOCX · TXT)</div>
     <div class=${'dropbox' + (over ? ' over' : '')} onDragOver=${e => { e.preventDefault(); setOver(true); }} onDragLeave=${() => setOver(false)}
       onDrop=${e => { e.preventDefault(); setOver(false);
         const keys = e.dataTransfer.getData('text/x-cartloop-sample');
@@ -286,15 +286,15 @@ function UploadWin({ restored }) {
       <div class="hint">⬆ 여기에 끌어다 놓기</div>
       ${st?.busy && html`<div class="frow"><span class="ext">···</span><div><b>${st.busy}</b><small>${st.prog ? `${st.prog[0]} / ${st.prog[1]}` : ''}</small></div><span class="bar" style="width:90px"><i style=${`width:${st.prog ? st.prog[0] / st.prog[1] * 100 : 0}%`}></i></span></div>`}
       ${groups.map(g => html`<div class="frow"><span class=${'ext ' + g.ext}>${g.ext.toUpperCase()}</span><div><b>${g.name}</b><small>${g.sub}</small></div><span class="cnt">${g.cnt} ${g.bad ? '' : html`<i>✓</i>`}</span></div>`)}
-      ${!groups.length && !st?.busy && html`<div class="frow" style="border-style:dashed"><span class="ext">?</span><div><b>아직 올린 파일이 없어요</b><small>수술간호기록지 · 청구 목록 · 재료 마스터 · Case cart 세트 · 기준 변경 공지</small></div><span></span></div>`}
+      ${!groups.length && !st?.busy && html`<div class="frow" style="border-style:dashed"><span class="ext">?</span><div><b>아직 올린 파일이 없습니다</b><small>수술간호기록지 · 청구 목록 · 재료 마스터 · Case cart 세트 · 기준 변경 공지</small></div><span></span></div>`}
     </div>
     <div class="btnrow">
       <button class="btn" id="load-sample" disabled=${running || !!st?.busy} onClick=${() => stageFiles(fetchSample)}>샘플 파일 올리기</button>
       <button class="btn" disabled=${running || !!st?.busy} onClick=${() => fileRef.current.click()}>파일 더 추가</button>
       <button class="btn pri" id="start-build" disabled=${running || !!st?.busy || (!canStart && !restored)} onClick=${canStart ? startBuild : reanalyze}>${running ? '분석 중…' : '분석 시작'}</button>
     </div>
-    <div class="wfoot">EHR 연동 없이, 파일은 이 브라우저 안에서만 읽어요 · <button class="linkbtn" style="color:var(--teal-ink)" onClick=${() => dirRef.current.click()}>폴더째 올리기</button></div>
-    <label class="wfoot" style="display:flex;gap:6px;justify-content:center;align-items:center"><input id="mode-cache" type="checkbox" checked=${S.mode === 'cache'} onChange=${e => { S.mode = e.target.checked ? 'cache' : 'live'; draw(); }} />저장해 둔 추출 결과 쓰기 (LLM을 부르지 않아 빨라요)${S.health ? ` · OpenRouter 키 ${S.health.keys}개 연결` : ''}</label>
+    <div class="wfoot">EHR과 연동하지 않으며, 파일은 이 브라우저 안에서만 판독합니다 · <button class="linkbtn" style="color:var(--teal-ink)" onClick=${() => dirRef.current.click()}>폴더째 올리기</button></div>
+    <label class="wfoot" style="display:flex;gap:6px;justify-content:center;align-items:center"><input id="mode-cache" type="checkbox" checked=${S.mode === 'cache'} onChange=${e => { S.mode = e.target.checked ? 'cache' : 'live'; draw(); }} />저장해 둔 추출 결과 사용 (LLM을 호출하지 않아 빠릅니다)${S.health ? ` · OpenRouter 키 ${S.health.keys}개 연결` : ''}</label>
     <input ref=${fileRef} id="pick-files" type="file" multiple style="display:none" onChange=${e => pickFiles(e.target.files, !!S.stage)} />
     <input ref=${dirRef} id="pick-dir" type="file" multiple style="display:none" onChange=${e => pickFiles(e.target.files, !!S.stage)} />
   </div><//>`;
@@ -328,7 +328,7 @@ function ResultWin() {
     return html`<${Win} title="처음 설정" sub="2 / 2 분석 중" id="win-result"><div class="wbody">
       <div class="wh">파일 내용과 구조를 <em>읽고 있어요</em></div>
       <div class="underline" style=${`width:${Math.max(6, (cur + 0.5) / order.length * 100)}%;transition:width .4s`}></div>
-      <div class="strip busy">에이전트가 일하는 중 · LLM ${act}건 동시 호출 <span class="keys" style="margin-left:auto">${Array.from({ length: 20 }, (_, i) => html`<i class=${i < act ? 'on' : ''}></i>`)}</span></div>
+      <div class="strip busy">에이전트가 처리하고 있습니다 · LLM 동시 호출 ${act}건 <span class="keys" style="margin-left:auto">${Array.from({ length: 20 }, (_, i) => html`<i class=${i < act ? 'on' : ''}></i>`)}</span></div>
       <div class="steps">${STAGES.map(([id, name, desc], i) => {
         if (i > cur) return html`<div class="step wait" key=${id}><span class="ck wait"></span><div><b>${name}</b><small>${desc}</small></div><span></span></div>`;
         const pr = b.prog[id], done = i < cur || b.info[id];
@@ -336,7 +336,7 @@ function ResultWin() {
           <div><b>${name}</b><small>${b.info[id] || desc}</small>${!done && pr ? html`<span class="bar"><i style=${`width:${pr[0] / pr[1] * 100}%`}></i></span>` : ''}</div>
           <span class="num small muted">${done ? (b.took[id] != null ? b.took[id].toFixed(1) + '초' : '') : pr ? `${pr[0]} / ${pr[1]}` : ''}</span></div>`;
       })}</div>
-      <div class="wfoot">${((Date.now() - b.t0) / 1000).toFixed(0)}초 지났어요 · 키 20개로 나눠서 한꺼번에 읽고 있어요</div>
+      <div class="wfoot">${((Date.now() - b.t0) / 1000).toFixed(0)}초 경과 · 키 20개로 나누어 동시에 처리하고 있습니다</div>
     </div><//>`;
   }
   return html`<${Win} title="처음 설정" sub="2 / 2 분석 결과" id="win-result"><div class="wbody">
@@ -361,8 +361,8 @@ function ResultWin() {
       <div><span class=${'ck ' + st('audit')}>${mark('audit')}</span><b>과거 기록 대조</b><span>${running ? '쌓인 기록에서 확인할 항목 찾기' : `수술 ${new Set(alerts.map(a => a.op)).size}건에서 확인할 항목 ${alerts.length}개`}</span></div>
     </div>
     ${!running && sn.process && html`<details><summary class="evlink">처리 과정 보기 (${STAGES.length}단계 · ${sn.sec.toFixed(1)}초)</summary><div class="steps" style="margin-top:8px">${STAGES.map(([id, name]) => html`<div class="step done"><span class="ck">✓</span><div><b>${name}</b><small>${sn.process.info[id] || ''}</small></div><span class="num small muted">${sn.process.took[id] != null ? sn.process.took[id].toFixed(1) + '초' : ''}</span></div>`)}</div></details>`}
-    ${!running && html`<div class="ambox"><b>만들자마자 지난 기록도 대조해 봤어요 (가상 금액)</b>누락 ${cnt(['missing'])} · 수량 ${cnt(['qty_mismatch'])} · 규격 ${cnt(['spec_mismatch'])} · 급여 기준 ${cnt(RULE_TYPES)} · 참고 ${cnt(['unrecorded'])}건 — 청구에서 빠진 금액 추정 ${manwon(missed)}</div>
-    <div class="wfoot">사람이 입력한 건 하나도 없어요 · 판정은 규칙과 통계로</div>`}
+    ${!running && html`<div class="ambox"><b>DB를 만든 직후 지난 기록을 대조한 결과입니다 (가상 금액)</b>누락 ${cnt(['missing'])} · 수량 ${cnt(['qty_mismatch'])} · 규격 ${cnt(['spec_mismatch'])} · 급여 기준 ${cnt(RULE_TYPES)} · 참고 ${cnt(['unrecorded'])}건 — 청구에서 빠진 금액 추정 ${manwon(missed)}</div>
+    <div class="wfoot">판정은 규칙과 통계로 이루어지며, 사람이 입력한 내용은 없습니다</div>`}
   </div><//>`;
 }
 // 저장된 DB를 불러왔을 때, 그 DB를 만든 파일 목록을 다시 보여 준다
@@ -383,8 +383,8 @@ function StartPage() {
   const restored = S.db && !S.stage && !S.building; // 이 브라우저에 저장돼 있던 DB
   return html`<div class="page">
     <div class="head"><div><h1>파일을 올려주세요!</h1><p class="sub">파일 이름이나 서식을 맞출 필요 없이, 병원에 있는 파일을 그대로 올려주세요. EHR에는 연결하지 않아요.</p></div></div>
-    ${S.buildError && html`<div class="notice amber"><b>끝까지 하지 못했어요.</b> ${S.buildError}</div>`}
-    ${restored && !S.revealed && html`<div class="notice">지난번에 만든 Loop DB v${S.db.version}이 이 브라우저에 남아 있어요. "분석 시작"을 누르면 같은 파일로 처음부터 다시 분석해요. <button class="linkbtn" id="reveal-saved" style="color:inherit;font-size:inherit" onClick=${() => { S.revealed = true; draw(); }}>다시 분석하지 않고 지난 결과 보기</button></div>`}
+    ${S.buildError && html`<div class="notice amber"><b>분석을 완료하지 못했습니다.</b> ${S.buildError}</div>`}
+    ${restored && !S.revealed && html`<div class="notice">지난번에 만든 Loop DB v${S.db.version}이 이 브라우저에 저장되어 있습니다. "분석 시작"을 누르면 같은 파일로 처음부터 다시 분석합니다. <button class="linkbtn" id="reveal-saved" style="color:inherit;font-size:inherit" onClick=${() => { S.revealed = true; draw(); }}>다시 분석하지 않고 지난 결과 보기</button></div>`}
     <div class="pair">
       <div class="col"><${TagHead}>병원에 이미 있는 파일<//><${UploadWin} restored=${restored ? groupsFromDB(S.db) : null} /></div>
       ${showResult ? html`<div class="arrow">→</div>
@@ -398,8 +398,8 @@ async function reanalyze() {
   const man = await (await fetch('sample/manifest.json')).json();
   const names = new Set(man.files.map(f => f.name));
   const fromSample = (S.db.files || []).length && S.db.files.every(f => names.has(f.name));
-  if (!fromSample) return toast('직접 올린 파일로 만든 DB예요. 다시 분석하려면 파일을 한 번 더 올려주세요.');
-  if (!confirm('저장된 Loop DB를 지우고 같은 파일로 처음부터 다시 분석할까요? 읽은 수술과 승인한 세트 개정도 처음으로 돌아가요.')) return;
+  if (!fromSample) return toast('이 DB는 직접 올린 파일로 만들어졌습니다. 다시 분석하려면 파일을 다시 올려주세요.');
+  if (!confirm('저장된 Loop DB를 지우고 같은 파일로 처음부터 다시 분석할까요? 읽은 수술과 승인한 세트 개정 내역도 함께 초기화됩니다.')) return;
   await stageFiles(fetchSample);
   if (S.stage?.files?.length) startBuild();
 }
@@ -416,16 +416,16 @@ function UpdateWin({ id = 'win-update' }) {
     <div class="wh">화면에서 읽은 기록이 <em>DB에 더해져요</em></div>
     <div><div class="bars">${log.map((c, i) => html`<div class=${i === log.length - 1 ? 'last' : ''}><b>+${added[i]}</b><i style=${`height:${Math.round(added[i] / max * 100)}px`}></i></div>`)}</div>
       <div class="barlab">${log.map((c, i) => html`<div><b>v${c.version}</b>${lab(i)}</div>`)}</div></div>
-    <div class="wfoot" style="text-align:left">막대는 파일로 만든 ${v1.ops.toLocaleString()}건 위에, 화면에서 읽어 더한 수술 건수예요 · 지금 v${db.version}</div>
+    <div class="wfoot" style="text-align:left">막대는 파일로 구축한 ${v1.ops.toLocaleString()}건에 더해, 화면에서 읽어 추가한 수술 건수를 나타냅니다 · 현재 v${db.version}</div>
     <div class="tiles t3">
       <div class="tile"><b>${(v1.ops + now.records - v1.records).toLocaleString()}</b><span>수술 건 <em>+${now.records - v1.records}</em></span></div>
       <div class="tile"><b>${now.notations}</b><span>현장 표기 <em>+${now.notations - v1.notations}</em></span></div>
       <div class="tile"><b>${revised}</b><span>세트 개정</span></div>
     </div>
-    <div class="ambox"><b>이런 것들이 더해져요</b>화면에서 읽은 새 수술기록 · 새 표기 · 확인을 마친 알림 · 승인한 세트 개정 · 기준 공지</div>
+    <div class="ambox"><b>DB에 추가되는 내용</b>화면에서 읽은 새 수술기록 · 새 표기 · 확인을 마친 알림 · 승인한 세트 개정 · 기준 공지</div>
     <div class="plist">${log.slice().reverse().map(c => html`<div>${c.version === 1 ? `파일 ${db.files.length}개로 DB v1 생성 — 수술 ${v1.ops.toLocaleString()}건 · 기록지 ${v1.records}건` : `EHR 화면에서 읽은 수술 ${c.addedOps}건 반영 (${c.reason.replace(' 수술분 반영', '')}) · 새 호칭 ${c.newAliases ?? 0}종 → v${c.version}`}</div>`)}
       ${Object.values(db.sets).flatMap(s => s.history.map(h => html`<div>${s.surgeon} ${s.procedure} ${s.level} 세트 ${h.from} → ${h.to} 개정 (${h.date})</div>`))}</div>
-    <div class="wfoot">기준과 경향은 다시 써 주지 않아도, 최신 기록에서 매번 새로 읽어요</div>
+    <div class="wfoot">기준과 사용 경향은 사람이 다시 입력하지 않아도 최신 기록에서 매번 새로 계산됩니다</div>
   </div><//>`;
 }
 function DBPage() {
@@ -433,7 +433,7 @@ function DBPage() {
   const tabs = [['alias', '별칭 사전', s.aliasNames], ['pref', '집도의 · 세트', s.sets], ['rules', '공지 규칙', s.rules], ['kb', 'KB 파일'], ['log', '버전 이력', db.changelog.length]];
   return html`<div class="page wide">
     <div class="head"><div><h1>우리 병원 Loop DB <span class="muted">v${db.version}</span></h1>
-      <p class="sub">올린 파일과 읽은 수술만으로 만든 우리 병원 지식이에요. 사람이 따로 입력한 건 없어요.</p></div></div>
+      <p class="sub">올린 파일과 읽은 수술 기록만으로 구축한 우리 병원의 지식입니다. 사람이 따로 입력한 내용은 없습니다.</p></div></div>
     <div class="grid" style="grid-template-columns:minmax(0,430px) minmax(0,1fr);align-items:start">
       <${UpdateWin} />
       <${Win} title="Loop DB" sub="우리 병원 Knowledge Base" id="win-db"><div>
@@ -455,7 +455,7 @@ function AliasTab() {
   if (q) fams = fams.filter(([f, al]) => f.toLowerCase().includes(q) || al.some(a => a.key.includes(q) || a.examples.some(e => e.toLowerCase().includes(q))));
   return html`<div>
     <div class="row" style="padding:12px 16px"><input id="alias-q" type="text" placeholder="호칭이나 품목으로 찾기 (예: 케이지, screw)" style="width:300px" value=${S.aliasQ} onInput=${e => { S.aliasQ = e.target.value; draw(); }} />
-      <span class="small muted">LLM이 먼저 짝을 제안하고, 같은 수술의 청구 목록으로 맞는지 확인했어요.</span></div>
+      <span class="small muted">LLM이 호칭과 품목의 연결을 제안하고, 같은 수술의 청구 목록으로 그 연결이 맞는지 검증했습니다.</span></div>
     <div class="tablewrap" style="max-height:600px;overflow-y:auto"><table class="t"><thead><tr><th>병원 품목군 (재료 마스터)</th><th>현장에서 부르는 이름</th><th class="r">사용</th><th>연결 근거</th></tr></thead><tbody>
       ${fams.map(([f, al]) => { al.sort((a, b) => b.n - a.n); const src = {}; al.forEach(a => src[a.source] = (src[a.source] || 0) + 1);
         return html`<tr><td style="min-width:200px"><b>${f}</b><div class="small muted">${db.families[f] ? `${db.families[f].maker || ''} · ${db.families[f].codes.length}규격 · ${db.families[f].benefits.join('/')}` : ''}</div></td>
@@ -480,7 +480,7 @@ function PrefTab() {
 const RULE_KO = { non_billable: '산정 불가', bundled: '정액 포함', qty_limit: '수량 한도', price_change: '단가 변경', discontinued: '사용 중지', set_policy: '세트 개정 기준', info: '안내' };
 function RulesTab() {
   const db = S.db;
-  if (!db.rules.length) return html`<div class="empty">공지 파일이 없거나, 규칙을 읽지 못했어요.</div>`;
+  if (!db.rules.length) return html`<div class="empty">공지 파일이 없거나, 공지에서 규칙을 읽어내지 못했습니다.</div>`;
   return html`<div class="tablewrap"><table class="t"><thead><tr><th>공지</th><th>시행일</th><th>규칙 유형</th><th>청구 점검에 쓰는 내용</th><th>대상</th></tr></thead><tbody>
     ${db.rules.map(r => html`<tr><td><b>${r.no}. ${r.title}</b><div class="small muted">${r.docNo}</div></td><td class="num">${r.effective}</td><td><${Pill} tone=${r.type === 'info' ? '' : 'teal'}>${RULE_KO[r.type] || r.type}<//></td>
       <td class="small" style="max-width:380px">${r.summary}</td>
@@ -491,7 +491,7 @@ function LogTab() {
   const db = S.db;
   return html`<div class="tablewrap"><table class="t"><thead><tr><th>버전</th><th>갱신 사유</th><th class="r">더해진 수술</th><th class="r">새 호칭</th><th class="r">누적 수술기록</th><th class="r">누적 표기</th><th>시각</th></tr></thead><tbody>
     ${db.changelog.map(c => html`<tr><td><b>v${c.version}</b></td><td>${c.reason}</td><td class="r">+${c.addedOps ?? 0}</td><td class="r">+${c.newAliases ?? 0}</td><td class="r">${c.snapshot.records}</td><td class="r">${c.snapshot.notations}</td><td class="small muted">${new Date(c.at).toLocaleString('ko-KR')}</td></tr>`)}
-  </tbody></table><p class="small muted" style="padding:10px 16px">수술을 한 건 읽을 때마다 바뀐 부분만 더하고, 한 달치를 다 읽으면 전체를 한 번 정리해서 버전을 올려요.</p></div>`;
+  </tbody></table><p class="small muted" style="padding:10px 16px">수술 한 건을 읽을 때마다 변경된 부분만 반영하고, 한 달분을 모두 읽으면 전체를 정리한 뒤 버전을 올립니다.</p></div>`;
 }
 function KBTab() {
   const [files] = useState(() => buildKB(S.db));
@@ -527,7 +527,7 @@ function AuditPage() {
   const nRec = alerts.filter(a => RECORD_TYPES.includes(a.type)).length;
   const dates = Object.values(db.claims).map(c => c.date).sort();
   return html`<div class="page">
-    <div class="head"><div><h1>지난 기록에서 확인할 것을 찾았어요</h1><p class="sub">${dates[0]?.slice(0, 7)}부터 쌓여 있던 기록을 서로 맞춰 봤어요. 알려만 드리고, 대신 고치거나 전송하지는 않아요.</p></div></div>
+    <div class="head"><div><h1>지난 기록에서 확인할 것을 찾았어요</h1><p class="sub">${dates[0]?.slice(0, 7)}부터 쌓여 있던 수술기록과 청구 목록을 서로 대조했습니다. CartLoop는 확인할 항목을 알려드릴 뿐, 청구 내용을 직접 고치거나 전송하지 않습니다.</p></div></div>
     <${Win} title="청구 도우미" sub="과거 기록 대조 결과" id="win-audit"><div class="wbody">
       <div class="tiles" style="grid-template-columns:repeat(4,minmax(0,1fr))">
         <div class="tile"><b>${alerts.length}</b><span>확인할 항목 · 수술 ${new Set(alerts.map(a => a.op)).size}건</span></div>
@@ -546,7 +546,7 @@ function AuditPage() {
           <td class="small">${a.why}</td>
           <td class="r">${a.amount > 0 ? html`<b style="color:var(--red)">+${won(a.amount)}</b><div class="small muted">못 받은 금액</div>` : a.amount < 0 ? html`${won(-a.amount)}<div class="small muted">삭감 · 환수 위험</div>` : '–'}</td></tr>`)}
       </tbody></table></div>
-      <div class="wfoot">기록지가 있는 수술은 청구 목록과 맞춰 보고, 기록지가 없는 기간은 공지 규칙으로만 살펴봤어요 (가상 금액)</div>
+      <div class="wfoot">수술기록지가 있는 수술은 기록지와 청구 목록을 대조했고, 기록지가 없는 기간은 공지 규칙으로만 점검했습니다 (가상 금액)</div>
     </div><//>
   </div>`;
 }
@@ -566,7 +566,7 @@ async function doRead() {
     E.result = r;
     if (!S.snap.streamAlerts[op]) S.snap.streamAlerts[op] = clone(r.alerts); // 채점용: 처음 읽었을 때의 알림
     persist();
-  } catch (e) { toast('화면을 읽지 못했어요: ' + (e?.message || e)); }
+  } catch (e) { toast('EHR 화면을 읽지 못했습니다: ' + (e?.message || e)); }
   E.busy = false; draw();
 }
 function reaudit() {
@@ -581,7 +581,7 @@ function claimAdd() {
   const E = S.ehr, db = S.db, p = db.pending[E.op];
   const code = E.entry.code.trim().toUpperCase(), qty = Number(E.entry.qty) || 1;
   const m = db.master[code];
-  if (!m) return toast('재료 마스터에 없는 코드예요: ' + (code || '(빈 칸)'));
+  if (!m) return toast('재료 마스터에 존재하지 않는 재료코드입니다: ' + (code || '(빈 칸)'));
   p.claim.lines.push({ seq: p.claim.lines.length + 1, code, name: m.name, spec: m.spec, qty, unit: m.unit, price: m.cap, amount: m.cap * qty, benefit: m.benefit, status: '입력' });
   E.entry = { code: '', qty: '' }; E.hl = code; reaudit();
 }
@@ -592,22 +592,22 @@ function doCommit() {
   const list = pendingList(); const idx = list.findIndex(p => p.op === E.op);
   const r = commitOp(db, E.op, E.result.rec);
   persist();
-  toast(r.bumped ? `이번 달 수술을 모두 반영해서 Loop DB가 v${r.version}이 됐어요.` : `${E.op} 기록을 Loop DB에 더했어요.`);
+  toast(r.bumped ? `이번 달 수술을 모두 반영하여 Loop DB가 v${r.version}으로 갱신되었습니다.` : `${E.op}의 기록을 Loop DB에 추가했습니다.`);
   const next = list[idx + 1] || list[idx - 1];
   selectOp(next && db.pending[next.op] ? next.op : null);
 }
 function nextOp() { const list = pendingList(); const i = list.findIndex(p => p.op === S.ehr.op); selectOp((list[i + 1] || list[0]).op); }
 async function runBatch(skipConfirm) {
   const db = S.db;
-  if (skipConfirm !== true && !confirm(`남은 수술 ${Object.keys(db.pending).length}건을 날짜순으로 모두 읽어서 Loop DB에 반영할까요? 청구 목록은 고치지 않고 알림만 남겨요.`)) return;
+  if (skipConfirm !== true && !confirm(`남은 수술 ${Object.keys(db.pending).length}건을 날짜순으로 모두 읽어 Loop DB에 반영할까요? 청구 목록은 수정하지 않고 알림만 기록합니다.`)) return;
   S.batch = { d: 0, n: Object.keys(db.pending).length }; draw();
   try {
     const r = await runAllPending(db, { llm, cache, mode: S.mode === 'cache' ? 'cache' : 'live', onProgress: (d, n) => { S.batch = { d, n }; draw(); } });
     const by = {}; for (const a of r.alerts) (by[a.op] ||= []).push(a);
     for (const [op, al] of Object.entries(by)) if (!S.snap.streamAlerts[op]) S.snap.streamAlerts[op] = al;
     S.ehr = { ...S.ehr, op: null, result: null };
-    toast(`수술 ${r.ops}건을 다 읽었어요. Loop DB v${db.version} · 알림 ${r.alerts.length}건`);
-  } catch (e) { toast('끝까지 읽지 못했어요: ' + (e?.message || e)); }
+    toast(`수술 ${r.ops}건을 모두 읽었습니다. Loop DB v${db.version} · 알림 ${r.alerts.length}건`);
+  } catch (e) { toast('남은 수술을 모두 읽지 못했습니다: ' + (e?.message || e)); }
   S.batch = null; persist(); draw();
 }
 // EHR 화면에서 읽는 줄의 순서: 기록지 머리 정보 → Implants → Drain → 청구 목록
@@ -699,7 +699,9 @@ function AlertCards({ alerts, actions = true }) {
     <span class=${'ic ' + ICON[a.type][1]}>${ICON[a.type][0]}</span>
     <div><h4>${item(a.name, a.spec)}</h4>
       <p>${a.type === 'missing' ? html`수술기록 ${a.recQty}개 · <b>청구 목록 없음</b>` : a.type === 'qty_mismatch' ? html`수술기록 ${a.recQty}개 · <b>청구 목록 ${a.claimQty}개</b>` : html`<b>${ALERT_LABEL[a.type]}</b> · ${a.why}`}</p>
-      ${a.raw ? html`<p>기록지 "${[...new Set(a.raw)][0]}" → ${a.code} (별칭 사전)${a.amount > 0 ? ` · 빠진 금액 약 ${manwon(a.amount)}` : a.amount < 0 ? ` · 더 청구된 금액 약 ${manwon(-a.amount)}` : ''}</p>` : a.amount ? html`<p>${a.amount > 0 ? '빠진 금액' : '삭감 · 환수 위험'} 약 ${manwon(Math.abs(a.amount))}</p>` : ''}</div>
+      ${RECORD_TYPES.includes(a.type) ? html`<p>${a.why}</p>` : ''}
+      ${a.raw ? html`<p>기록지의 "${[...new Set(a.raw)][0]}" 표기는 별칭 사전에 따라 재료코드 ${a.code}에 해당합니다.</p>` : ''}
+      ${a.amount > 0 ? html`<p>청구에서 빠진 금액은 약 ${manwon(a.amount)}으로 추정됩니다.</p>` : a.amount < 0 ? html`<p>${RECORD_TYPES.includes(a.type) ? '기록보다 더 청구된 금액은' : '삭감 또는 환수될 수 있는 금액은'} 약 ${manwon(-a.amount)}입니다.</p>` : ''}</div>
     <span class="rc">${RECORD_TYPES.includes(a.type) ? `${a.recQty} / ${a.claimQty}` : ''}</span>
     ${actions && html`<div class="acts">
       ${a.type === 'missing' && html`<button class="mini pri" onClick=${() => fillEntry(a.code, a.recQty, a.raw)}>코드를 청구 화면 입력칸에 넣기</button>`}
@@ -724,10 +726,10 @@ function AssistWin({ p, id = 'win-assist', actions = true }) {
     const where = !sc ? '' : (T[Math.min(at, T.length - 1)]?.k === 'claim' ? '청구 목록 화면' : '수술간호기록 화면');
     return html`<${Win} key="reading" title="청구 도우미" sub="청구 대조 알림" id=${id}><div class="wbody">
       <div class=${'strip' + (E.busy ? ' busy' : '')}>${E.busy ? `EHR 화면 인식 중 — ${where}의 글자를 읽고 있어요` : 'EHR 화면을 기다리는 중'}</div>
-      <div class="hero"><div><div class="wh">화면을 <em>읽고 있어요</em></div><p>기록 ${dRec} / ${nRec}줄 · 청구 ${dCl} / ${nCl}줄<br />화면에 보이는 글자만 읽어요. EHR DB는 건드리지 않아요.</p></div><img src="img/mascot.png" alt="" /></div>
+      <div class="hero"><div><div class="wh">화면을 <em>읽고 있어요</em></div><p>기록 ${dRec} / ${nRec}줄 · 청구 ${dCl} / ${nCl}줄<br />CartLoop는 화면에 표시된 글자만 읽으며, EHR DB에는 접근하지 않습니다.</p></div><img src="img/mascot.png" alt="" /></div>
       ${E.busy && html`<div class="bar"><i style=${`width:${T.length ? (at + 1) / T.length * 100 : 0}%`}></i></div>
       <div class="readlog"><b>화면에서 읽은 글자</b>${seen.slice(-7).map((t, i, arr) => html`<div class=${i === arr.length - 1 ? 'now' : ''}>${t.text}</div>`)}</div>
-      <div class="wfoot">${sc && sc.at >= T.length ? '읽은 글자에서 재료 · 규격 · 수량을 뽑아 맞춰 보고 있어요…' : '읽는 대로 별칭 사전에서 재료코드를 찾아요'}</div>`}
+      <div class="wfoot">${sc && sc.at >= T.length ? '읽은 글자에서 재료 · 규격 · 수량을 추출하여 청구 목록과 대조하고 있습니다…' : '읽은 표기는 별칭 사전을 통해 재료코드로 연결됩니다'}</div>`}
       ${!E.busy && html`<button class="btn pri" id="read-screen" onClick=${doRead}>이 화면 읽기</button>`}</div><//>`;
   }
   const live = r.alerts.filter(a => !E.dismissed[a.id]);
@@ -739,10 +741,10 @@ function AssistWin({ p, id = 'win-assist', actions = true }) {
     <div class="hero"><div><div class="wh">${live.length ? html`확인할 항목 <em>${live.length}건</em>이 있어요` : html`확인할 항목이 <em>없어요</em>`}</div>
       <p>수술기록지와 청구 목록을 대조했어요.<br />${r.rec.pid} · ${opn.split('(')[0].trim()} ${opn.split(':')[1]?.split('(')[0].trim() || ''} · ${r.rec.surgeon}</p></div><img src="img/mascot.png" alt="" /></div>
     <${AlertCards} alerts=${live} actions=${actions} />
-    <div class="acard dashed"><span class="ic ok">✓</span><div><h4 style="font-size:13px">일치 ${ok.length}건</h4><p>${ok.join(' · ') || '맞춰 볼 임플란트 기록이 없어요'}</p></div><span></span></div>
+    <div class="acard dashed"><span class="ic ok">✓</span><div><h4 style="font-size:13px">일치 ${ok.length}건</h4><p>${ok.join(' · ') || '대조할 임플란트 기록이 없습니다'}</p></div><span></span></div>
     ${actions && html`<div class="btnrow"><button class="btn" onClick=${nextOp}>나중에 확인</button>
       <button class="btn pri" id="commit-op" onClick=${doCommit}>${live.length ? '이대로 두고 기록만 반영' : '확인 완료 · 기록 반영'}</button></div>`}
-    <div class="wfoot">고치는 건 늘 쓰던 청구 화면에서 직접 · 자동 전송은 하지 않아요</div>
+    <div class="wfoot">수정은 기존 청구 화면에서 직접 하며, CartLoop는 자동으로 전송하지 않습니다</div>
     ${actions && html`<button class="linkbtn" style="color:var(--teal-ink);justify-self:start" onClick=${() => { const op = E.op; selectOp(op); }}>↻ 화면 다시 읽기</button>
     <details><summary class="evlink">화면에서 읽은 텍스트 보기 (${r.via === 'llm' ? 'LLM으로 읽음' : '저장 결과'})</summary><pre class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin:6px 0 0;font-size:11.5px">${p.text}</pre></details>`}
   </div><//>`;
@@ -779,7 +781,7 @@ function EHRScene() {
       <div class="cltool"><button class="mini" onClick=${() => { S.focus = 'cl'; draw(); }}>☰ CartLoop 전체 창 열기</button>
         ${S.batch ? html`<span class="small num" style="margin-left:auto">읽는 중 ${S.batch.d} / ${S.batch.n}</span>` : list.length ? html`<button class="mini" style="margin-left:auto" onClick=${() => runBatch()}>남은 ${list.length}건 모두 읽기</button>` : ''}</div>
       ${p && p.claim ? html`<${AssistWin} p=${p} />` : html`<div class="wbody"><div class="hero"><div><div class="wh">${list.length ? html`EHR 화면을 <em>기다리고 있어요</em>` : html`설치 후 수술을 <em>모두 읽었어요</em>`}</div>
-        <p>${list.length ? 'EHR에서 수술을 열면 화면의 글자를 읽어서 청구 목록과 맞춰 볼게요.' : `수술 ${doneN}건을 Loop DB v${db.version}에 반영했어요.`}</p></div><img src="img/mascot.png" alt="" /></div>
+        <p>${list.length ? 'EHR에서 수술을 열면 화면의 글자를 읽어 청구 목록과 대조합니다.' : `설치 후 수술 ${doneN}건이 Loop DB v${db.version}에 반영되었습니다.`}</p></div><img src="img/mascot.png" alt="" /></div>
         ${!list.length && html`<div class="btnrow"><a class="btn" href="#/db">갱신 내역</a><a class="btn" href="#/sets">세트 개정안</a><a class="btn pri" href="#/validate">정답지 채점</a></div>`}</div>`}
     </section>`}
   </div>`;
@@ -805,29 +807,29 @@ function EvidenceWin({ sel, props, id = 'win-set-evidence' }) {
       ${nBy[x.code] ? html`<span class="chip">개정안 ${nBy[x.code]}</span>` : ''}</div>`)}</div>
     ${ops.length ? html`<div class="tablewrap"><table class="use"><thead><tr><th>최근 ${ops.length}건 사용 수량</th>${ops.map(op => html`<th>${db.records[op].date.slice(5)}</th>`)}<th>세트</th></tr></thead><tbody>
       ${rows.map(r => html`<tr><td>${item(M[r.code].name, M[r.code].spec)}</td>${use.map(u => { const v = (r.basis === 'record' ? u.rec : u.cl)[r.code] || 0; return html`<td class=${v !== r.set ? 'hit' : v === 0 ? 'zero' : ''}>${v || '·'}</td>`; })}<td><b>${r.set || '–'}</b></td></tr>`)}
-    </tbody></table></div>` : html`<div class="empty">개정한 뒤로 이 세트를 쓴 수술이 아직 없어요.</div>`}
-    <div class="wfoot" style="text-align:left">임플란트는 수술기록지 수량을, 소모품은 청구 수량을 봐요. 소모품은 최근 20건까지 넓혀서 판단해요.<br />${s.code} · 개정일 ${s.revised} 뒤 수술 ${setOps(db, sel).length}건 · 개정안 없는 세트 ${sets.length - Object.keys(nBy).length}개 · 전체 ${sets.length}개</div>
+    </tbody></table></div>` : html`<div class="empty">개정일 이후 이 세트를 사용한 수술이 아직 없습니다.</div>`}
+    <div class="wfoot" style="text-align:left">임플란트는 수술기록지의 수량을, 소모품은 청구 목록의 수량을 기준으로 봅니다. 소모품은 최근 20건까지 넓혀 판단합니다.<br />${s.code} · 개정일 ${s.revised} 뒤 수술 ${setOps(db, sel).length}건 · 개정안 없는 세트 ${sets.length - Object.keys(nBy).length}개 · 전체 ${sets.length}개</div>
   </div><//>`;
 }
 function ProposalWin({ sel, props, trays, id = 'win-set-proposal', actions = true }) {
   const db = S.db, s = db.sets[sel], P = setPolicy(db);
   const picked = props.filter(p => S.setPick[p.id] !== false);
   const next = s.version.replace(/\d+$/, n => Number(n) + 1);
-  const doApprove = () => { if (!picked.length) return toast('승인할 항목을 골라주세요.'); const r = approve(db, picked); S.setPick = {}; persist(); toast(r.map(x => `${x.setCode} ${x.from} → ${x.to}`).join(', ') + ' 로 바꿨어요. 다음 수술부터 적용돼요.'); draw(); };
+  const doApprove = () => { if (!picked.length) return toast('승인할 항목을 골라주세요.'); const r = approve(db, picked); S.setPick = {}; persist(); toast(r.map(x => `${x.setCode} ${x.from} → ${x.to}`).join(', ') + ' 로 개정했습니다. 개정된 세트는 다음 수술부터 적용됩니다.'); draw(); };
   const doHold = () => { picked.forEach(p => hold(db, p)); S.setPick = {}; persist(); draw(); };
   const ic = { add: ['+', 'plus'], qty: ['↑', 'neq'], remove: ['−', ''] };
   return html`<${Win} title="청구 도우미" sub="세트 개정안 승인" id=${id}><div class="wbody">
     <div class="chips"><span class="chip">개정 제안</span><span class="chip t">${s.procedure} ${s.level === '편측' ? '' : s.level} · ${s.surgeon} 세트</span></div>
     ${props.length ? html`<div class="wh">세트 <em>${s.version} → ${next}</em> 개정안이에요</div>
-      <div class="wsubline">개정일(${s.revised}) 뒤 수술 ${setOps(db, sel).length}건을 봤어요. 임플란트는 ${P.implant.window}건 중 ${P.implant.min}건, 소모품은 ${P.consumable.window}건 중 ${P.consumable.min}건 이상 다를 때만 알려드려요.</div>
+      <div class="wsubline">개정일(${s.revised}) 이후 수술 ${setOps(db, sel).length}건의 사용 기록을 근거로 했습니다. 임플란트는 최근 ${P.implant.window}건 중 ${P.implant.min}건 이상, 소모품은 최근 ${P.consumable.window}건 중 ${P.consumable.min}건 이상에서 세트와 다르게 사용된 경우에만 제안합니다.</div>
       ${props.map(p => html`<div class="acard" key=${p.id}><span class=${'ic ' + ic[p.action][1]}>${ic[p.action][0]}</span>
         <div><h4>${fmtAct(p)}</h4><p>${fmtWhy(p)} · ${p.kind}${p.note ? ` · ${p.note.split(' · ')[0]}` : ''}</p></div>
         <input type="checkbox" id=${actions ? 'pick-' + p.code : null} checked=${S.setPick[p.id] !== false} disabled=${!actions} onChange=${e => { S.setPick[p.id] = e.target.checked; draw(); }} /></div>`)}
       ${actions && html`<div class="btnrow"><button class="btn pri" id="approve-set" onClick=${doApprove}>승인</button><button class="btn" onClick=${doHold}>보류</button></div>`}
-      <div class="wfoot">승인하면 다음 수술부터 바뀐 세트로 나가요 · 보류하면 다시 묻지 않아요</div>`
-      : html`<div class="wh">지금은 <em>개정할 것이 없어요</em></div><div class="wsubline">이 세트는 최근에 쓴 기록과 잘 맞아요. 지금 ${s.version} (개정일 ${s.revised})</div>`}
+      <div class="wfoot">승인하면 다음 수술부터 개정된 세트가 적용됩니다 · 보류한 제안은 다시 표시되지 않습니다</div>`
+      : html`<div class="wh">지금은 <em>개정할 것이 없어요</em></div><div class="wsubline">이 세트의 구성은 최근 사용 기록과 일치합니다. 현재 버전은 ${s.version}이며, 개정일은 ${s.revised}입니다.</div>`}
     ${s.history.length > 0 && html`<div class="plist">${s.history.slice().reverse().map(h => html`<div>${h.date} ${h.from} → ${h.to} · ${h.changes.map(c => `${short(c.name)} ${c.spec} ${c.from}→${c.to}`).join(', ')} · ${h.by} 승인</div>`)}</div>`}
-    ${trays.length > 0 && html`<div class="ambox"><b>트레이(업체 대여) 품목은 개정안으로 올리지 않아요</b>자주 쓴 규격: ${trays.map(t => `${short(t.name)} ${t.spec}`).join(' · ')}</div>`}
+    ${trays.length > 0 && html`<div class="ambox"><b>트레이(업체 대여) 품목은 개정안에 포함하지 않습니다</b>자주 쓴 규격: ${trays.map(t => `${short(t.name)} ${t.spec}`).join(' · ')}</div>`}
   </div><//>`;
 }
 function pickSet(db, open) { return open[0]?.setCode || Object.values(db.sets).find(s => s.history.length)?.code || Object.keys(db.sets)[0]; }
@@ -839,7 +841,7 @@ function SetsPage() {
   const sel = S.setSel;
   const props = open.filter(p => p.setCode === sel), trays = all.filter(p => p.tray && p.setCode === sel);
   return html`<div class="page">
-    <div class="head"><div><h1>세트를 이렇게 바꾸면 어떨까요?</h1><p class="sub">실제로 쓴 기록을 근거로 먼저 보여드려요. 승인하기 전에는 세트가 바뀌지 않아요.</p></div></div>
+    <div class="head"><div><h1>세트를 이렇게 바꾸면 어떨까요?</h1><p class="sub">실제 사용 기록을 근거로 먼저 제시합니다. 승인하기 전에는 세트가 변경되지 않습니다.</p></div></div>
     <div class="pair">
       <div class="col"><${TagHead}>쌓인 사용 기록<//><${EvidenceWin} sel=${sel} props=${props} /></div>
       <div class="arrow">→</div>
@@ -859,7 +861,7 @@ async function ask(q) {
   try {
     const a = await answerQuestion(llm, q, context, history);
     S.chat.push({ role: 'a', text: a, sets, fams: mentions.fams.slice(0, 3), context, version: db.version });
-  } catch (e) { S.chat.push({ role: 'a', text: '답을 만들지 못했어요. 잠시 뒤에 다시 물어봐 주세요. (' + (e?.message || e) + ')', sets: [], fams: [] }); }
+  } catch (e) { S.chat.push({ role: 'a', text: '답변을 생성하지 못했습니다. 잠시 뒤에 다시 물어봐 주세요. (' + (e?.message || e) + ')', sets: [], fams: [] }); }
   S.asking = false; persist(); draw();
 }
 function EvidenceTable({ setCode, max = 8 }) {
@@ -887,12 +889,12 @@ function AskWin({ id = 'win-ask', input = true, limit = 0, evidence = true }) {
     ${evidence && lastA && html`<div><span class="evlink" onClick=${() => setOpenEv(!openEv)}>${openEv ? '▾' : '▸'} 근거: 수술기록 10건 보기 <span class="code">${lastA.sets[0]}</span></span>${openEv && html`<${EvidenceTable} setCode=${lastA.sets[0]} />`}</div>`}
     ${input && html`<form style="display:flex;gap:8px" onSubmit=${e => { e.preventDefault(); ask(q); setQ(''); }}>
       <input id="ask-input" type="text" style="flex:1" placeholder="예: C교수 TLIF 나사 규격은?" value=${q} onInput=${e => setQ(e.target.value)} /><button class="btn pri" disabled=${S.asking}>묻기</button></form>`}
-    <div class="wfoot">우리 병원 기록 안에서만 답해요 · 진단이나 치료 추천은 하지 않아요</div>
+    <div class="wfoot">답변은 우리 병원 기록의 범위 안에서만 하며, 진단이나 치료를 추천하지 않습니다</div>
   </div><//>`;
 }
 function AskPage() {
   return html`<div class="page">
-    <div class="head"><div><h1>우리 병원 재료, 무엇이든 물어보세요</h1><p class="sub">구글도 모르는 우리 병원 이야기를, 쌓인 기록에서 찾아 답해드려요. 기록에 없으면 없다고 말씀드릴게요.</p></div>
+    <div class="head"><div><h1>우리 병원 재료, 무엇이든 물어보세요</h1><p class="sub">구글도 모르는 우리 병원의 이야기를, 쌓인 기록에서 찾아 답해드립니다. 기록에 없는 내용은 없다고 답합니다.</p></div>
       ${S.chat.length > 0 && html`<div class="right"><button class="btn sm" onClick=${() => { S.chat = []; persist(); draw(); }}>대화 지우기</button></div>`}</div>
     <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start">
       <div class="col"><${TagHead} out=${true}>우리 병원 재료 묻기 — 질문과 답, 근거 수술 10건<//><${AskWin} /></div>
@@ -911,17 +913,17 @@ async function runValidation() {
     const endDb = { ...db, sets: clone(S.snap.setsOriginal), held: {} };
     const pendingLeft = Object.keys(db.pending).length;
     S.valid = { s: score(key, { records: db.records, alerts, proposals: { v1: S.snap.proposalsV1, end: pendingLeft ? [] : proposeAll(endDb) } }), key: key.counts, pendingLeft, at: new Date().toISOString(), setItems: Object.values(S.snap.setsOriginal).reduce((n, s) => n + s.items.length, 0) };
-  } catch (e) { toast('채점하지 못했어요: ' + (e?.message || e)); }
+  } catch (e) { toast('채점을 완료하지 못했습니다: ' + (e?.message || e)); }
   S.validBusy = false; draw();
 }
 function ValidatePage() {
   const db = S.db, V = S.valid;
   const pendingLeft = Object.keys(db.pending).length;
   return html`<div class="page">
-    <div class="head"><div><h1>정답지로 채점해 볼게요</h1><p class="sub">가상 데이터에 심어 둔 오류와 기록 줄마다의 정답 코드를 따로 보관해 뒀어요. CartLoop가 낸 결과와 비교해요.</p></div>
+    <div class="head"><div><h1>정답지로 채점해 볼게요</h1><p class="sub">가상 데이터에 심어 둔 오류와 기록 줄마다의 정답 코드를 따로 보관해 두었습니다. 이 정답지를 CartLoop가 낸 결과와 비교합니다.</p></div>
       <div class="right"><button class="btn pri" disabled=${S.validBusy} onClick=${runValidation}>${S.validBusy ? '채점 중…' : V ? '다시 채점' : '채점하기'}</button></div></div>
-    ${pendingLeft > 0 && html`<div class="notice amber">설치 후 수술 ${pendingLeft}건을 아직 읽지 않았어요. 지금 채점하면 읽은 수술까지만 반영돼요. <a href="#/ehr">청구 대조 알림</a>에서 "남은 건 모두 읽기"를 누른 뒤에 채점하면 전체 결과가 나와요.</div>`}
-    ${!V && html`<div class="card empty">"채점하기"를 누르면 정답지(기록지 415건, 오류 53건)와 비교해요.</div>`}
+    ${pendingLeft > 0 && html`<div class="notice amber">설치 후 수술 ${pendingLeft}건을 아직 읽지 않았습니다. 지금 채점하면 읽은 수술까지만 결과에 반영됩니다. <a href="#/ehr">청구 대조 알림</a>에서 "남은 건 모두 읽기"를 누른 뒤 채점하면 전체 결과가 나옵니다.</div>`}
+    ${!V && html`<div class="card empty">"채점하기"를 누르면 CartLoop의 결과를 정답지(기록지 415건, 오류 53건)와 비교합니다.</div>`}
     ${V && html`<${ValidResult} V=${V} />`}
   </div>`;
 }
@@ -954,15 +956,15 @@ function ValidResult({ V }) {
         <tr><td><b>합계</b></td><td class="r"><b>${e.all.truth}</b></td><td class="r"><b>${e.all.found}</b></td><td class="r"><b>${e.all.alerts}</b></td><td class="r"><b>${e.all.falsePos}</b></td></tr>
       </tbody></table></div>
       <div><h3 style="margin-bottom:6px">놓친 것과 잘못 알린 것</h3>
-        ${!s.detail.fn.length && !s.detail.fp.length && !s.detail.aliasMisses.length ? html`<p class="muted small">놓친 오류도, 잘못 알린 것도, 코드를 잘못 이은 것도 없어요.</p>` : ''}
+        ${!s.detail.fn.length && !s.detail.fp.length && !s.detail.aliasMisses.length ? html`<p class="muted small">놓친 오류, 잘못 알린 알림, 잘못 연결한 재료코드가 모두 없습니다.</p>` : ''}
         ${s.detail.fn.slice(0, 12).map(x => html`<div class="small"><${Pill} tone="red">놓침<//> ${x.op} · ${ALERT_LABEL[x.type]} · ${x.name} ${x.spec}</div>`)}
         ${s.detail.fp.slice(0, 12).map(x => html`<div class="small"><${Pill} tone="amber">오탐<//> ${x.op} · ${ALERT_LABEL[x.type]} · ${x.name} ${x.spec}</div>`)}
         ${s.detail.aliasMisses.slice(0, 8).map(x => html`<div class="small"><${Pill} tone="blue">코드 연결<//> ${x.op} · "${x.name}" ${x.spec} → 정답 ${x.want}, 결과 ${x.got || '미확정'}</div>`)}
         ${s.detail.fieldMisses.length > 0 && html`<p class="small muted" style="margin-top:8px">필드 불일치 ${s.extraction.fields - s.extraction.correct}건: ${s.detail.fieldMisses.slice(0, 4).map(x => `${x.op} ${x.field} (정답 "${x.want}", 결과 "${x.got ?? ''}")`).join(' · ')}</p>`}
-        ${e.unmapped ? html`<p class="small muted">코드를 찾지 못해 "확인 필요"로만 띄운 표기 ${e.unmapped}건은 오류 알림에서 뺐어요.</p>` : ''}
+        ${e.unmapped ? html`<p class="small muted">코드를 찾지 못해 "확인 필요"로만 띄운 표기 ${e.unmapped}건은 오류 알림에서 제외했습니다.</p>` : ''}
       </div>
     </div>
-    <div class="wfoot">가상 수술 1,240건(청구 42,861줄) · 수술간호기록지 415건 · 재료 마스터 312품목으로 시험했어요 · 정답지는 서비스와 다른 방법으로 만들었어요</div>
+    <div class="wfoot">시험에는 가상 수술 1,240건(청구 42,861줄), 수술간호기록지 415건, 재료 마스터 312품목을 사용했습니다 · 정답지는 서비스와 다른 방법으로 작성했습니다</div>
   </div><//>`;
 }
 

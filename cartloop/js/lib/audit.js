@@ -34,7 +34,7 @@ export function auditOp(db, op, { claim = db.claims[op], record = db.records[op]
     for (const l of record.lines) {
       if (!l.code) {
         if (l.family || l.how === 'unknown') alerts.push({ id: `${op}|unmapped|${l.alias}|${l.rawSpec}`, op, date, type: 'unmapped', code: '', name: l.rawName, spec: l.rawSpec, family: l.family || '', recQty: l.qty, claimQty: 0, amount: 0,
-          why: l.how === 'ambiguous' ? `규격만으로는 ${l.cands.length}개 품목 중 어느 것인지 가리지 못했어요.` : '별칭 사전에 없는 표기예요.' });
+          why: l.how === 'ambiguous' ? `적힌 규격만으로는 후보 ${l.cands.length}개 품목 중 어느 것인지 확정할 수 없습니다.` : '이 표기는 별칭 사전에 등록되어 있지 않습니다.' });
         continue;
       }
       rq[l.code] = (rq[l.code] || 0) + l.qty;
@@ -57,19 +57,19 @@ export function auditOp(db, op, { claim = db.claims[op], record = db.records[op]
         if (r > 0 && q === 0) missing.push(c);
         else if (r === 0 && q > 0) extra.push(c);
         else if (r > 0 && q > 0 && r !== q) add('qty_mismatch', c, { recQty: r, amount: (r - q) * (M[c].cap || 0), raw: rawOf[c],
-          why: `기록지 ${r}${M[c].unit || '개'} · 청구 ${q}${M[c].unit || '개'}` });
+          why: `기록지에는 ${M[c].name} ${M[c].spec} ${r}개가 적혀 있지만, 청구 목록에는 ${q}개로 입력되어 있습니다.` });
       }
       // 같은 품목군에서 한쪽은 빠지고 한쪽은 남으면 규격을 잘못 고른 것으로 본다
       while (missing.length && extra.length) {
         const x = missing.shift(), y = extra.shift();
         add('spec_mismatch', x, { recQty: rq[x], claimQty: cq[y], otherCode: y, otherSpec: M[y].spec, raw: rawOf[x], amount: 0,
-          why: `기록지는 ${M[x].spec}, 청구는 ${M[y].spec}` });
+          why: `기록지에는 ${M[x].name} ${M[x].spec} ${rq[x]}개가 적혀 있지만, 청구 목록에는 규격이 다른 ${M[y].spec} ${cq[y]}개가 입력되어 있습니다.` });
       }
       const reliableRC = st.rec < 3 || st.pRC >= MIN_REL;
       if (reliableRC) for (const c of missing) add('missing', c, { recQty: rq[c], amount: rq[c] * (M[c].cap || 0), raw: rawOf[c],
-        why: `기록지에 ${rq[c]}${M[c].unit || '개'} 적혀 있는데 청구 목록에는 없어요.` });
+        why: `기록지에는 ${M[c].name} ${M[c].spec} ${rq[c]}개가 적혀 있지만, 청구 목록에는 존재하지 않습니다.` });
       if (st.rec >= 3 && st.pCR >= MIN_REL_CR) for (const c of extra) add('unrecorded', c, { amount: -(cAmt[c] || 0),
-        why: `청구 목록에 ${cq[c]}${M[c].unit || '개'} 있는데 기록지에는 없어요.` });
+        why: `청구 목록에는 ${M[c].name} ${M[c].spec} ${cq[c]}개가 입력되어 있지만, 수술기록지에는 적혀 있지 않습니다.` });
     }
   }
 
@@ -81,35 +81,35 @@ export function auditOp(db, op, { claim = db.claims[op], record = db.records[op]
     const m = M[code]; if (!m) continue;
     if (/정액\s*포함|별도\s*산정/.test(m.benefit)) {
       const r = ruleFor('bundled', r => r.bundleClass === m.cls || r.keywords.some(k => m.name.toUpperCase().includes(k.toUpperCase())));
-      if (!r || inForce(r)) add('bundled', code, { amount: -(cAmt[code] || 0), rule: r?.no, why: r ? `${r.title} (${r.docNo})` : `재료 마스터 급여구분: ${m.benefit}` });
+      if (!r || inForce(r)) add('bundled', code, { amount: -(cAmt[code] || 0), rule: r?.no, why: r ? `${m.name} ${m.spec}은(는) 정액 재료비에 포함된 품목이어서 별도로 청구할 수 없습니다. (${r.docNo})` : `${m.name} ${m.spec}의 급여구분은 "${m.benefit}"이어서 별도로 청구할 수 없습니다.` });
     } else if (/산정\s*불가/.test(m.benefit)) {
       const r = ruleFor('non_billable', r => r.codes.includes(code));
-      if (!r || inForce(r)) add('non_billable', code, { amount: -(cAmt[code] || 0), rule: r?.no, why: r ? `${r.title} (${r.docNo})` : `재료 마스터 급여구분: ${m.benefit}` });
+      if (!r || inForce(r)) add('non_billable', code, { amount: -(cAmt[code] || 0), rule: r?.no, why: r ? `${m.name} ${m.spec}은(는) 산정 불가 품목이어서 청구 목록에 넣을 수 없습니다. (${r.docNo})` : `${m.name} ${m.spec}의 급여구분은 "${m.benefit}"이어서 청구할 수 없습니다.` });
     }
-    if (cLines[code] > 1) add('duplicate', code, { why: `같은 재료코드가 ${cLines[code]}줄에 들어가 있어요.` });
+    if (cLines[code] > 1) add('duplicate', code, { why: `${m.name} ${m.spec}의 재료코드가 청구 목록의 ${cLines[code]}줄에 중복 입력되어 있습니다.` });
   }
   for (const r of rules) {
     if (!inForce(r)) continue;
     if (r.type === 'bundled' && r.oncePerOp && r.bundleCode && (cq[r.bundleCode] || 0) > 1) {
-      add('bundle_dup', r.bundleCode, { amount: -((cq[r.bundleCode] - 1) * (cPrice[r.bundleCode] || 0)), rule: r.no, why: `수술 1회당 1회 산정 · 청구 ${cq[r.bundleCode]}회 (${r.docNo})` });
+      add('bundle_dup', r.bundleCode, { amount: -((cq[r.bundleCode] - 1) * (cPrice[r.bundleCode] || 0)), rule: r.no, why: `정액 재료비는 수술 1회당 1회만 산정할 수 있지만, 청구 목록에는 ${cq[r.bundleCode]}회 입력되어 있습니다. (${r.docNo})` });
     }
     if (r.type === 'qty_limit' && r.maxPerOp != null) {
       const codes = Object.keys(cq).filter(c => M[c] && (r.codes.includes(c) || r.keywords.some(k => M[c].name.toUpperCase().includes(k.toUpperCase()))));
       const total = codes.reduce((s, c) => s + cq[c], 0);
       if (total > r.maxPerOp) add('qty_limit', codes[0], { claimQty: total, rule: r.no, amount: -((total - r.maxPerOp) * (M[codes[0]].cap || 0)),
-        why: `수술 1회당 ${r.maxPerOp}개까지 급여 · 청구 ${total}개 (${r.docNo})` });
+        why: `${M[codes[0]].name}은(는) 수술 1회당 ${r.maxPerOp}개까지 급여로 인정되지만, 청구 목록에는 ${total}개가 입력되어 있습니다. (${r.docNo})` });
     }
     if (r.type === 'price_change') {
       for (const code of Object.keys(cq)) {
         const m = M[code];
         if (!m || !m.cap || !r.classCodes.includes(m.cls) || /산정\s*불가/.test(m.benefit)) continue;
         if (cPrice[code] !== m.cap) add('price', code, { rule: r.no, amount: -((cPrice[code] - m.cap) * cq[code]), price: cPrice[code], cap: m.cap,
-          why: `시행일 ${r.effective} 이후 수술인데 종전 단가 ${cPrice[code].toLocaleString()}원으로 청구 (현재 상한 ${m.cap.toLocaleString()}원)` });
+          why: `${m.name} ${m.spec}이(가) 상한금액 조정 시행일(${r.effective}) 이후 수술인데도 종전 단가 ${cPrice[code].toLocaleString()}원으로 청구되어 있습니다. 현재 상한금액은 ${m.cap.toLocaleString()}원입니다.` });
       }
     }
     if (r.type === 'discontinued') {
       for (const code of r.codes) if (cq[code]) add('discontinued', code, { rule: r.no, otherCode: r.replacement,
-        why: `${r.effective}부터 사용 중지${r.replacement && M[r.replacement] ? ` · ${M[r.replacement].spec}로 대체` : ''} (${r.docNo})` });
+        why: `${M[code].name}은(는) ${r.effective}부터 사용이 중지된 품목입니다.${r.replacement && M[r.replacement] ? ` ${M[r.replacement].spec} 규격으로 대체해야 합니다.` : ''} (${r.docNo})` });
     }
   }
   return alerts;

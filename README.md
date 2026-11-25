@@ -32,3 +32,7 @@ node tools/score.mjs --detail         # 정답지와 비교
 `main` 에 푸시하면 Vercel이 자동으로 배포한다 (프로젝트 루트 폴더는 `cartloop/`). 다른 브랜치에 푸시하면 미리보기 주소가 따로 생긴다.
 
 키는 Vercel 환경변수 `OPENROUTER_KEYS` 에 쉼표로 이어 넣는다.
+
+## 바탕화면 그림
+
+`cartloop/img/wallpaper.jpg` 는 Unsplash 에서 받은 풍경 사진이다 (Unsplash License, 사진 ID `photo-1506744038136-46273834b3fb`). 다른 그림으로 바꾸려면 같은 이름으로 덮어쓰면 된다.
