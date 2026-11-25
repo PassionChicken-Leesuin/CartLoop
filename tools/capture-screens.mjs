@@ -41,9 +41,20 @@ await shot('#win-result', '18-right-result');
 await ev(() => window.__cartloop.go('ehr')); await wait(300);
 await ev(op => window.__cartloop.selectOp(op), OP);
 await page.waitForFunction(() => window.__cartloop.S.ehr.result, { timeout: 90000 });
+await page.waitForFunction(() => !window.__cartloop.S.ehr.busy, { timeout: 90000 });
 await ev(() => { const a = window.__cartloop.S.ehr.result.alerts[0]; if (a) { window.__cartloop.S.ehr.hlRaw = a.raw || null; window.__cartloop.draw(); } });
-await shot('#ehr-pair', '19-left-ehr');
-await shot('#win-assist', '19-right-assist');
+await shot('#win-his', '19-left-ehr');
+await shot('#cl-compact', '19-right-assist');
+// 바탕화면 전체 (HIS 옆에 CartLoop 도우미가 떠 있는 모습)
+await page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 2 });
+await wait(500);
+await page.screenshot({ path: path.join(out, '23-desktop.png') }); console.log('23-desktop 1600x900');
+// 화면을 읽는 도중의 모습
+await ev(op => window.__cartloop.selectOp(op), OP);
+await wait(2300);
+await page.screenshot({ path: path.join(out, '23-desktop-reading.png') }); console.log('23-desktop-reading 1600x900');
+await page.waitForFunction(() => window.__cartloop.S.ehr.result && !window.__cartloop.S.ehr.busy, { timeout: 90000 });
+await page.setViewport({ width: 1560, height: 1000, deviceScaleFactor: 2 });
 
 // 구현3: 세트 개정안
 await ev(() => window.__cartloop.go('sets'));
