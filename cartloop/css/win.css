@@ -175,3 +175,35 @@ table.use td.zero { color: #b9c3c1; }
 
 /* 화면 전체 높이를 채운다 */
 #app { height: 100%; }
+
+/* 가상 컴퓨터 화면: 간호사 PC 안에서 EHR 창과 CartLoop 창이 함께 떠 있다 */
+.ehrgrid2 { display: grid; grid-template-columns: 215px minmax(0, 1fr); gap: 14px; align-items: start; }
+.pc { min-width: 0; }
+.pcscreen { background: linear-gradient(160deg, #cfe3e6, #e6efe9 55%, #dbe7ee); border: 12px solid #1c2b36; border-radius: 22px; overflow: hidden; box-shadow: 0 12px 40px #1c2b3630; }
+.pcbar { display: flex; align-items: center; gap: 8px; padding: 6px 14px; font-size: 12px; color: #3e5560; background: #ffffff90; }
+.pcdot { width: 8px; height: 8px; border-radius: 50%; background: #3fb39f; }
+.pcgrid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(330px, .8fr); gap: 14px; padding: 12px 16px 16px; align-items: start; }
+.pclabel { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #3e5560; margin-bottom: 8px; }
+.pclabel .tag { padding: 3px 11px; font-size: 12px; }
+.pctask { display: flex; align-items: center; gap: 14px; padding: 7px 18px; background: #f3f6f7e6; font-size: 12.5px; color: var(--ink-2); border-top: 1px solid #ffffff; }
+.pcsearch { background: #fff; border-radius: 99px; padding: 3px 50px 3px 12px; }
+.pcapp { display: inline-flex; align-items: center; gap: 6px; padding-bottom: 2px; border-bottom: 2px solid transparent; font-weight: 600; }
+.pcapp.on { border-bottom-color: var(--teal); color: var(--ink); }
+.pcstand { width: 180px; height: 16px; margin: 0 auto; background: #1c2b36; border-radius: 0 0 14px 14px; }
+.pc .win { box-shadow: 0 6px 22px #1c2b3628; }
+/* 화면 읽기: 읽는 창에는 테두리, 읽는 줄에는 표시 */
+.ehr2 { position: relative; transition: box-shadow .2s, outline-color .2s; outline: 2px solid transparent; }
+.ehr2.scanning { outline-color: var(--teal); box-shadow: 0 0 0 6px #157a7226, 0 6px 22px #1c2b3628; }
+.ehr2.scanning .wbar::after { content: "CartLoop이 이 화면을 읽는 중"; margin-left: 10px; background: var(--teal); color: #fff; border-radius: 99px; padding: 1px 10px; font-size: 11px; font-weight: 700; order: 9; }
+.ehr2.scanning .wbar .ctl { margin-left: 0; }
+.ehr2.scanning .wbar .wsub { margin-right: auto; }
+.ehr2 tr.scan-now td { background: #cdeee7; box-shadow: inset 0 1px 0 var(--teal), inset 0 -1px 0 var(--teal); }
+.ehr2 tr.scan-done td:first-child { box-shadow: inset 3px 0 0 #9fd6cc; }
+.ehr2 .meta.scan-now { background: #cdeee7; box-shadow: inset 0 0 0 1px var(--teal); }
+.ehr2 .meta.scan-done { box-shadow: inset 3px 0 0 #9fd6cc; }
+.readlog { background: #10231f; color: #9fcfc5; border-radius: 9px; padding: 10px 12px; font-family: var(--mono); font-size: 11.5px; line-height: 1.6; height: 176px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+.readlog b { color: #6fa89d; font-family: var(--font); font-size: 11px; font-weight: 600; margin-bottom: auto; }
+.readlog div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.readlog div.now { color: #fff; }
+.readlog div.now::after { content: " ▌"; color: var(--amber); }
+@media (max-width: 1100px) { .ehrgrid2, .pcgrid { grid-template-columns: 1fr; } }

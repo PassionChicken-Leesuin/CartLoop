@@ -50,19 +50,11 @@ await ev(() => window.__cartloop.go('sets'));
 await shot('#win-set-evidence', '20-left-evidence');
 await shot('#win-set-proposal', '20-right-proposal');
 
-// 묻기 → 한 화면 시연
+// 묻기
 await ev(() => window.__cartloop.go('ask')); await wait(300);
 await ev(q => window.__cartloop.ask(q), QUESTION);
 await page.waitForFunction(() => !window.__cartloop.S.asking, { timeout: 120000 });
 console.log('답:', await ev(() => window.__cartloop.S.chat.at(-1).text.replace(/\n/g, ' ')));
-await page.setViewport({ width: 1720, height: 1040, deviceScaleFactor: 2 });
-await ev(() => window.__cartloop.go('show'));
-await shot('#desk', '23-desktop-with-logo');
-// 발표 자료에는 슬라이드 자체 로고가 같은 자리에 있으므로 로고 없는 판을 쓴다
-await ev(() => { document.querySelector('.desk .logo').style.visibility = 'hidden'; });
-await shot('#desk', '23-desktop');
-await page.setViewport({ width: 1560, height: 1000, deviceScaleFactor: 2 });
-
 // 세트 승인 → 석 달치 반영 → 구현4
 await ev(() => window.__cartloop.go('sets')); await wait(300);
 await page.click('#approve-set');

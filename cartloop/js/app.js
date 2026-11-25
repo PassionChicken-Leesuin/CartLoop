@@ -213,7 +213,6 @@ function Side() {
     ${item('ask', 6, '우리 병원 재료 묻기')}
     <div class="navsep">검증</div>
     ${item('validate', 7, '정답지 채점')}
-    ${item('show', 8, '한 화면 시연')}
     <div class="foot">
       ${db && html`<div class="dbchip"><b>Loop DB v${db.version}</b><br />수술 ${Object.keys(db.records).length}건 · 별칭 ${Object.keys(db.aliases).length}종<br />설치 기준일 ${db.installDate}</div>`}
       <div>베타 · 가상 데이터 전용<br />환자 · 수술 · 금액은 모두 가상입니다.</div>
@@ -509,14 +508,15 @@ function AuditPage() {
 
 // ───────────────────────── 4. 청구 대조 알림 (EHR 화면 옆) ─────────────────────────
 const pendingList = () => Object.values(S.db.pending).sort((a, b) => (a.date + a.op).localeCompare(b.date + b.op));
-function selectOp(op) { S.ehr = { ...S.ehr, op, result: null, dismissed: {}, hl: null, hlRaw: null, entry: { code: '', qty: '' }, busy: false }; draw(); if (op) doRead(); }
+function selectOp(op) { S.ehr = { ...S.ehr, op, result: null, scan: null, dismissed: {}, hl: null, hlRaw: null, entry: { code: '', qty: '' }, busy: false }; draw(); if (op) doRead(); }
 async function doRead() {
   const E = S.ehr, db = S.db, op = E.op;
   if (!op || !db.pending[op] || E.busy) return;
   E.busy = true; draw();
   try {
     const p = db.pending[op];
-    const r = await readScreen(db, op, { llm, cache, mode: S.mode === 'cache' ? 'cache' : 'live', screenText: p.text });
+    // 화면의 글자를 읽는 동안(LLM 추출) 어느 줄을 읽고 있는지 EHR 화면 위에 보여 준다
+    const [r] = await Promise.all([readScreen(db, op, { llm, cache, mode: S.mode === 'cache' ? 'cache' : 'live', screenText: p.text }), animateScan(E, p)]);
     if (S.ehr !== E) return; // 그사이 다른 수술을 골랐다
     E.result = r;
     if (!S.snap.streamAlerts[op]) S.snap.streamAlerts[op] = clone(r.alerts); // 채점용: 처음 읽었을 때의 알림
@@ -565,6 +565,39 @@ async function runBatch(skipConfirm) {
   } catch (e) { toast('일괄 읽기를 마치지 못했습니다: ' + (e?.message || e)); }
   S.batch = null; persist(); draw();
 }
+// EHR 화면에서 읽는 줄의 순서: 기록지 머리 정보 → Implants → Drain → 청구 목록
+function scanTargets(p) {
+  const out = [], r = p.rec;
+  if (r) {
+    out.push({ k: 'meta', i: 0, text: `수술번호 ${p.op} | 수술일 ${r.date} | 집도의 ${r.surgeon}` });
+    out.push({ k: 'meta', i: 1, text: `수술명 ${r.opName}` });
+    r.lines.filter(l => l.src === 'material').forEach((l, i) => out.push({ k: 'rec', i, text: `${l.rawName} | ${l.rawSpec || '-'} | ${l.qty}` }));
+    r.lines.filter(l => l.src === 'drain').forEach((l, i) => out.push({ k: 'drain', i, text: `${l.rawName} | ${l.rawSpec || '-'} | ${l.qty}` }));
+  }
+  (p.claim?.lines || []).forEach((l, i) => out.push({ k: 'claim', i, text: `${l.code} | ${l.name} | ${l.spec} | ${l.qty}` }));
+  return out;
+}
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function animateScan(E, p) {
+  const T = scanTargets(p);
+  E.scan = { T, at: -1 };
+  for (let n = 0; n < T.length; n++) {
+    if (S.ehr !== E) return;
+    E.scan.at = n; draw();
+    if (T[n].k === 'claim') { const box = document.getElementById('win-ehr-claim-scroll'), row = document.getElementById('crow-' + T[n].i); if (box && row) box.scrollTop = Math.max(0, row.offsetTop - 110); }
+    await sleep(T[n].k === 'claim' ? 45 : T[n].k === 'meta' ? 260 : 190);
+  }
+  E.scan.at = T.length;
+  const box = document.getElementById('win-ehr-claim-scroll'); if (box) box.scrollTop = 0;
+  draw();
+}
+// 이 줄이 지금 읽는 줄인지, 이미 읽은 줄인지
+function scanCls(k, i) {
+  const sc = S.ehr.scan; if (!sc) return '';
+  const n = sc.T.findIndex(t => t.k === k && t.i === i);
+  return n < 0 ? '' : n === sc.at ? ' scan-now' : n < sc.at ? ' scan-done' : '';
+}
+const scanningWin = kinds => { const sc = S.ehr.scan; return sc && sc.at >= 0 && sc.at < sc.T.length && kinds.includes(sc.T[sc.at].k) ? ' scanning' : ''; };
 const rawMatch = (raw, l) => raw && raw.some(r => r.replace(/\s/g, '') === `${l.rawName} ${l.rawSpec}`.replace(/\s/g, ''));
 function showRow(code, raw) { S.ehr.hl = code; S.ehr.hlRaw = raw || null; draw(); setTimeout(() => document.getElementById('cl-' + code)?.scrollIntoView({ block: 'center', behavior: 'smooth' }), 30); }
 function fillEntry(code, qty, raw) { S.ehr.entry = { code, qty: String(qty) }; S.ehr.hl = null; S.ehr.hlRaw = raw || null; draw(); setTimeout(() => document.getElementById('entry-code')?.focus(), 30); }
@@ -574,17 +607,17 @@ function EHRRecordWin({ p, id = 'win-ehr-record' }) {
   if (!r) return html`<${Win} brand=${false} cls="ehr2" title="OO병원 | 수술간호기록" sub="HIS-APP07" id=${id}><div class="empty">이 수술은 기록지가 없습니다.</div><//>`;
   const mats = r.lines.filter(l => l.src === 'material'), drains = r.lines.filter(l => l.src === 'drain');
   const dept = /신경/.test(r.dept) ? 'NS' : /정형/.test(r.dept) ? 'OS' : r.dept;
-  return html`<${Win} brand=${false} cls="ehr2" title="OO병원 | 수술간호기록" sub=${html`HIS-APP07 <span class="chip" style="margin-left:6px">가상 데이터</span>`} id=${id}>
-    <div class="meta"><span>수술번호<b>${p.op}</b></span><span>수술일<b>${r.date}</b></span><span>환자<b>${r.pid}</b></span><span>진료과<b>${r.dept}</b></span><span>집도의<b>${r.surgeon}</b></span><span>수술실<b>${r.room}</b></span></div>
-    <div class="meta"><span>진단명<b>${r.diagnosis || r.site}</b></span><span>수술명<b>${r.opName}</b></span></div>
+  return html`<${Win} brand=${false} cls=${'ehr2' + scanningWin(['meta', 'rec', 'drain'])} title="OO병원 | 수술간호기록" sub=${html`HIS-APP07 <span class="chip" style="margin-left:6px">가상 데이터</span>`} id=${id}>
+    <div class=${'meta' + scanCls('meta', 0)}><span>수술번호<b>${p.op}</b></span><span>수술일<b>${r.date}</b></span><span>환자<b>${r.pid}</b></span><span>진료과<b>${r.dept}</b></span><span>집도의<b>${r.surgeon}</b></span><span>수술실<b>${r.room}</b></span></div>
+    <div class=${'meta' + scanCls('meta', 1)}><span>진단명<b>${r.diagnosis || r.site}</b></span><span>수술명<b>${r.opName}</b></span></div>
     <div class="sect">Implants</div>
     <table><thead><tr><th>진료과</th><th>부위</th><th>종류</th><th>Manufacturer</th><th>수량</th><th>재료코드</th><th>규격</th></tr></thead><tbody>
-      ${mats.map(l => html`<tr class=${rawMatch(E.hlRaw, l) ? 'hl' : ''}><td>${dept}</td><td>OP site</td><td>${l.rawName.replace(/\s*\(.*$/, '')}</td><td>${(/\(([^)]*)\)/.exec(l.rawName) || [])[1] || ''}</td><td>${l.qty}</td><td>${l.givenCode}</td><td>${l.rawSpec}</td></tr>`)}
+      ${mats.map((l, i) => html`<tr class=${(rawMatch(E.hlRaw, l) ? 'hl' : '') + scanCls('rec', i)}><td>${dept}</td><td>OP site</td><td>${l.rawName.replace(/\s*\(.*$/, '')}</td><td>${(/\(([^)]*)\)/.exec(l.rawName) || [])[1] || ''}</td><td>${l.qty}</td><td>${l.givenCode}</td><td>${l.rawSpec}</td></tr>`)}
       ${!mats.length && html`<tr><td colspan="7" class="muted">기록된 치료재료 없음</td></tr>`}
     </tbody></table>
     <div class="sect">Drain and Catheter</div>
     <table><thead><tr><th>종류</th><th>수량</th><th>규격</th></tr></thead><tbody>
-      ${drains.map(l => html`<tr class=${rawMatch(E.hlRaw, l) ? 'hl' : ''}><td>${l.rawName}</td><td>${l.qty}</td><td>${l.rawSpec}</td></tr>`)}
+      ${drains.map((l, i) => html`<tr class=${(rawMatch(E.hlRaw, l) ? 'hl' : '') + scanCls('drain', i)}><td>${l.rawName}</td><td>${l.qty}</td><td>${l.rawSpec}</td></tr>`)}
       ${!drains.length && html`<tr><td colspan="3" class="muted">없음</td></tr>`}
     </tbody></table>
   <//>`;
@@ -592,9 +625,9 @@ function EHRRecordWin({ p, id = 'win-ehr-record' }) {
 function EHRClaimWin({ p, id = 'win-ehr-claim', readonly }) {
   const E = S.ehr, db = S.db;
   const ec = E.entry.code?.trim().toUpperCase();
-  return html`<${Win} brand=${false} cls="ehr2" title="수술 재료 청구 목록" sub="Case Cart 전송 재료 · 원무 전송 전" id=${id}>
+  return html`<${Win} brand=${false} cls=${'ehr2' + (readonly ? '' : scanningWin(['claim']))} title="수술 재료 청구 목록" sub="Case Cart 전송 재료 · 원무 전송 전" id=${id}>
     <div class="scroll" id=${id + '-scroll'}><table style="margin-top:0"><thead><tr><th>순번</th><th>재료명</th><th>코드</th><th>규격</th><th>수량</th><th>급여</th><th></th></tr></thead><tbody>
-      ${p.claim.lines.map((l, i) => html`<tr class=${E.hl === l.code ? 'hl' : ''} id=${readonly ? null : 'cl-' + l.code}><td>${i + 1}</td><td>${l.name}</td><td class="mono">${l.code}</td><td>${l.spec}</td>
+      ${p.claim.lines.map((l, i) => html`<tr class=${(E.hl === l.code ? 'hl' : '') + (readonly ? '' : scanCls('claim', i))} id=${readonly ? null : 'cl-' + l.code}><td id=${readonly ? null : 'crow-' + i}>${i + 1}</td><td>${l.name}</td><td class="mono">${l.code}</td><td>${l.spec}</td>
         <td><input type="number" min="0" style="width:48px" value=${l.qty} disabled=${readonly} onChange=${e => claimQty(i, e.target.value)} /></td><td>${l.benefit}</td>
         <td><button class="del" title="이 줄 삭제" disabled=${readonly} onClick=${() => claimDel(i)}>🗑</button></td></tr>`)}
     </tbody></table></div>
@@ -629,10 +662,20 @@ function matchedLines(db, r, claim) {
 }
 function AssistWin({ p, id = 'win-assist', actions = true }) {
   const E = S.ehr, db = S.db, r = E.result;
-  if (!r) return html`<${Win} key="reading" title="청구 도우미" sub="청구 대조 알림" id=${id}><div class="wbody">
-    <div class=${'strip' + (E.busy ? ' busy' : '')}>${E.busy ? 'EHR 화면 인식 중 — 기록지 화면과 청구 화면의 글자를 읽고 있어요' : 'EHR 화면 인식 대기'}</div>
-    <div class="hero"><div><div class="wh">화면을 <em>읽고 있어요</em></div><p>수술기록지와 청구 목록을 대조합니다. EHR DB에는 접근하지 않습니다.</p></div><img src="img/mascot.png" alt="" /></div>
-    ${!E.busy && html`<button class="btn pri" id="read-screen" onClick=${doRead}>이 화면 읽기</button>`}</div><//>`;
+  if (!r) {
+    const sc = E.scan, T = sc?.T || [], at = sc ? Math.max(0, sc.at) : 0;
+    const seen = T.slice(0, at + 1);
+    const nRec = T.filter(t => t.k === 'rec' || t.k === 'drain').length, nCl = T.filter(t => t.k === 'claim').length;
+    const dRec = seen.filter(t => t.k === 'rec' || t.k === 'drain').length, dCl = seen.filter(t => t.k === 'claim').length;
+    const where = !sc ? '' : (T[Math.min(at, T.length - 1)]?.k === 'claim' ? '청구 목록 화면' : '수술간호기록 화면');
+    return html`<${Win} key="reading" title="청구 도우미" sub="청구 대조 알림" id=${id}><div class="wbody">
+      <div class=${'strip' + (E.busy ? ' busy' : '')}>${E.busy ? `EHR 화면 인식 중 — ${where}의 글자를 읽고 있어요` : 'EHR 화면 인식 대기'}</div>
+      <div class="hero"><div><div class="wh">화면을 <em>읽고 있어요</em></div><p>기록 ${dRec} / ${nRec}줄 · 청구 ${dCl} / ${nCl}줄<br />화면에 보이는 글자만 읽습니다. EHR DB에는 접근하지 않습니다.</p></div><img src="img/mascot.png" alt="" /></div>
+      ${E.busy && html`<div class="bar"><i style=${`width:${T.length ? (at + 1) / T.length * 100 : 0}%`}></i></div>
+      <div class="readlog"><b>화면에서 읽은 글자</b>${seen.slice(-7).map((t, i, arr) => html`<div class=${i === arr.length - 1 ? 'now' : ''}>${t.text}</div>`)}</div>
+      <div class="wfoot">${sc && sc.at >= T.length ? '읽은 글자에서 재료 · 규격 · 수량을 뽑아 대조하는 중…' : '읽는 대로 별칭 사전으로 재료코드에 잇습니다'}</div>`}
+      ${!E.busy && html`<button class="btn pri" id="read-screen" onClick=${doRead}>이 화면 읽기</button>`}</div><//>`;
+  }
   const live = r.alerts.filter(a => !E.dismissed[a.id]);
   const ok = matchedLines(db, r, p.claim);
   const opn = r.rec.opName || '';
@@ -646,7 +689,8 @@ function AssistWin({ p, id = 'win-assist', actions = true }) {
     ${actions && html`<div class="btnrow"><button class="btn" onClick=${nextOp}>나중에 확인</button>
       <button class="btn pri" id="commit-op" onClick=${doCommit}>${live.length ? '이대로 두고 기록만 반영' : '확인 완료 · 기록 반영'}</button></div>`}
     <div class="wfoot">기록지 값을 그대로 연결 · 수정은 기존 청구 화면에서 · 자동 전송 없음</div>
-    ${actions && html`<details><summary class="evlink">화면에서 읽은 텍스트 보기 (${r.via === 'llm' ? 'LLM으로 읽음' : '저장 결과'})</summary><pre class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin:6px 0 0;font-size:11.5px">${p.text}</pre></details>`}
+    ${actions && html`<button class="linkbtn" style="color:var(--teal-ink);justify-self:start" onClick=${() => { const op = E.op; selectOp(op); }}>↻ 화면 다시 읽기</button>
+    <details><summary class="evlink">화면에서 읽은 텍스트 보기 (${r.via === 'llm' ? 'LLM으로 읽음' : '저장 결과'})</summary><pre class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin:6px 0 0;font-size:11.5px">${p.text}</pre></details>`}
   </div><//>`;
 }
 function EHRPage() {
@@ -660,14 +704,18 @@ function EHRPage() {
       <div class="right">${S.batch ? html`<span class="small num">읽는 중 ${S.batch.d} / ${S.batch.n}</span><span class="bar" style="width:160px"><i style=${`width:${S.batch.d / S.batch.n * 100}%`}></i></span>`
         : list.length ? html`<button class="btn" onClick=${() => runBatch()}>남은 ${list.length}건 모두 읽기</button>` : ''}</div></div>
     ${!list.length ? html`<div class="card empty"><b>설치 후 수술 ${doneN}건을 모두 읽었습니다.</b><br />Loop DB v${db.version} · <a href="#/db">갱신 내역 보기</a> · <a href="#/sets">세트 개정안 보기</a> · <a href="#/validate">정답지 채점</a></div>` : html`
-    <div class="ehrgrid">
-      <div class="col"><div class="taghead" style="visibility:hidden"><span class="tag">.</span></div><${Win} brand=${false} title="오늘의 수술" sub=${`${list.length}건`}><div class="oplist2">${list.map(x => html`<div class=${'opitem' + (x.op === E.op ? ' on' : '')} onClick=${() => selectOp(x.op)}>
+    <div class="ehrgrid2">
+      <${Win} brand=${false} title=${`오늘의 수술 ${list.length}건`} sub=""><div class="oplist2">${list.map(x => html`<div class=${'opitem' + (x.op === E.op ? ' on' : '')} onClick=${() => selectOp(x.op)}>
         <div class="row" style="gap:6px"><b class="mono">${x.op}</b><span class="small muted num">${x.date.slice(5)}</span></div>
-        <div class="small">${x.rec ? `${x.rec.surgeon} · ${(x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 22)}` : '기록지 없음'}</div></div>`)}</div><//></div>
-      <div class="col"><${TagHead}>기존 EHR 두 화면 (기록지 · 청구 목록)<//>
-        ${p && p.claim ? html`<div class="stack" id="ehr-pair"><${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} /></div>` : html`<div class="card empty">수술을 고르세요.</div>`}</div>
-      <div class="arrow">→</div>
-      <div class="col"><${TagHead} out=${true}>CartLoop 청구 도우미<//>${p && p.claim && html`<${AssistWin} p=${p} />`}</div>
+        <div class="small">${x.rec ? `${x.rec.surgeon} · ${(x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 22)}` : '기록지 없음'}</div></div>`)}</div><//>
+      <div class="pc"><div class="pcscreen">
+        <div class="pcbar"><span class="pcdot"></span>수술실 간호사 PC · Room ${p?.rec?.room?.replace(/\D/g, '') || ''}<span style="margin-left:auto">CartLoop는 이 화면에 보이는 글자만 읽습니다</span></div>
+        ${p && p.claim ? html`<div class="pcgrid">
+          <div class="col"><div class="pclabel"><span class="tag">입력 화면</span>기존 EHR 두 화면 (기록지 · 청구 목록)</div><div class="stack" id="ehr-pair"><${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} /></div></div>
+          <div class="col"><div class="pclabel"><span class="tag out">출력 화면</span>CartLoop 청구 도우미</div><${AssistWin} p=${p} /></div>
+        </div>` : html`<div class="empty">왼쪽에서 수술을 고르세요.</div>`}
+        <div class="pctask"><span>⊞</span><span class="pcsearch">🔍 검색</span><span class="pcapp">OO병원 HIS</span><span class="pcapp on"><span style="width:22px;display:inline-flex"><${Logo} /></span>CartLoop</span><span style="margin-left:auto" class="num">${p?.date || ''}</span></div>
+      </div><div class="pcstand"></div></div>
     </div>`}
   </div>`;
 }
@@ -853,32 +901,11 @@ function ValidResult({ V }) {
   </div><//>`;
 }
 
-// ───────────────────────── 8. 한 화면 시연 ─────────────────────────
-function ShowPage() {
-  const db = S.db, E = S.ehr;
-  const p = E.op ? db.pending[E.op] : null;
-  const all = proposeAll(db);
-  const open = all.filter(x => !x.tray && !x.held);
-  const sel = pickSet(db, open);
-  const props = open.filter(x => x.setCode === sel);
-  const chip = (n, t, who) => html`<div class="stepchip"><i>${n}</i><b>${t}</b>${who}</div>`;
-  return html`<div class="deskwrap"><div class="desk" id="desk">
-    <div class="logo"><${Logo} />CartLoop</div>
-    <div class="back">${p && p.claim ? html`<${EHRClaimWin} p=${p} id="desk-claim" readonly=${true} />` : html`<${Win} brand=${false} cls="ehr2" title="수술 재료 청구 목록" sub="원무 전송 전"><div class="empty" style="height:220px">청구 대조 알림에서 수술을 하나 읽으면 여기에 보입니다.</div><//>`}</div>
-    <div class="fw" style="left:40px;width:425px">${chip(1, '수술 직후', '수술실 간호사')}${p && E.result ? html`<${AssistWin} p=${p} id="desk-assist" actions=${false} />` : html`<${Win} title="청구 도우미" sub="청구 대조 알림"><div class="empty">먼저 <a href="#/ehr">청구 대조 알림</a>에서 수술을 하나 읽으세요.</div><//>`}</div>
-    <div class="fw" style="left:548px;width:425px">${chip(2, '다음 날', '책임 간호사')}<${ProposalWin} sel=${sel} props=${props} trays=${[]} id="desk-proposal" actions=${false} /></div>
-    <div class="fw" style="left:1056px;width:440px">${chip(3, '다음 수술 전', '신규 · 이직 간호사')}<${AskWin} id="desk-ask" input=${false} limit=${2} evidence=${false} /></div>
-    <div class="loop"><em>루프</em>① 기록지와 청구를 대조해 누락을 잡고 → ② 쌓인 사용 기록이 세트 개정안이 되고 → ③ 쌓인 기록이 다음 수술 준비의 답이 된다</div>
-    <div class="task"><span>⊞</span><span style="background:#fff;border-radius:99px;padding:4px 60px 4px 14px">🔍 검색</span><span style="display:flex;gap:6px;align-items:center;border-bottom:2px solid var(--teal);padding-bottom:2px"><span style="width:26px;display:inline-flex"><${Logo} /></span><b>CartLoop</b></span><span>OO병원 HIS</span></div>
-  </div></div>`;
-}
-
 // ───────────────────────── 앱 ─────────────────────────
 function App() {
-  const pages = { start: StartPage, db: DBPage, audit: AuditPage, ehr: EHRPage, sets: SetsPage, ask: AskPage, validate: ValidatePage, show: ShowPage };
+  const pages = { start: StartPage, db: DBPage, audit: AuditPage, ehr: EHRPage, sets: SetsPage, ask: AskPage, validate: ValidatePage };
   const route = S.db || S.route === 'start' ? S.route : 'start';
   const Page = pages[route] || StartPage;
-  if (route === 'show') return html`<div style="background:#eef2f1;min-height:100%"><div style="padding:10px 20px 0"><a class="btn sm" href="#/ehr">← 돌아가기</a></div><${ShowPage} /></div>`;
   return html`<div class="shell"><${Side} /><main class="main"><${Page} /></main>${S.toast && html`<div class="toast" role="status">${S.toast}</div>`}</div>`;
 }
 
