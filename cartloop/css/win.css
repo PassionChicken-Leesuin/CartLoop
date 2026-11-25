@@ -317,3 +317,24 @@ html, body { overflow: hidden; }
 
 /* 좁은 수술 스케줄 창은 상태 표시줄을 한 칸만 */
 #win-his-list .his-status span:not(:first-child) { display: none; }
+
+/* 바탕화면 아이콘 · 작업 표시줄 단추는 버튼이다 */
+button.dicon { border: 0; background: none; cursor: pointer; font: inherit; font-size: 12px; width: 100%; }
+button.tbapp { border: 0; background: none; cursor: pointer; font: inherit; }
+button.tbapp:hover, button.tbapp.on { background: #ffffffd0; }
+.his-ctl i { cursor: pointer; }
+.scene.nocl { grid-template-columns: 292px minmax(0, 1fr); padding-right: 22%; }
+/* 파일 탐색기 */
+.explorer { position: absolute; right: 34px; top: 96px; width: 560px; z-index: 6; background: #fff; border: 1px solid #6b7280; border-radius: 8px; overflow: hidden; box-shadow: 0 18px 50px #00000070; font-family: "Segoe UI", "Malgun Gothic", sans-serif; font-size: 12.5px; color: #1b1b1b; }
+.explorer .his-title { border-bottom: 1px solid #e5e5e5; }
+.ex-addr { display: flex; align-items: center; gap: 12px; padding: 6px 12px; background: #f6f6f6; border-bottom: 1px solid #e5e5e5; color: #666; }
+.ex-path { flex: 1; background: #fff; border: 1px solid #dcdcdc; border-radius: 4px; padding: 3px 10px; color: #1b1b1b; }
+.ex-list { width: 100%; border-collapse: collapse; }
+.ex-list th { text-align: left; font-weight: 400; color: #555; padding: 5px 12px; border-bottom: 1px solid #ececec; border-right: 1px solid #ececec; }
+.ex-list td { padding: 6px 12px; white-space: nowrap; }
+.ex-list tr { cursor: grab; }
+.ex-list tbody tr:hover td { background: #e9f3ff; }
+.ex-list tbody tr.sel td { background: #cce4ff; }
+.ex-ico { margin-right: 8px; }
+.ex-status { display: flex; gap: 16px; align-items: center; padding: 5px 12px; border-top: 1px solid #ececec; color: #555; font-size: 12px; }
+.ex-status button { margin-left: auto; font: inherit; border: 1px solid #c9c9c9; background: #fbfbfb; border-radius: 4px; padding: 1px 10px; cursor: pointer; }

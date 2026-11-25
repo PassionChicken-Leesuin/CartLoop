@@ -31,6 +31,8 @@ const S = {
   ehr: { op: null, busy: false, result: null, dismissed: {}, hl: null, hlRaw: null, entry: { code: '', qty: '' } },
   dbTab: 'alias', kbFile: 'README.md', aliasQ: '', auditType: 'all', asking: false, batch: null, valid: null, validBusy: false,
   setSel: null, setPick: {},
+  // 바탕화면에서 켠 프로그램. 처음에는 아무것도 켜져 있지 않다.
+  win: { cl: false, his: false, data: false }, focus: 'cl', lastRoute: 'start', explorer: null,
 };
 let pdfjs = null;
 const cacheStore = {};
@@ -47,7 +49,46 @@ function draw() {
   finally { drawing = false; }
 }
 function go(r) { location.hash = '#/' + r; }
-window.addEventListener('hashchange', () => { S.route = location.hash.replace(/^#\/?/, '') || 'start'; draw(); document.querySelector('.main')?.scrollTo(0, 0); });
+window.addEventListener('hashchange', () => {
+  S.route = location.hash.replace(/^#\/?/, '') || 'start';
+  // CartLoop 안의 메뉴를 눌러 온 것이므로 CartLoop는 켜진 상태다. "청구 대조 알림"은 HIS 화면 옆에서 동작한다.
+  if (S.route === 'ehr') { S.win.his = true; S.win.cl = true; S.focus = 'his'; }
+  else { S.win.cl = true; S.focus = 'cl'; S.lastRoute = S.route; }
+  draw(); document.querySelector('.main')?.scrollTo(0, 0);
+});
+// 프로그램 켜기 · 끄기
+function openApp(app) {
+  if (app === 'his') {
+    if (!S.db) toast('HIS 시연 데이터는 CartLoop에서 파일을 분석한 뒤 채워집니다. 먼저 CartLoop를 켜서 파일을 올려 주세요.', 4500);
+    S.win.his = true; S.focus = 'his';
+  } else if (app === 'cl') {
+    const wasOpen = S.win.cl;
+    S.win.cl = true;
+    // HIS를 보고 있을 때 CartLoop를 켜면 그 옆에 도우미로 뜬다. 이미 켜져 있으면 전체 창으로 바꾼다.
+    if (!(S.win.his && S.focus === 'his' && !wasOpen && S.db)) S.focus = 'cl';
+  } else if (app === 'data') { S.win.data = true; loadExplorer(); }
+  draw();
+}
+function closeApp(app) {
+  S.win[app] = false;
+  if (app === 'cl' && S.win.his) S.focus = 'his';
+  if (app === 'his') S.focus = 'cl';
+  if (app === 'cl' || app === 'his') S.ehr = { ...S.ehr, result: null, scan: null, busy: false };
+  draw();
+}
+// 가상 데이터 셋 폴더(탐색기)에 보일 항목
+async function loadExplorer() {
+  if (S.explorer) return;
+  try {
+    const man = await (await fetch('sample/manifest.json')).json();
+    const recs = man.files.filter(f => /\.(pdf|docx)$/i.test(f.name));
+    const items = [];
+    if (recs.length) items.push({ key: recs[0].name.split('/')[0] + '/', name: recs[0].name.split('/')[0], type: '파일 폴더', size: `${recs.length}개 항목`, folder: true });
+    for (const f of man.files.filter(f => !/\.(pdf|docx)$/i.test(f.name))) items.push({ key: f.name, name: f.name, type: f.name.endsWith('.csv') ? 'CSV 파일' : '텍스트 문서', size: f.size > 1e6 ? (f.size / 1e6).toFixed(1) + 'MB' : Math.ceil(f.size / 1024) + 'KB' });
+    S.explorer = { items, sel: Object.fromEntries(items.map(i => [i.key, true])) };
+  } catch { S.explorer = { items: [], sel: {} }; }
+  draw();
+}
 function toast(msg, ms = 3200) { S.toast = msg; draw(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; draw(); }, ms); }
 let saveT = null;
 function persist() { clearTimeout(saveT); saveT = setTimeout(() => store.save('state', { db: S.db, snap: S.snap, chat: S.chat }), 400); }
@@ -65,8 +106,9 @@ async function loadSampleCache() {
 }
 
 // ───────────────────────── 파일 올리기 → 구축 ─────────────────────────
-async function fetchSample(onProgress) {
+async function fetchSample(onProgress, keys) {
   const man = await (await fetch('sample/manifest.json')).json();
+  if (keys) man.files = man.files.filter(f => keys.some(k => f.name === k || f.name.startsWith(k)));
   const out = new Array(man.files.length); let i = 0, done = 0;
   await Promise.all(Array.from({ length: 12 }, async () => {
     while (i < man.files.length) {
@@ -200,7 +242,8 @@ function Side() {
   const nPast = db ? pastAlerts().length : 0;
   const nPend = db ? Object.keys(db.pending).length : 0;
   const nProp = db ? openProposals().length : 0;
-  const item = (r, n, label, badge) => html`<a class=${'nav' + (S.route === r ? ' on' : '') + (!db && r !== 'start' ? ' off' : '')} href=${'#/' + r}><span class="step">${n}</span>${label}${badge ? html`<span class="badge">${badge}</span>` : ''}</a>`;
+  const cur = S.route === 'ehr' ? S.lastRoute : S.route;
+  const item = (r, n, label, badge) => html`<a class=${'nav' + (cur === r ? ' on' : '') + (!db && r !== 'start' ? ' off' : '')} href=${'#/' + r}><span class="step">${n}</span>${label}${badge ? html`<span class="badge">${badge}</span>` : ''}</a>`;
   return html`<aside class="side">
     <div class="brand"><${Logo} /><div><b>CartLoop</b><span>우리 병원을 알아가는 청구 도우미</span></div></div>
     <div class="navsep">처음 설정</div>
@@ -237,7 +280,9 @@ function UploadWin({ restored }) {
     <div class="wh">올려도 되는 파일을 <em>모두</em> 올려주세요</div>
     <div class="wsubline">형식 · 정리 상태는 상관없어요. 머리글 위치와 열의 뜻은 CartLoop가 읽어요. CSV · XLSX · PDF · DOCX · TXT 를 읽습니다.</div>
     <div class=${'dropbox' + (over ? ' over' : '')} onDragOver=${e => { e.preventDefault(); setOver(true); }} onDragLeave=${() => setOver(false)}
-      onDrop=${e => { e.preventDefault(); setOver(false); dropItems(e.dataTransfer.items); }}>
+      onDrop=${e => { e.preventDefault(); setOver(false);
+        const keys = e.dataTransfer.getData('text/x-cartloop-sample');
+        if (keys) { const k = JSON.parse(keys); stageFiles(p => fetchSample(p, k), !!S.stage?.files?.length); } else dropItems(e.dataTransfer.items); }}>
       <div class="hint">⬆ 여기에 끌어다 놓기</div>
       ${st?.busy && html`<div class="frow"><span class="ext">···</span><div><b>${st.busy}</b><small>${st.prog ? `${st.prog[0]} / ${st.prog[1]}` : ''}</small></div><span class="bar" style="width:90px"><i style=${`width:${st.prog ? st.prog[0] / st.prog[1] * 100 : 0}%`}></i></span></div>`}
       ${groups.map(g => html`<div class="frow"><span class=${'ext ' + g.ext}>${g.ext.toUpperCase()}</span><div><b>${g.name}</b><small>${g.sub}</small></div><span class="cnt">${g.cnt} ${g.bad ? '' : html`<i>✓</i>`}</span></div>`)}
@@ -508,7 +553,7 @@ function AuditPage() {
 
 // ───────────────────────── 4. 청구 대조 알림 (EHR 화면 옆) ─────────────────────────
 const pendingList = () => Object.values(S.db.pending).sort((a, b) => (a.date + a.op).localeCompare(b.date + b.op));
-function selectOp(op) { S.ehr = { ...S.ehr, op, result: null, scan: null, dismissed: {}, hl: null, hlRaw: null, entry: { code: '', qty: '' }, busy: false }; draw(); if (op) doRead(); }
+function selectOp(op) { S.ehr = { ...S.ehr, op, result: null, scan: null, dismissed: {}, hl: null, hlRaw: null, entry: { code: '', qty: '' }, busy: false }; draw(); if (op && S.win.cl) doRead(); }
 async function doRead() {
   const E = S.ehr, db = S.db, op = E.op;
   if (!op || !db.pending[op] || E.busy) return;
@@ -603,21 +648,21 @@ function showRow(code, raw) { S.ehr.hl = code; S.ehr.hlRaw = raw || null; draw()
 function fillEntry(code, qty, raw) { S.ehr.entry = { code, qty: String(qty) }; S.ehr.hl = null; S.ehr.hlRaw = raw || null; draw(); setTimeout(() => document.getElementById('entry-code')?.focus(), 30); }
 
 // ── 병원 EHR(HIS) 창: CartLoop와 무관한 남의 프로그램이다. 윈도우 위에 떠 있는 병원 전산 화면 모양으로 그린다. ──
-const HisWin = ({ title, id, kinds, menu = true, status, children }) => html`<section class=${'his' + (kinds ? scanningWin(kinds) : '')} id=${id}>
+const HisWin = ({ title, id, kinds, menu = true, status, onClose, children }) => html`<section class=${'his' + (kinds ? scanningWin(kinds) : '')} id=${id}>
   ${kinds && scanningWin(kinds) ? html`<div class="capture"><${Logo} />CartLoop이 이 화면의 글자를 읽는 중</div>` : ''}
-  <div class="his-title"><span class="his-ico">H</span><span>OO병원 통합의료정보시스템 - [${title}]</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x">✕</i></span></div>
+  <div class="his-title"><span class="his-ico">H</span><span>OO병원 통합의료정보시스템 - [${title}]</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${onClose}>✕</i></span></div>
   ${menu && html`<div class="his-menu"><span>파일(F)</span><span>편집(E)</span><span>조회(V)</span><span>서식(O)</span><span>창(W)</span><span>도움말(H)</span></div>
   <div class="his-tool"><button>조회</button><button>저장</button><button>인쇄</button><button>임시저장</button><span class="sep"></span><button>이전 기록</button><button>원무 전송</button></div>`}
   ${children}
   <div class="his-status"><span>${status || '조회 완료'}</span><span>사용자: 수술실 간호사</span><span>HIS-APP07</span><span>가상 데이터</span></div>
 </section>`;
-function EHRRecordWin({ p, id = 'win-ehr-record' }) {
+function EHRRecordWin({ p, id = 'win-ehr-record', onClose }) {
   const E = S.ehr, r = p.rec;
   if (!r) return html`<${HisWin} title="수술간호기록" id=${id}><div class="his-empty">이 수술은 기록지가 없습니다.</div><//>`;
   const mats = r.lines.filter(l => l.src === 'material'), drains = r.lines.filter(l => l.src === 'drain');
   const dept = /신경/.test(r.dept) ? 'NS' : /정형/.test(r.dept) ? 'OS' : r.dept;
   const f = (label, value, w) => html`<label>${label}<input readonly value=${value || ''} style=${w ? `width:${w}px` : ''} /></label>`;
-  return html`<${HisWin} title="수술간호기록" id=${id} kinds=${['meta', 'rec', 'drain']} status=${`수술간호기록 1건 조회 · 재료 ${mats.length}줄`}>
+  return html`<${HisWin} title="수술간호기록" id=${id} onClose=${onClose} kinds=${['meta', 'rec', 'drain']} status=${`수술간호기록 1건 조회 · 재료 ${mats.length}줄`}>
     <div class=${'his-form' + scanCls('meta', 0)}>${f('수술번호', p.op, 92)}${f('수술일', r.date, 84)}${f('등록번호', r.pid, 78)}${f('진료과', r.dept, 74)}${f('집도의', r.surgeon, 62)}${f('수술실', r.room, 62)}</div>
     <div class=${'his-form' + scanCls('meta', 1)}>${f('진단명', r.diagnosis || r.site, 210)}${f('수술명', r.opName, 360)}</div>
     <div class="his-sec">■ Implants</div>
@@ -632,11 +677,11 @@ function EHRRecordWin({ p, id = 'win-ehr-record' }) {
     </tbody></table>
   <//>`;
 }
-function EHRClaimWin({ p, id = 'win-ehr-claim', readonly }) {
+function EHRClaimWin({ p, id = 'win-ehr-claim', readonly, onClose }) {
   const E = S.ehr, db = S.db;
   const ec = E.entry.code?.trim().toUpperCase();
   const total = p.claim.lines.reduce((n, l) => n + l.amount, 0);
-  return html`<${HisWin} title="수술 재료 청구 목록 (원무 전송 전)" id=${id} kinds=${readonly ? null : ['claim']} menu=${false} status=${`${p.claim.lines.length}줄 · 합계 ${total.toLocaleString()}원`}>
+  return html`<${HisWin} title="수술 재료 청구 목록 (원무 전송 전)" id=${id} onClose=${onClose} kinds=${readonly ? null : ['claim']} menu=${false} status=${`${p.claim.lines.length}줄 · 합계 ${total.toLocaleString()}원`}>
     <div class="his-scroll" id=${id + '-scroll'}><table class="his-grid"><thead><tr><th style="width:30px">순번</th><th>재료코드</th><th>재료명</th><th>규격</th><th>수량</th><th>단가</th><th>급여구분</th><th></th></tr></thead><tbody>
       ${p.claim.lines.map((l, i) => html`<tr class=${(E.hl === l.code ? 'hl' : '') + (readonly ? '' : scanCls('claim', i))} id=${readonly ? null : 'cl-' + l.code}><td class="no" id=${readonly ? null : 'crow-' + i}>${i + 1}</td><td>${l.code}</td><td>${l.name}</td><td>${l.spec}</td>
         <td class="c"><input type="number" min="0" style="width:44px" value=${l.qty} disabled=${readonly} onChange=${e => claimQty(i, e.target.value)} /></td><td class="r">${l.price.toLocaleString()}</td><td>${l.benefit}</td>
@@ -705,27 +750,32 @@ function AssistWin({ p, id = 'win-assist', actions = true }) {
   </div><//>`;
 }
 function EHRScene() {
-  const db = S.db, E = S.ehr;
-  const list = pendingList();
-  const p = E.op ? db.pending[E.op] : null;
-  useEffect(() => { if (!S.ehr.op && list.length) selectOp(list[0].op); else if (S.ehr.op && db.pending[S.ehr.op] && !S.ehr.result && !S.ehr.busy) doRead(); }, [E.op]);
-  const doneN = Object.values(db.records).filter(r => r.date >= db.installDate).length;
-  return html`<div class="scene">
-    <${HisWin} title="수술 스케줄" id="win-his-list" menu=${false} status=${`대기 ${list.length}건 · 기록 완료 ${doneN}건`}>
+  const db = S.db, E = S.ehr, cl = S.win.cl && !!db;
+  const list = db ? pendingList() : [];
+  const p = db && E.op ? db.pending[E.op] : null;
+  useEffect(() => {
+    if (!db) return;
+    if (!S.ehr.op && list.length) selectOp(list[0].op);
+    else if (cl && S.ehr.op && db.pending[S.ehr.op] && !S.ehr.result && !S.ehr.busy) doRead(); // CartLoop를 켜면 지금 화면부터 읽는다
+  }, [E.op, cl]);
+  const doneN = db ? Object.values(db.records).filter(r => r.date >= db.installDate).length : 0;
+  const x = () => closeApp('his');
+  return html`<div class=${'scene' + (cl ? '' : ' nocl')}>
+    <${HisWin} title="수술 스케줄" id="win-his-list" menu=${false} onClose=${x} status=${`대기 ${list.length}건 · 기록 완료 ${doneN}건`}>
       <div class="his-scroll tall"><table class="his-grid pick"><thead><tr><th>수술번호</th><th>일자</th><th>집도의</th><th>수술명</th></tr></thead><tbody>
         ${list.map(x => html`<tr class=${x.op === E.op ? 'sel' : ''} onClick=${() => selectOp(x.op)}><td>${x.op}</td><td class="c">${x.date.slice(5)}</td><td class="c">${x.rec?.surgeon || ''}</td><td>${x.rec ? (x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 16) : '기록 없음'}</td></tr>`)}
-        ${!list.length && html`<tr><td colspan="4" style="color:#777;text-align:center;height:60px">대기 중인 수술이 없습니다</td></tr>`}
+        ${!list.length && html`<tr><td colspan="4" style="color:#777;text-align:center;height:60px">${db ? '대기 중인 수술이 없습니다' : '조회된 수술이 없습니다'}</td></tr>`}
       </tbody></table></div>
     <//>
-    <div class="stack" id="ehr-pair">${p && p.claim ? html`<${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} />` : html`<${HisWin} title="수술간호기록" id="win-ehr-record"><div class="his-empty">수술 스케줄에서 수술을 선택하십시오.</div><//>`}</div>
-    <section class="appwin compact" id="cl-compact">
-      <div class="apptitle"><${Logo} /><b>CartLoop</b><span>청구 도우미</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${() => go('start')}>✕</i></span></div>
-      <div class="cltool"><a class="mini" href="#/start">☰ CartLoop 전체 창 열기</a>
+    <div class="stack" id="ehr-pair">${p && p.claim ? html`<${EHRRecordWin} p=${p} onClose=${x} /><${EHRClaimWin} p=${p} onClose=${x} />` : html`<${HisWin} title="수술간호기록" id="win-ehr-record" onClose=${x}><div class="his-empty">수술 스케줄에서 수술을 선택하십시오.</div><//>`}</div>
+    ${cl && html`<section class="appwin compact" id="cl-compact">
+      <div class="apptitle"><${Logo} /><b>CartLoop</b><span>청구 도우미</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${() => closeApp('cl')}>✕</i></span></div>
+      <div class="cltool"><button class="mini" onClick=${() => { S.focus = 'cl'; draw(); }}>☰ CartLoop 전체 창 열기</button>
         ${S.batch ? html`<span class="small num" style="margin-left:auto">읽는 중 ${S.batch.d} / ${S.batch.n}</span>` : list.length ? html`<button class="mini" style="margin-left:auto" onClick=${() => runBatch()}>남은 ${list.length}건 모두 읽기</button>` : ''}</div>
       ${p && p.claim ? html`<${AssistWin} p=${p} />` : html`<div class="wbody"><div class="hero"><div><div class="wh">${list.length ? html`EHR 화면을 <em>기다리고 있어요</em>` : html`설치 후 수술을 <em>모두 읽었어요</em>`}</div>
         <p>${list.length ? 'EHR에서 수술을 열면 화면의 글자를 읽어 청구 목록과 대조합니다.' : `수술 ${doneN}건을 Loop DB v${db.version}에 반영했습니다.`}</p></div><img src="img/mascot.png" alt="" /></div>
         ${!list.length && html`<div class="btnrow"><a class="btn" href="#/db">갱신 내역</a><a class="btn" href="#/sets">세트 개정안</a><a class="btn pri" href="#/validate">정답지 채점</a></div>`}</div>`}
-    </section>
+    </section>`}
   </div>`;
 }
 
@@ -917,39 +967,61 @@ function Clock() {
   useEffect(() => { const t = setInterval(() => setNow(new Date()), 30000); return () => clearInterval(t); }, []);
   return html`<span class="tray num"><span>한</span><span style="text-align:right">${now.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' })}<br />${now.toLocaleDateString('ko-KR')}</span></span>`;
 }
-function Taskbar({ route }) {
-  const inEhr = route === 'ehr';
+function Taskbar({ view }) {
+  const btn = (app, label, icon, on) => html`<button class=${'tbapp' + (S.win[app] ? ' run' : '') + (on ? ' on' : '')} onClick=${() => openApp(app)} title=${label}>${icon}${label}</button>`;
   return html`<div class="taskbar"><span></span>
     <span class="tbicons"><span class="winlogo"><i></i><i></i><i></i><i></i></span><span class="tbsearch">🔍 검색</span>
-      <a class=${'tbapp' + (S.db ? ' run' : '') + (inEhr ? ' on' : '')} href=${S.db ? '#/ehr' : '#/start'} title="OO병원 HIS"><span class="his-ico">H</span>OO병원 HIS</a>
-      <a class=${'tbapp run' + (inEhr ? '' : ' on')} href=${inEhr ? '#/start' : '#/' + route} title="CartLoop"><span class="tblogo"><${Logo} /></span>CartLoop</a></span>
+      ${btn('data', '파일 탐색기', html`<span>📁</span>`, S.win.data)}
+      ${btn('his', 'OO병원 HIS', html`<span class="his-ico">H</span>`, view === 'his')}
+      ${btn('cl', 'CartLoop', html`<span class="tblogo"><${Logo} /></span>`, view === 'cl' || (view === 'his' && S.win.cl))}</span>
     <${Clock} /></div>`;
 }
 function DeskIcons() {
-  const icon = (label, glyph, cls, href) => html`<a class="dicon" href=${href}><span class=${'dglyph ' + cls}>${glyph}</span><span>${label}</span></a>`;
+  const icon = (label, glyph, cls, app) => html`<button class="dicon" onClick=${app ? () => openApp(app) : null} onDblClick=${app ? () => openApp(app) : null}><span class=${'dglyph ' + cls}>${glyph}</span><span>${label}</span></button>`;
   return html`<div class="dicons">
-    ${icon('내 PC', '🖥', '', '#/' + S.route)}
-    ${icon('OO병원 HIS', 'H', 'his', S.db ? '#/ehr' : '#/start')}
-    ${icon('CartLoop', html`<${Logo} />`, 'cl', '#/start')}
-    ${icon('가상 데이터 셋', '📁', '', '#/start')}
-    ${icon('휴지통', '🗑', '', '#/' + S.route)}
+    ${icon('내 PC', '🖥', '')}
+    ${icon('OO병원 HIS', 'H', 'his', 'his')}
+    ${icon('CartLoop', html`<${Logo} />`, 'cl', 'cl')}
+    ${icon('가상 데이터 셋', '📁', '', 'data')}
+    ${icon('휴지통', '🗑', '')}
   </div>`;
 }
-// 웹을 열면 가상 윈도우 바탕화면이 보인다. CartLoop는 그 위에 떠 있는 프로그램 창이고, EHR(HIS)은 별개의 프로그램이다.
+// 파일 탐색기: 가상 데이터 셋 폴더. 선택한 항목을 CartLoop 창으로 끌어다 놓을 수 있다.
+function Explorer() {
+  const ex = S.explorer;
+  const items = ex?.items || [], sel = ex?.sel || {};
+  const nSel = items.filter(i => sel[i.key]).length;
+  const drag = e => { const keys = items.filter(i => sel[i.key]).map(i => i.key); if (!keys.length) { e.preventDefault(); return; } e.dataTransfer.setData('text/x-cartloop-sample', JSON.stringify(keys)); e.dataTransfer.effectAllowed = 'copy'; };
+  return html`<section class="explorer" id="win-explorer">
+    <div class="his-title"><span>📁</span><span>가상 데이터 셋</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${() => closeApp('data')}>✕</i></span></div>
+    <div class="ex-addr"><span>←</span><span>→</span><span>↑</span><span class="ex-path">내 PC › 문서 › OO병원 › 가상 데이터 셋</span></div>
+    <table class="ex-list"><thead><tr><th>이름</th><th>유형</th><th>크기</th></tr></thead><tbody>
+      ${items.map(i => html`<tr class=${sel[i.key] ? 'sel' : ''} draggable="true" onDragStart=${drag} onClick=${e => { if (e.ctrlKey || e.metaKey) sel[i.key] = !sel[i.key]; else { items.forEach(x => sel[x.key] = false); sel[i.key] = true; } draw(); }}>
+        <td><span class="ex-ico">${i.folder ? '📁' : i.name.endsWith('.csv') ? '📊' : '📄'}</span>${i.name}</td><td>${i.type}</td><td>${i.size}</td></tr>`)}
+      ${!ex && html`<tr><td colspan="3" style="color:#777">불러오는 중…</td></tr>`}
+    </tbody></table>
+    <div class="ex-status"><span>${items.length}개 항목</span><span>${nSel}개 항목 선택함</span><button onClick=${() => { items.forEach(x => sel[x.key] = true); draw(); }}>모두 선택</button></div>
+  </section>`;
+}
+// 웹을 열면 가상 윈도우 바탕화면만 보인다. 아이콘을 눌러 프로그램(CartLoop · OO병원 HIS · 가상 데이터 셋 폴더)을 켠다.
 function App() {
   const pages = { start: StartPage, db: DBPage, audit: AuditPage, sets: SetsPage, ask: AskPage, validate: ValidatePage };
-  let route = S.db || S.route === 'start' ? S.route : 'start';
-  if (route !== 'ehr' && !pages[route]) route = 'start';
+  let route = pages[S.route] ? S.route : S.lastRoute;
+  if (!S.db || !pages[route]) route = 'start';
   const Page = pages[route];
+  // 지금 앞에 보이는 것: HIS 장면(옆에 CartLoop 도우미) 또는 CartLoop 전체 창 또는 빈 바탕화면
+  const view = S.win.his && (S.focus === 'his' || !S.win.cl) ? 'his' : S.win.cl ? 'cl' : 'none';
   return html`<div class="desktop">
     <div class="deskarea">
       <${DeskIcons} />
-      ${route === 'ehr' ? html`<${EHRScene} />` : html`<section class="appwin" id="cl-main">
-        <div class="apptitle"><${Logo} /><b>CartLoop</b><span>${ROUTE_TITLE[route]}</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x">✕</i></span></div>
+      ${view === 'his' && html`<${EHRScene} />`}
+      ${view === 'cl' && html`<section class="appwin" id="cl-main">
+        <div class="apptitle"><${Logo} /><b>CartLoop</b><span>${ROUTE_TITLE[route]}</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${() => closeApp('cl')}>✕</i></span></div>
         <div class="shell"><${Side} /><main class="main"><${Page} /></main></div>
       </section>`}
+      ${S.win.data && html`<${Explorer} />`}
     </div>
-    <${Taskbar} route=${route} />
+    <${Taskbar} view=${view} />
     ${S.toast && html`<div class="toast" role="status">${S.toast}</div>`}
   </div>`;
 }
@@ -959,9 +1031,11 @@ function App() {
   if (saved?.db) { S.db = saved.db; S.snap = saved.snap; S.chat = saved.chat || []; }
   const qs = new URLSearchParams(location.search);
   if (qs.get('cache') === '1') S.mode = 'cache';
+  if (S.route !== 'ehr') S.lastRoute = S.route;
+  if (qs.get('demo') === '1' || qs.get('open') === 'cl') S.win.cl = true;
   draw();
   try { S.health = await (await fetch('/api/llm')).json(); draw(); } catch { /* 연결 정보 없이도 화면은 뜬다 */ }
-  window.__cartloop = { S, draw, runBatch: () => runBatch(true), runValidation, ask, go, selectOp, startBuild, stageSample: () => stageFiles(fetchSample) };
+  window.__cartloop = { S, draw, runBatch: () => runBatch(true), runValidation, ask, go, selectOp, startBuild, openApp, closeApp, stageSample: () => stageFiles(fetchSample) };
   // 시연용 자동 실행: ?demo=1 이면 가상 병원 데이터를 올리고 바로 분석한다
   if (qs.get('demo') === '1' && !S.db) { await stageFiles(fetchSample); if (qs.get('stay') !== '1') startBuild(); }
 })();
