@@ -648,21 +648,19 @@ function showRow(code, raw) { S.ehr.hl = code; S.ehr.hlRaw = raw || null; draw()
 function fillEntry(code, qty, raw) { S.ehr.entry = { code, qty: String(qty) }; S.ehr.hl = null; S.ehr.hlRaw = raw || null; draw(); setTimeout(() => document.getElementById('entry-code')?.focus(), 30); }
 
 // ── 병원 EHR(HIS) 창: CartLoop와 무관한 남의 프로그램이다. 윈도우 위에 떠 있는 병원 전산 화면 모양으로 그린다. ──
-const HisWin = ({ title, id, kinds, menu = true, status, onClose, children }) => html`<section class=${'his' + (kinds ? scanningWin(kinds) : '')} id=${id}>
+const HisPane = ({ title, id, kinds, cls = '', status, children }) => html`<div class=${'his-pane ' + cls + (kinds ? scanningWin(kinds) : '')} id=${id}>
   ${kinds && scanningWin(kinds) ? html`<div class="capture"><${Logo} />CartLoop이 이 화면의 글자를 읽는 중</div>` : ''}
-  <div class="his-title"><span class="his-ico">H</span><span>OO병원 통합의료정보시스템 - [${title}]</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${onClose}>✕</i></span></div>
-  ${menu && html`<div class="his-menu"><span>파일(F)</span><span>편집(E)</span><span>조회(V)</span><span>서식(O)</span><span>창(W)</span><span>도움말(H)</span></div>
-  <div class="his-tool"><button>조회</button><button>저장</button><button>인쇄</button><button>임시저장</button><span class="sep"></span><button>이전 기록</button><button>원무 전송</button></div>`}
+  <div class="his-cap"><span>${title}</span><span class="his-capx">─ ☐ ✕</span></div>
   ${children}
-  <div class="his-status"><span>${status || '조회 완료'}</span><span>사용자: 수술실 간호사</span><span>HIS-APP07</span><span>가상 데이터</span></div>
-</section>`;
+  ${status && html`<div class="his-pstat">${status}</div>`}
+</div>`;
 function EHRRecordWin({ p, id = 'win-ehr-record', onClose }) {
   const E = S.ehr, r = p.rec;
-  if (!r) return html`<${HisWin} title="수술간호기록" id=${id}><div class="his-empty">이 수술은 기록지가 없습니다.</div><//>`;
+  if (!r) return html`<${HisPane} title="수술간호기록" id=${id}><div class="his-empty">이 수술은 기록지가 없습니다.</div><//>`;
   const mats = r.lines.filter(l => l.src === 'material'), drains = r.lines.filter(l => l.src === 'drain');
   const dept = /신경/.test(r.dept) ? 'NS' : /정형/.test(r.dept) ? 'OS' : r.dept;
   const f = (label, value, w) => html`<label>${label}<input readonly value=${value || ''} style=${w ? `width:${w}px` : ''} /></label>`;
-  return html`<${HisWin} title="수술간호기록" id=${id} onClose=${onClose} kinds=${['meta', 'rec', 'drain']} status=${`수술간호기록 1건 조회 · 재료 ${mats.length}줄`}>
+  return html`<${HisPane} title="수술간호기록" id=${id} onClose=${onClose} kinds=${['meta', 'rec', 'drain']} status=${`수술간호기록 1건 조회 · 재료 ${mats.length}줄`}>
     <div class=${'his-form' + scanCls('meta', 0)}>${f('수술번호', p.op, 92)}${f('수술일', r.date, 84)}${f('등록번호', r.pid, 78)}${f('진료과', r.dept, 74)}${f('집도의', r.surgeon, 62)}${f('수술실', r.room, 62)}</div>
     <div class=${'his-form' + scanCls('meta', 1)}>${f('진단명', r.diagnosis || r.site, 210)}${f('수술명', r.opName, 360)}</div>
     <div class="his-sec">■ Implants</div>
@@ -681,7 +679,7 @@ function EHRClaimWin({ p, id = 'win-ehr-claim', readonly, onClose }) {
   const E = S.ehr, db = S.db;
   const ec = E.entry.code?.trim().toUpperCase();
   const total = p.claim.lines.reduce((n, l) => n + l.amount, 0);
-  return html`<${HisWin} title="수술 재료 청구 목록 (원무 전송 전)" id=${id} onClose=${onClose} kinds=${readonly ? null : ['claim']} menu=${false} status=${`${p.claim.lines.length}줄 · 합계 ${total.toLocaleString()}원`}>
+  return html`<${HisPane} cls="grow" title="수술 재료 청구 목록 (원무 전송 전)" id=${id} onClose=${onClose} kinds=${readonly ? null : ['claim']} menu=${false} status=${`${p.claim.lines.length}줄 · 합계 ${total.toLocaleString()}원`}>
     <div class="his-scroll" id=${id + '-scroll'}><table class="his-grid"><thead><tr><th style="width:30px">순번</th><th>재료코드</th><th>재료명</th><th>규격</th><th>수량</th><th>단가</th><th>급여구분</th><th></th></tr></thead><tbody>
       ${p.claim.lines.map((l, i) => html`<tr class=${(E.hl === l.code ? 'hl' : '') + (readonly ? '' : scanCls('claim', i))} id=${readonly ? null : 'cl-' + l.code}><td class="no" id=${readonly ? null : 'crow-' + i}>${i + 1}</td><td>${l.code}</td><td>${l.name}</td><td>${l.spec}</td>
         <td class="c"><input type="number" min="0" style="width:44px" value=${l.qty} disabled=${readonly} onChange=${e => claimQty(i, e.target.value)} /></td><td class="r">${l.price.toLocaleString()}</td><td>${l.benefit}</td>
@@ -761,13 +759,21 @@ function EHRScene() {
   const doneN = db ? Object.values(db.records).filter(r => r.date >= db.installDate).length : 0;
   const x = () => closeApp('his');
   return html`<div class=${'scene' + (cl ? '' : ' nocl')}>
-    <${HisWin} title="수술 스케줄" id="win-his-list" menu=${false} onClose=${x} status=${`대기 ${list.length}건 · 기록 완료 ${doneN}건`}>
-      <div class="his-scroll tall"><table class="his-grid pick"><thead><tr><th>수술번호</th><th>일자</th><th>집도의</th><th>수술명</th></tr></thead><tbody>
-        ${list.map(x => html`<tr class=${x.op === E.op ? 'sel' : ''} onClick=${() => selectOp(x.op)}><td>${x.op}</td><td class="c">${x.date.slice(5)}</td><td class="c">${x.rec?.surgeon || ''}</td><td>${x.rec ? (x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 16) : '기록 없음'}</td></tr>`)}
-        ${!list.length && html`<tr><td colspan="4" style="color:#777;text-align:center;height:60px">${db ? '대기 중인 수술이 없습니다' : '조회된 수술이 없습니다'}</td></tr>`}
-      </tbody></table></div>
-    <//>
-    <div class="stack" id="ehr-pair">${p && p.claim ? html`<${EHRRecordWin} p=${p} onClose=${x} /><${EHRClaimWin} p=${p} onClose=${x} />` : html`<${HisWin} title="수술간호기록" id="win-ehr-record" onClose=${x}><div class="his-empty">수술 스케줄에서 수술을 선택하십시오.</div><//>`}</div>
+    <section class="his" id="win-his">
+      <div class="his-title"><span class="his-ico">H</span><span>OO병원 통합의료정보시스템 - 수술실</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${x}>✕</i></span></div>
+      <div class="his-menu"><span>파일(F)</span><span>편집(E)</span><span>조회(V)</span><span>서식(O)</span><span>창(W)</span><span>도움말(H)</span></div>
+      <div class="his-tool"><button>조회</button><button>저장</button><button>인쇄</button><button>임시저장</button><span class="sep"></span><button>이전 기록</button><button>원무 전송</button><span class="sep"></span><button>수술 스케줄</button><button>수술간호기록</button><button>재료 청구</button></div>
+      <div class="his-body">
+        <${HisPane} title="수술 스케줄" id="win-his-list" cls="grow">
+          <div class="his-scroll fill"><table class="his-grid pick"><thead><tr><th>수술번호</th><th>일자</th><th>집도의</th><th>수술명</th></tr></thead><tbody>
+            ${list.map(x => html`<tr class=${x.op === E.op ? 'sel' : ''} onClick=${() => selectOp(x.op)}><td>${x.op}</td><td class="c">${x.date.slice(5)}</td><td class="c">${x.rec?.surgeon || ''}</td><td>${x.rec ? (x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 16) : '기록 없음'}</td></tr>`)}
+            ${!list.length && html`<tr><td colspan="4" style="color:#777;text-align:center;height:60px">${db ? '대기 중인 수술이 없습니다' : '조회된 수술이 없습니다'}</td></tr>`}
+          </tbody></table></div>
+        <//>
+        <div class="his-right" id="ehr-pair">${p && p.claim ? html`<${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} />` : html`<${HisPane} title="수술간호기록" id="win-ehr-record" cls="grow"><div class="his-empty">수술 스케줄에서 수술을 선택하십시오.</div><//>`}</div>
+      </div>
+      <div class="his-status"><span>대기 ${list.length}건 · 기록 완료 ${doneN}건</span><span>사용자: 수술실 간호사</span><span>HIS-APP07</span><span>가상 데이터</span></div>
+    </section>
     ${cl && html`<section class="appwin compact" id="cl-compact">
       <div class="apptitle"><${Logo} /><b>CartLoop</b><span>청구 도우미</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x" onClick=${() => closeApp('cl')}>✕</i></span></div>
       <div class="cltool"><button class="mini" onClick=${() => { S.focus = 'cl'; draw(); }}>☰ CartLoop 전체 창 열기</button>

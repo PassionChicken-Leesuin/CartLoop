@@ -338,3 +338,25 @@ button.tbapp:hover, button.tbapp.on { background: #ffffffd0; }
 .ex-ico { margin-right: 8px; }
 .ex-status { display: flex; gap: 16px; align-items: center; padding: 5px 12px; border-top: 1px solid #ececec; color: #555; font-size: 12px; }
 .ex-status button { margin-left: auto; font: inherit; border: 1px solid #c9c9c9; background: #fbfbfb; border-radius: 4px; padding: 1px 10px; cursor: pointer; }
+
+/* ───────── HIS는 프로그램 창 하나. 그 안에 화면 셋(수술 스케줄 · 수술간호기록 · 청구 목록)이 떠 있다 ───────── */
+.scene { grid-template-columns: minmax(0, 1fr) 392px; overflow: hidden; }
+.scene.nocl { grid-template-columns: minmax(0, 1fr); padding-right: 18px; }
+.scene > .his { height: calc(100vh - 80px); display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; }
+.his-body { display: grid; grid-template-columns: 286px minmax(0, 1fr); gap: 6px; padding: 6px; background: #aab7c9; min-height: 0; }
+.his-right { display: flex; flex-direction: column; gap: 6px; min-width: 0; min-height: 0; }
+.his-pane { position: relative; background: #f0f0f0; border: 1px solid #5f6b7c; display: flex; flex-direction: column; min-width: 0; min-height: 0; box-shadow: 1px 1px 0 #ffffff80 inset; }
+.his-pane.grow { flex: 1; }
+.his-right > .his-pane:not(.grow) { flex: none; max-height: 58%; overflow-y: auto; }
+.his-cap { display: flex; align-items: center; background: linear-gradient(#6b8fc4, #3f66a0); color: #fff; font-weight: 700; padding: 3px 8px; flex: none; }
+.his-capx { margin-left: auto; font-weight: 400; letter-spacing: 6px; font-size: 10px; opacity: .85; }
+.his-pstat { flex: none; padding: 2px 9px; background: #e6e6e6; border-top: 1px solid #b5b5b5; color: #333; font-size: 11.5px; }
+.his-scroll.fill, .his-pane.grow > .his-scroll { flex: 1; max-height: none; min-height: 0; overflow-y: auto; background: #fff; }
+.his-pane .his-entry { flex: none; }
+.his-sec { background: #d5e0ef; color: #1d3557; border-top: 1px solid #aab7c9; border-bottom: 1px solid #aab7c9; margin-top: 4px; }
+/* 읽는 표시는 창 전체가 아니라 읽고 있는 화면(칸)에 붙는다 */
+.his.scanning { outline: none; }
+.his-pane.scanning { outline: 2px dashed #19b3a3; outline-offset: 2px; z-index: 2; }
+.his-pane .capture { top: 2px; right: 70px; }
+.scene .appwin.compact { max-height: calc(100vh - 80px); }
+@media (max-width: 1250px) { .scene { grid-template-columns: 1fr; overflow-y: auto; } .scene > .his { height: auto; } .his-body { grid-template-columns: 1fr; } }
