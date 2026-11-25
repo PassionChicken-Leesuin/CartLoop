@@ -29,9 +29,6 @@ node tools/score.mjs --detail         # 정답지와 비교
 
 ## 배포
 
-```
-cd cartloop
-npx vercel deploy --prod --yes
-```
+`main` 에 푸시하면 Vercel이 자동으로 배포한다 (프로젝트 루트 폴더는 `cartloop/`). 다른 브랜치에 푸시하면 미리보기 주소가 따로 생긴다.
 
 키는 Vercel 환경변수 `OPENROUTER_KEYS` 에 쉼표로 이어 넣는다.
