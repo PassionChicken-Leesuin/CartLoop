@@ -74,6 +74,9 @@ export function buildContext(db, question) {
     for (const r of Object.values(db.records)) if (r.setCode && r.lines.some(l => m.fams.includes(l.family))) cnt[r.setCode] = (cnt[r.setCode] || 0) + 1;
     picked = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([c]) => db.sets[c]).filter(Boolean);
   }
+  // "2레벨"처럼 레벨을 말했으면 그 레벨의 세트를 앞에 둔다
+  const lv = /(\d)\s*레벨/.exec(question);
+  if (lv && picked.some(s => s.level.startsWith(lv[1]))) picked = [...picked.filter(s => s.level.startsWith(lv[1])), ...picked.filter(s => !s.level.startsWith(lv[1]))];
   for (const s of picked.slice(0, 5)) out.push(setBlock(db, s, m.fams));
 
   for (const f of m.fams.slice(0, 4)) {
