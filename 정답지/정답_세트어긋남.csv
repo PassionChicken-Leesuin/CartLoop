@@ -1,0 +1,4 @@
+﻿시점,setCode,version,action,kind,code,name,spec,setQty,newQty,hits,window
+설치 시점(2025-09-30까지),SET-A-TLIF2,v12,add,소모품,M1253253,EASYFOAM SILICONE BORDER (10*10CM / EA),10*10CM,0,1,17,20
+설치 시점(2025-09-30까지),SET-A-TLIF2,v12,remove,소모품,M3371317,EASYFOAM SILICONE BORDER (5*5CM / EA),5*5CM,1,0,20,20
+3개월 뒤(2025-12-31까지),SET-A-TLIF2,v12,remove,소모품,M3371317,EASYFOAM SILICONE BORDER (5*5CM / EA),5*5CM,1,0,20,20

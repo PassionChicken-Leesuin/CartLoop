@@ -1,0 +1,54 @@
+﻿id,op,date,유형,type,code,name,spec,recQty,claimQty,otherCode,basis
+E001,OP25-0043,2025-01-07,수량 불일치,qty_mismatch,E0767371,슬관절전치환용 FEMORAL COMPONENT(일반형) CR,size 6,1,2,,기록지와 청구 수량이 다름
+E002,OP25-0066,2025-01-13,청구 누락,missing,E2053736,고관절치환용 LINER (XLPE),32mm,1,0,,기록지에 있으나 청구 목록에 없음
+E003,OP25-0082,2025-01-20,수량 불일치,qty_mismatch,M1779797,COLLASTAT 6ml,6ml,1,2,,기록지와 청구 수량이 다름
+E004,OP25-0132,2025-01-24,청구 누락,missing,D9790112,PEEK SUTURE ANCHOR,4.5mm,2,0,,기록지에 있으나 청구 목록에 없음
+E005,OP25-0192,2025-02-04,기록 없는 청구,unrecorded,T3704236,BMP2 0.5cc,0.5cc,0,1,,청구 목록에 있으나 기록지에 없음
+E006,OP25-0261,2025-02-17,기록 없는 청구,unrecorded,T3704236,BMP2 0.5cc,0.5cc,0,1,,청구 목록에 있으나 기록지에 없음
+E007,OP25-0315,2025-02-25,기록 없는 청구,unrecorded,T3704236,BMP2 0.5cc,0.5cc,0,1,,청구 목록에 있으나 기록지에 없음
+E008,OP25-0374,2025-03-04,청구 누락,missing,D5197076,PEEK SUTURE ANCHOR,5.5mm,2,0,,기록지에 있으나 청구 목록에 없음
+E009,OP25-0426,2025-03-12,수량 불일치,qty_mismatch,F6696026,LNK SPINAL FIXATION SYSTEM ROD (Accelfix),5.5*70,2,1,,기록지와 청구 수량이 다름
+E010,OP25-0444,2025-03-14,수량 불일치,qty_mismatch,M4282896,COLLASTAT 3ml,3ml,1,2,,기록지와 청구 수량이 다름
+E011,OP25-0543,2025-04-02,수량 불일치,qty_mismatch,F3469012,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),6.5*45,6,5,,기록지와 청구 수량이 다름
+E012,OP25-0575,2025-04-07,청구 누락,missing,F8929860,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),7.5*50,1,0,,기록지에 있으나 청구 목록에 없음
+E013,OP25-1051,2025-06-16,청구 누락,missing,F5101876,LNK SPINAL FIXATION SYSTEM ROD (Accelfix),5.5*50,2,0,,기록지에 있으나 청구 목록에 없음
+E014,OP25-1181,2025-07-07,청구 누락,missing,E1350187,고관절치환용 FEMORAL COMPONENT-무시멘트형 STEM (일반형),size 5,1,0,,기록지에 있으나 청구 목록에 없음
+E015,OP25-1190,2025-07-08,수량 불일치,qty_mismatch,D9790112,PEEK SUTURE ANCHOR,4.5mm,2,1,,기록지와 청구 수량이 다름
+E016,OP25-1288,2025-07-25,청구 누락,missing,D9790112,PEEK SUTURE ANCHOR,4.5mm,2,0,,기록지에 있으나 청구 목록에 없음
+E017,OP25-1428,2025-08-25,청구 누락,missing,C1598253,CANNULATED SCREW(TITANIUM),6.5*90,2,0,,기록지에 있으나 청구 목록에 없음
+E018,OP25-1500,2025-09-10,수량 불일치,qty_mismatch,K6032875,HEMOVAC PP 400ml,PP 400ml,1,2,,기록지와 청구 수량이 다름
+E019,OP25-1502,2025-09-10,규격 불일치,spec_mismatch,E3064530,고관절치환용 ACETABULAR CUP,52mm,1,1,E5017814,기록 52mm · 청구 56mm
+E020,OP25-1691,2025-09-25,기록 없는 청구,unrecorded,K9973687,HEMOVAC PP 200ml,PP 200ml,0,1,,청구 목록에 있으나 기록지에 없음
+E021,OP25-1744,2025-10-06,수량 불일치,qty_mismatch,F3469012,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),6.5*45,6,5,,기록지와 청구 수량이 다름
+E022,OP25-1821,2025-10-20,수량 불일치,qty_mismatch,M1779797,COLLASTAT 6ml,6ml,1,2,,기록지와 청구 수량이 다름
+E023,OP25-1847,2025-10-23,수량 불일치,qty_mismatch,C0472602,CANNULATED SCREW(TITANIUM),6.5*80,1,2,,기록지와 청구 수량이 다름
+E024,OP25-1885,2025-10-31,청구 누락,missing,K6032875,HEMOVAC PP 400ml,PP 400ml,1,0,,기록지에 있으나 청구 목록에 없음
+E025,OP25-1978,2025-11-14,기록 없는 청구,unrecorded,K9973687,HEMOVAC PP 200ml,PP 200ml,0,1,,청구 목록에 있으나 기록지에 없음
+E026,OP25-1995,2025-11-20,기록 없는 청구,unrecorded,T3704236,BMP2 0.5cc,0.5cc,0,1,,청구 목록에 있으나 기록지에 없음
+E027,OP25-2016,2025-11-25,청구 누락,missing,F1757850,CRESCENT TITANIUM (30mm) H14,30mm*10*14*6',2,0,,기록지에 있으나 청구 목록에 없음
+E028,OP25-2134,2025-12-10,수량 불일치,qty_mismatch,M1779797,COLLASTAT 6ml,6ml,1,2,,기록지와 청구 수량이 다름
+E029,OP25-2264,2025-12-24,청구 누락,missing,E3993487,슬관절전치환용 FEMORAL COMPONENT(일반형) CR,size 2,1,0,,기록지에 있으나 청구 목록에 없음
+E030,OP25-2275,2025-12-25,수량 불일치,qty_mismatch,D9790112,PEEK SUTURE ANCHOR,4.5mm,2,1,,기록지와 청구 수량이 다름
+E031,OP23-0886,2023-05-30,산정 불가 품목 청구,non_billable,F1181580,LNK SPINAL FIXATION SYSTEM SET SCREW (잠금장치),-,,6,,공지 1 (재료-2023-011)
+E032,OP23-2216,2023-12-15,산정 불가 품목 청구,non_billable,F1181580,LNK SPINAL FIXATION SYSTEM SET SCREW (잠금장치),-,,6,,공지 1 (재료-2023-011)
+E033,OP24-0315,2024-02-27,정액 포함 품목 별도 청구,bundled,N3525880,관절경용 SHAVER BLADE,4.5mm,,1,,공지 2 (재료-2023-047)
+E034,OP24-0499,2024-03-26,같은 품목 중복 줄,duplicate,C2012850,LOCKING SCREW 2.4,2.4*18,,3,,같은 코드 2줄
+E035,OP24-0904,2024-05-31,수량 한도 초과,qty_limit,M1779797,COLLASTAT 6ml,6ml,,3,,공지 3 (재료-2024-004) · 수술 1회당 2개
+E036,OP24-0946,2024-06-06,산정 불가 품목 청구,non_billable,F1181580,LNK SPINAL FIXATION SYSTEM SET SCREW (잠금장치),-,,4,,공지 1 (재료-2023-011)
+E037,OP24-1166,2024-07-19,수량 한도 초과,qty_limit,M4282896,COLLASTAT 3ml,3ml,,3,,공지 3 (재료-2024-004) · 수술 1회당 2개
+E038,OP24-1243,2024-07-29,산정 불가 품목 청구,non_billable,F1181580,LNK SPINAL FIXATION SYSTEM SET SCREW (잠금장치),-,,4,,공지 1 (재료-2023-011)
+E039,OP24-1394,2024-08-14,정액 중복 산정,bundle_dup,N0327695,관절경하 수술시 사용하는 치료재료 비용,정액,,2,,공지 2 · 수술 1회당 1회
+E040,OP24-1508,2024-09-02,정액 포함 품목 별도 청구,bundled,N3996477,관절경용 RF ABLATION WAND 90°,90°,,1,,공지 2 (재료-2023-047)
+E041,OP24-1673,2024-09-20,단가 미갱신,price,F3469012,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),6.5*45,,4,,공지 4 (재료-2024-031) · 청구 단가 272950
+E042,OP24-1831,2024-10-18,정액 포함 품목 별도 청구,bundled,N3525880,관절경용 SHAVER BLADE,4.5mm,,1,,공지 2 (재료-2023-047)
+E043,OP24-2155,2024-12-18,정액 포함 품목 별도 청구,bundled,N3996477,관절경용 RF ABLATION WAND 90°,90°,,1,,공지 2 (재료-2023-047)
+E044,OP25-0028,2025-01-01,정액 포함 품목 별도 청구,bundled,N3996477,관절경용 RF ABLATION WAND 90°,90°,,1,,공지 2 (재료-2023-047)
+E045,OP25-0032,2025-01-06,정액 중복 산정,bundle_dup,N0327695,관절경하 수술시 사용하는 치료재료 비용,정액,,2,,공지 2 · 수술 1회당 1회
+E046,OP25-0230,2025-02-11,산정 불가 품목 청구,non_billable,F1181580,LNK SPINAL FIXATION SYSTEM SET SCREW (잠금장치),-,,6,,공지 1 (재료-2023-011)
+E047,OP25-0473,2025-03-19,수량 한도 초과,qty_limit,M1779797,COLLASTAT 6ml,6ml,,3,,공지 3 (재료-2024-004) · 수술 1회당 2개
+E048,OP25-0485,2025-03-20,단가 미갱신,price,F0884298,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),7.5*45,,1,,공지 4 (재료-2024-031) · 청구 단가 272950
+E049,OP25-0485,2025-03-20,단가 미갱신,price,F3469012,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),6.5*45,,3,,공지 4 (재료-2024-031) · 청구 단가 272950
+E050,OP25-0485,2025-03-20,단가 미갱신,price,F7622719,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),6.5*40,,2,,공지 4 (재료-2024-031) · 청구 단가 272950
+E051,OP25-0732,2025-05-02,단가 미갱신,price,F6474766,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),5.5*35,,1,,공지 4 (재료-2024-031) · 청구 단가 272950
+E052,OP25-0732,2025-05-02,단가 미갱신,price,F0884298,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),7.5*45,,3,,공지 4 (재료-2024-031) · 청구 단가 272950
+E053,OP25-1123,2025-06-27,단가 미갱신,price,F3469012,LNK SPINAL FIXATION SYSTEM SCREW SET (Accelfix poly screw),6.5*45,,6,,공지 4 (재료-2024-031) · 청구 단가 272950

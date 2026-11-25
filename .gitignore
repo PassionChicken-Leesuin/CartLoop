@@ -1,0 +1,9 @@
+# 비밀 값
+.env
+.env.*
+# 배포 · 실행 산출물
+.vercel/
+node_modules/
+tools/service-output.json
+# 발표 자료는 저장소에 올리지 않는다
+*.pptx

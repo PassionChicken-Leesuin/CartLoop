@@ -1,0 +1,10 @@
+{
+  "name": "cartloop",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "CartLoop beta — 우리 병원을 알아가는 청구 도우미",
+  "scripts": {
+    "dev": "node dev-server.mjs"
+  }
+}

@@ -1,0 +1,416 @@
+﻿op,file,pid,date,surgeon,dept,room,site,diagnosis,opName,opCode,setCode,note,재료 줄 수
+OP25-0011,OP25-0011.pdf,33504423,2025-01-01,C교수,신경외과,Room10,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,거즈·바늘·기구 수 일치 확인,5
+OP25-0019,OP25-0019.pdf,33488437,2025-01-01,D교수,정형외과,Room08,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-D-ARCR,수술 전후 계수 일치,1
+OP25-0023,OP25-0023.pdf,14997414,2025-01-01,D교수,정형외과,Room10,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0028,OP25-0028.pdf,17695730,2025-01-01,E교수,정형외과,Room02,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,수술 전후 계수 일치,1
+OP25-0032,OP25-0032.pdf,17132745,2025-01-06,E교수,정형외과,Room10,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,수술 전후 계수 일치,1
+OP25-0037,OP25-0037.pdf,35722106,2025-01-06,E교수,정형외과,Room09,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-0043,OP25-0043.pdf,20695017,2025-01-07,D교수,정형외과,Room11,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-0052,OP25-0052.docx,17100554,2025-01-10,C교수,신경외과,Room08,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,1
+OP25-0061,OP25-0061.pdf,17306909,2025-01-13,A교수,신경외과,Room06,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-0066,OP25-0066.docx,23208495,2025-01-13,D교수,정형외과,Room03,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-0073,OP25-0073.pdf,17675935,2025-01-14,F교수,정형외과,Room07,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,수술 전후 계수 일치,2
+OP25-0077,OP25-0077.pdf,17216679,2025-01-17,B교수,신경외과,Room04,Lumbar L2-3-4,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-0082,OP25-0082.pdf,19318366,2025-01-20,A교수,신경외과,Room12,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-0088,OP25-0088.docx,37026692,2025-01-20,F교수,정형외과,Room07,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음 / 체위변경 시 피부 상태 이상 없음,5
+OP25-0094,OP25-0094.pdf,18292584,2025-01-21,A교수,신경외과,Room06,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-0096,OP25-0096.pdf,12866896,2025-01-21,B교수,신경외과,Room11,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,7
+OP25-0100,OP25-0100.docx,19456855,2025-01-21,B교수,신경외과,Room01,Lumbar L2-3-4,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,6
+OP25-0106,OP25-0106.pdf,16353728,2025-01-21,C교수,신경외과,Room01,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,수술 전후 계수 일치,1
+OP25-0111,OP25-0111.docx,15500068,2025-01-21,C교수,신경외과,Room02,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,1
+OP25-0114,OP25-0114.pdf,12357898,2025-01-22,B교수,신경외과,Room02,Lumbar L3-L4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,6
+OP25-0120,OP25-0120.pdf,12932902,2025-01-22,D교수,정형외과,Room05,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0127,OP25-0127.pdf,17943192,2025-01-24,A교수,신경외과,Room03,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-0132,OP25-0132.pdf,38740505,2025-01-24,E교수,정형외과,Room08,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,거즈·바늘·기구 수 일치 확인,1
+OP25-0134,OP25-0134.pdf,25395234,2025-01-27,F교수,정형외과,Room08,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인,3
+OP25-0139,OP25-0139.pdf,37295852,2025-01-28,A교수,신경외과,Room04,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-0142,OP25-0142.pdf,38546172,2025-01-28,B교수,신경외과,Room08,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,거즈·기구 수 확인 이상 없음,8
+OP25-0145,OP25-0145.pdf,35890510,2025-01-28,F교수,정형외과,Room08,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,거즈·바늘·기구 수 일치 확인,2
+OP25-0150,OP25-0150.docx,34268646,2025-01-30,C교수,신경외과,Room06,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인 / 수술 중 수혈 1 unit,1
+OP25-0159,OP25-0159.docx,32351749,2025-01-30,F교수,정형외과,Room09,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,거즈·기구 수 확인 이상 없음,2
+OP25-0164,OP25-0164.pdf,27382375,2025-01-31,B교수,신경외과,Room11,T12 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : T12,X0471,SET-B-PVP,거즈·기구 수 확인 이상 없음 / 체위변경 시 피부 상태 이상 없음,2
+OP25-0166,OP25-0166.docx,30211943,2025-01-31,E교수,정형외과,Room05,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인,1
+OP25-0174,OP25-0174.pdf,11443591,2025-01-31,E교수,정형외과,Room03,Lt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Lt.,X2076,SET-E-RTSA,거즈·바늘·기구 수 일치 확인,1
+OP25-0178,OP25-0178.pdf,24380402,2025-02-03,A교수,신경외과,Room10,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-0185,OP25-0185.pdf,29265566,2025-02-03,D교수,정형외과,Room06,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-0192,OP25-0192.docx,11065260,2025-02-04,A교수,신경외과,Room04,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-0195,OP25-0195.pdf,29012530,2025-02-06,A교수,신경외과,Room12,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-0198,OP25-0198.pdf,19062567,2025-02-06,B교수,신경외과,Room07,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-0206,OP25-0206.docx,23628353,2025-02-06,D교수,정형외과,Room05,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·바늘·기구 수 일치 확인,4
+OP25-0210,OP25-0210.pdf,26600131,2025-02-07,B교수,신경외과,Room09,L3 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L3,X0471,SET-B-PVP,수술 전후 계수 일치 / 체위변경 시 피부 상태 이상 없음,2
+OP25-0218,OP25-0218.pdf,10911757,2025-02-10,A교수,신경외과,Room04,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-0223,OP25-0223.pdf,15045810,2025-02-11,A교수,신경외과,Room06,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치 / 체위변경 시 피부 상태 이상 없음,5
+OP25-0230,OP25-0230.pdf,12011301,2025-02-11,B교수,신경외과,Room12,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,8
+OP25-0235,OP25-0235.pdf,28072640,2025-02-14,A교수,신경외과,Room01,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-0243,OP25-0243.docx,36995339,2025-02-14,D교수,정형외과,Room10,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-0249,OP25-0249.pdf,10197721,2025-02-14,D교수,정형외과,Room01,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0252,OP25-0252.docx,23317640,2025-02-17,C교수,신경외과,Room12,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,6
+OP25-0261,OP25-0261.pdf,37776559,2025-02-17,D교수,정형외과,Room12,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-D-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-0263,OP25-0263.pdf,37306263,2025-02-17,D교수,정형외과,Room11,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-0265,OP25-0265.pdf,29893357,2025-02-18,A교수,신경외과,Room09,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-0274,OP25-0274.pdf,14935965,2025-02-18,E교수,정형외과,Room05,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,수술 전후 계수 일치,1
+OP25-0276,OP25-0276.pdf,20278947,2025-02-20,D교수,정형외과,Room12,Rt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·바늘·기구 수 일치 확인,4
+OP25-0284,OP25-0284.pdf,31635757,2025-02-20,D교수,정형외과,Room07,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-0287,OP25-0287.pdf,18842328,2025-02-20,E교수,정형외과,Room02,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인 / 수술 중 수혈 1 unit,1
+OP25-0295,OP25-0295.pdf,28395174,2025-02-21,A교수,신경외과,Room07,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-0299,OP25-0299.pdf,15455819,2025-02-21,D교수,정형외과,Room02,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-0303,OP25-0303.docx,27248733,2025-02-21,F교수,정형외과,Room02,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,수술 전후 계수 일치,4
+OP25-0306,OP25-0306.pdf,13376208,2025-02-21,F교수,정형외과,Room08,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,수술 전후 계수 일치,3
+OP25-0311,OP25-0311.pdf,33837087,2025-02-24,D교수,정형외과,Room09,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·바늘·기구 수 일치 확인,4
+OP25-0315,OP25-0315.pdf,18107735,2025-02-25,A교수,신경외과,Room08,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,수술 전후 계수 일치,1
+OP25-0324,OP25-0324.pdf,23726478,2025-02-25,C교수,신경외과,Room02,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,거즈·기구 수 확인 이상 없음,6
+OP25-0329,OP25-0329.pdf,32020578,2025-02-25,D교수,정형외과,Room03,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-0336,OP25-0336.pdf,33942749,2025-02-25,D교수,정형외과,Room06,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0343,OP25-0343.pdf,37139370,2025-02-28,A교수,신경외과,Room02,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-0347,OP25-0347.pdf,31131195,2025-02-28,D교수,정형외과,Room12,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0351,OP25-0351.pdf,15800484,2025-03-03,A교수,신경외과,Room12,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-0355,OP25-0355.pdf,15685701,2025-03-03,A교수,신경외과,Room12,Lumbar L3-L4,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L3-L4",X0464,SET-A-LAM,수술 전후 계수 일치 / C-arm 지연 15분,1
+OP25-0362,OP25-0362.pdf,15935822,2025-03-03,B교수,신경외과,Room01,L3 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L3,X0471,SET-B-PVP,거즈·바늘·기구 수 일치 확인,2
+OP25-0364,OP25-0364.pdf,37722272,2025-03-03,C교수,신경외과,Room02,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-C-TLIF1,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,6
+OP25-0369,OP25-0369.pdf,24283938,2025-03-04,A교수,신경외과,Room10,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,수술 전후 계수 일치,1
+OP25-0374,OP25-0374.pdf,17552213,2025-03-04,D교수,정형외과,Room10,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-D-ARCR,거즈·바늘·기구 수 일치 확인,1
+OP25-0378,OP25-0378.pdf,22257082,2025-03-04,F교수,정형외과,Room04,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,거즈·바늘·기구 수 일치 확인,1
+OP25-0383,OP25-0383.pdf,21662405,2025-03-05,C교수,신경외과,Room04,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,0
+OP25-0392,OP25-0392.docx,32866651,2025-03-06,B교수,신경외과,Room12,Lumbar L4-5-1,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L4-5-1 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-0399,OP25-0399.pdf,26625109,2025-03-06,C교수,신경외과,Room06,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,거즈·기구 수 확인 이상 없음,1
+OP25-0406,OP25-0406.pdf,15687155,2025-03-06,E교수,정형외과,Room03,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,거즈·바늘·기구 수 일치 확인 / C-arm 지연 15분,1
+OP25-0409,OP25-0409.pdf,20425940,2025-03-06,E교수,정형외과,Room05,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인,1
+OP25-0415,OP25-0415.pdf,23136726,2025-03-10,A교수,신경외과,Room01,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·바늘·기구 수 일치 확인,1
+OP25-0419,OP25-0419.docx,32725271,2025-03-10,A교수,신경외과,Room12,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-0422,OP25-0422.pdf,38917122,2025-03-11,A교수,신경외과,Room10,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-0426,OP25-0426.pdf,20714116,2025-03-12,B교수,신경외과,Room11,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,거즈·기구 수 확인 이상 없음,5
+OP25-0433,OP25-0433.docx,20264325,2025-03-12,D교수,정형외과,Room01,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-D-ARCR,수술 전후 계수 일치,1
+OP25-0435,OP25-0435.pdf,14522535,2025-03-13,A교수,신경외과,Room05,Lumbar L3-L4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인,5
+OP25-0438,OP25-0438.pdf,38343682,2025-03-13,E교수,정형외과,Room12,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,거즈·바늘·기구 수 일치 확인,1
+OP25-0444,OP25-0444.pdf,23731540,2025-03-14,C교수,신경외과,Room02,Lumbar L3-L4,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L3-L4,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,1
+OP25-0451,OP25-0451.pdf,25725065,2025-03-14,F교수,정형외과,Room05,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,수술 전후 계수 일치,5
+OP25-0455,OP25-0455.pdf,15491197,2025-03-17,A교수,신경외과,Room10,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-0458,OP25-0458.pdf,29863581,2025-03-19,A교수,신경외과,Room06,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-0464,OP25-0464.pdf,19442740,2025-03-19,A교수,신경외과,Room01,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치 / 체위변경 시 피부 상태 이상 없음,4
+OP25-0473,OP25-0473.docx,23127756,2025-03-19,C교수,신경외과,Room01,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,수술 전후 계수 일치 / C-arm 지연 15분,5
+OP25-0479,OP25-0479.pdf,32298776,2025-03-19,E교수,정형외과,Room03,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,수술 전후 계수 일치 / C-arm 지연 15분,1
+OP25-0482,OP25-0482.docx,29956207,2025-03-20,A교수,신경외과,Room08,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,수술 전후 계수 일치,4
+OP25-0485,OP25-0485.pdf,12985503,2025-03-20,B교수,신경외과,Room08,Lumbar L3-4-5,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,7
+OP25-0490,OP25-0490.pdf,35353788,2025-03-20,B교수,신경외과,Room07,T12 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : T12,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-0492,OP25-0492.pdf,23709187,2025-03-24,B교수,신경외과,Room10,Lumbar L5-S1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-B-TLIF1,거즈·바늘·기구 수 일치 확인,6
+OP25-0495,OP25-0495.pdf,28135959,2025-03-24,D교수,정형외과,Room12,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-0501,OP25-0501.pdf,25146464,2025-03-26,B교수,신경외과,Room11,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,6
+OP25-0505,OP25-0505.pdf,18166616,2025-03-27,C교수,신경외과,Room03,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,수술 전후 계수 일치 / C-arm 지연 15분,0
+OP25-0509,OP25-0509.pdf,31406749,2025-03-27,D교수,정형외과,Room09,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0516,OP25-0516.docx,39588932,2025-03-27,F교수,정형외과,Room10,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,수술 전후 계수 일치,3
+OP25-0519,OP25-0519.pdf,27232883,2025-03-28,C교수,신경외과,Room06,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,수술 전후 계수 일치,1
+OP25-0525,OP25-0525.pdf,16764356,2025-03-28,E교수,정형외과,Room11,Rt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Rt.,X2076,SET-E-RTSA,수술 전후 계수 일치 / 수술 중 수혈 1 unit,1
+OP25-0534,OP25-0534.pdf,31325721,2025-03-31,C교수,신경외과,Room09,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-C-TLIF1,거즈·바늘·기구 수 일치 확인,5
+OP25-0543,OP25-0543.docx,30004333,2025-04-02,A교수,신경외과,Room06,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,5
+OP25-0550,OP25-0550.pdf,25190138,2025-04-02,F교수,정형외과,Room03,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-F-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-0559,OP25-0559.pdf,23256470,2025-04-03,E교수,정형외과,Room06,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-0568,OP25-0568.pdf,12722770,2025-04-03,E교수,정형외과,Room03,Lt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Lt.,X2076,SET-E-RTSA,거즈·바늘·기구 수 일치 확인,1
+OP25-0570,OP25-0570.docx,36761981,2025-04-04,C교수,신경외과,Room08,Lumbar L3-L4,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L3-L4,X0461,SET-C-MED,거즈·기구 수 확인 이상 없음,1
+OP25-0575,OP25-0575.pdf,23941478,2025-04-07,C교수,신경외과,Room11,Lumbar L3-L4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-C-TLIF1,거즈·바늘·기구 수 일치 확인,5
+OP25-0579,OP25-0579.pdf,11507614,2025-04-08,F교수,정형외과,Room09,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-F-ARCR,거즈·기구 수 확인 이상 없음,2
+OP25-0588,OP25-0588.pdf,38302445,2025-04-09,A교수,신경외과,Room05,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,2
+OP25-0590,OP25-0590.pdf,34588185,2025-04-10,A교수,신경외과,Room12,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인,4
+OP25-0599,OP25-0599.pdf,31438507,2025-04-10,B교수,신경외과,Room06,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L4-5-1 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-0607,OP25-0607.docx,29789183,2025-04-10,D교수,정형외과,Room02,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-0609,OP25-0609.pdf,26861161,2025-04-10,E교수,정형외과,Room12,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-0615,OP25-0615.docx,11669641,2025-04-11,B교수,신경외과,Room08,L1 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L1,X0471,SET-B-PVP,거즈·바늘·기구 수 일치 확인,2
+OP25-0619,OP25-0619.pdf,37336682,2025-04-11,C교수,신경외과,Room08,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-C-TLIF2,거즈·기구 수 확인 이상 없음,6
+OP25-0621,OP25-0621.pdf,10471939,2025-04-15,B교수,신경외과,Room11,T12 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : T12,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-0625,OP25-0625.pdf,26464924,2025-04-15,F교수,정형외과,Room11,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음,3
+OP25-0633,OP25-0633.docx,24539248,2025-04-16,F교수,정형외과,Room02,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인,3
+OP25-0638,OP25-0638.pdf,26503018,2025-04-17,B교수,신경외과,Room02,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-0640,OP25-0640.pdf,15538879,2025-04-17,D교수,정형외과,Room10,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-0642,OP25-0642.pdf,21879287,2025-04-18,B교수,신경외과,Room02,L3 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L3,X0471,SET-B-PVP,거즈·바늘·기구 수 일치 확인,2
+OP25-0647,OP25-0647.docx,21368008,2025-04-18,D교수,정형외과,Room08,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-0655,OP25-0655.docx,11160654,2025-04-18,F교수,정형외과,Room06,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,거즈·바늘·기구 수 일치 확인,2
+OP25-0664,OP25-0664.docx,26047807,2025-04-21,B교수,신경외과,Room02,L1 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L1,X0471,SET-B-PVP,거즈·바늘·기구 수 일치 확인,2
+OP25-0667,OP25-0667.pdf,37347917,2025-04-21,D교수,정형외과,Room07,Lt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-0676,OP25-0676.pdf,34904601,2025-04-21,D교수,정형외과,Room03,Lt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음,4
+OP25-0678,OP25-0678.pdf,27840511,2025-04-22,A교수,신경외과,Room07,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-0682,OP25-0682.pdf,26563546,2025-04-22,C교수,신경외과,Room02,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,수술 전후 계수 일치,1
+OP25-0689,OP25-0689.docx,23326933,2025-04-24,D교수,정형외과,Room09,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-0691,OP25-0691.pdf,21454053,2025-04-24,F교수,정형외과,Room09,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,2
+OP25-0695,OP25-0695.pdf,24582745,2025-04-28,A교수,신경외과,Room12,Lumbar L5-S1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,4
+OP25-0701,OP25-0701.pdf,32436077,2025-04-28,F교수,정형외과,Room12,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,수술 전후 계수 일치,3
+OP25-0703,OP25-0703.pdf,15984388,2025-04-30,C교수,신경외과,Room02,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,거즈·기구 수 확인 이상 없음,1
+OP25-0710,OP25-0710.pdf,37259953,2025-04-30,D교수,정형외과,Room08,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-0716,OP25-0716.pdf,14578088,2025-05-02,A교수,신경외과,Room09,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인,4
+OP25-0723,OP25-0723.pdf,27792539,2025-05-02,B교수,신경외과,Room11,Lumbar L4-5-1,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L4-5-1 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,5
+OP25-0732,OP25-0732.pdf,14388806,2025-05-02,C교수,신경외과,Room03,Lumbar L5-S1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-C-TLIF1,거즈·기구 수 확인 이상 없음,6
+OP25-0738,OP25-0738.pdf,14306997,2025-05-05,B교수,신경외과,Room07,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,거즈·바늘·기구 수 일치 확인,7
+OP25-0745,OP25-0745.pdf,16353736,2025-05-05,F교수,정형외과,Room09,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,수술 전후 계수 일치,5
+OP25-0749,OP25-0749.pdf,33105179,2025-05-06,F교수,정형외과,Room11,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,거즈·바늘·기구 수 일치 확인,1
+OP25-0756,OP25-0756.pdf,24771169,2025-05-08,F교수,정형외과,Room09,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-F-ARCR,수술 전후 계수 일치,2
+OP25-0760,OP25-0760.pdf,34591880,2025-05-09,C교수,신경외과,Room04,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,거즈·기구 수 확인 이상 없음,0
+OP25-0768,OP25-0768.docx,26764022,2025-05-12,F교수,정형외과,Room11,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인,4
+OP25-0776,OP25-0776.pdf,17376974,2025-05-12,F교수,정형외과,Room03,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,수술 전후 계수 일치,3
+OP25-0785,OP25-0785.pdf,18512644,2025-05-13,A교수,신경외과,Room04,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-0791,OP25-0791.pdf,35031266,2025-05-14,C교수,신경외과,Room09,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인,7
+OP25-0798,OP25-0798.docx,22693614,2025-05-14,D교수,정형외과,Room07,Rt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-0807,OP25-0807.pdf,28654128,2025-05-15,A교수,신경외과,Room04,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-0812,OP25-0812.pdf,32067169,2025-05-15,B교수,신경외과,Room02,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·바늘·기구 수 일치 확인,6
+OP25-0816,OP25-0816.pdf,20599182,2025-05-15,D교수,정형외과,Room12,Rt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음,4
+OP25-0825,OP25-0825.pdf,24909874,2025-05-15,D교수,정형외과,Room09,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0831,OP25-0831.docx,14484778,2025-05-15,E교수,정형외과,Room07,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,수술 전후 계수 일치,1
+OP25-0835,OP25-0835.docx,30427466,2025-05-16,A교수,신경외과,Room06,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-0842,OP25-0842.pdf,17104506,2025-05-16,A교수,신경외과,Room02,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,6
+OP25-0847,OP25-0847.pdf,20355687,2025-05-16,F교수,정형외과,Room07,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음,3
+OP25-0855,OP25-0855.pdf,21480725,2025-05-16,F교수,정형외과,Room02,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음,5
+OP25-0859,OP25-0859.pdf,11946867,2025-05-19,A교수,신경외과,Room07,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-0866,OP25-0866.pdf,39063715,2025-05-19,E교수,정형외과,Room04,Rt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Rt.,X2076,SET-E-RTSA,거즈·바늘·기구 수 일치 확인,1
+OP25-0872,OP25-0872.pdf,38099558,2025-05-20,A교수,신경외과,Room10,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-0875,OP25-0875.pdf,17160414,2025-05-22,A교수,신경외과,Room06,Lumbar L3-L4,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L3-L4",X0464,SET-A-LAM,수술 전후 계수 일치,1
+OP25-0877,OP25-0877.docx,11499959,2025-05-22,D교수,정형외과,Room06,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-0884,OP25-0884.pdf,20814131,2025-05-23,A교수,신경외과,Room02,Lumbar L5-S1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,4
+OP25-0893,OP25-0893.pdf,11617964,2025-05-23,C교수,신경외과,Room08,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,수술 전후 계수 일치 / C-arm 지연 15분,5
+OP25-0896,OP25-0896.pdf,28630590,2025-05-26,D교수,정형외과,Room01,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-D-ARCR,수술 전후 계수 일치,1
+OP25-0905,OP25-0905.pdf,39285586,2025-05-26,F교수,정형외과,Room04,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음,4
+OP25-0913,OP25-0913.pdf,17147820,2025-05-27,A교수,신경외과,Room10,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,2
+OP25-0915,OP25-0915.pdf,25787314,2025-05-28,B교수,신경외과,Room04,Lumbar L3-4-5,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-0924,OP25-0924.pdf,17545287,2025-05-28,B교수,신경외과,Room11,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-B-TLIF1,거즈·기구 수 확인 이상 없음,5
+OP25-0932,OP25-0932.docx,20363244,2025-05-28,D교수,정형외과,Room02,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0938,OP25-0938.pdf,32462146,2025-05-29,C교수,신경외과,Room06,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인,6
+OP25-0947,OP25-0947.docx,27573484,2025-05-29,D교수,정형외과,Room10,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-0956,OP25-0956.docx,20774686,2025-05-29,E교수,정형외과,Room11,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인,1
+OP25-0958,OP25-0958.pdf,34256051,2025-05-30,A교수,신경외과,Room05,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인,5
+OP25-0961,OP25-0961.pdf,21616438,2025-05-30,C교수,신경외과,Room05,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인,7
+OP25-0968,OP25-0968.pdf,17884503,2025-05-30,E교수,정형외과,Room08,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,거즈·바늘·기구 수 일치 확인,1
+OP25-0977,OP25-0977.pdf,31068955,2025-06-02,B교수,신경외과,Room04,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,6
+OP25-0986,OP25-0986.docx,15819689,2025-06-02,E교수,정형외과,Room05,Lt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Lt.,X2076,SET-E-RTSA,거즈·기구 수 확인 이상 없음,1
+OP25-0988,OP25-0988.pdf,37926056,2025-06-03,A교수,신경외과,Room02,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,4
+OP25-0992,OP25-0992.pdf,14310153,2025-06-03,D교수,정형외과,Room11,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-0994,OP25-0994.pdf,23216977,2025-06-04,A교수,신경외과,Room04,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1000,OP25-1000.pdf,28585823,2025-06-05,A교수,신경외과,Room04,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,2
+OP25-1009,OP25-1009.pdf,13572112,2025-06-05,B교수,신경외과,Room01,L3 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L3,X0471,SET-B-PVP,거즈·기구 수 확인 이상 없음 / C-arm 지연 15분,2
+OP25-1011,OP25-1011.pdf,14594900,2025-06-05,C교수,신경외과,Room01,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,수술 전후 계수 일치,0
+OP25-1014,OP25-1014.pdf,19261171,2025-06-06,B교수,신경외과,Room02,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,거즈·바늘·기구 수 일치 확인,6
+OP25-1020,OP25-1020.pdf,14332416,2025-06-06,C교수,신경외과,Room04,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,0
+OP25-1022,OP25-1022.pdf,24381048,2025-06-11,B교수,신경외과,Room05,L1 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L1,X0471,SET-B-PVP,거즈·기구 수 확인 이상 없음,2
+OP25-1027,OP25-1027.pdf,11888896,2025-06-12,B교수,신경외과,Room07,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,6
+OP25-1035,OP25-1035.pdf,21248665,2025-06-12,E교수,정형외과,Room08,Lt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Lt.,X2076,SET-E-RTSA,거즈·기구 수 확인 이상 없음,1
+OP25-1037,OP25-1037.docx,21310327,2025-06-13,C교수,신경외과,Room02,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,거즈·기구 수 확인 이상 없음,6
+OP25-1043,OP25-1043.pdf,11247671,2025-06-13,D교수,정형외과,Room08,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,4
+OP25-1048,OP25-1048.pdf,27104453,2025-06-16,A교수,신경외과,Room05,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·바늘·기구 수 일치 확인,2
+OP25-1051,OP25-1051.pdf,32303323,2025-06-16,A교수,신경외과,Room10,Lumbar L5-S1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,4
+OP25-1059,OP25-1059.pdf,29785151,2025-06-16,D교수,정형외과,Room02,Lt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-1066,OP25-1066.pdf,38460342,2025-06-18,D교수,정형외과,Room06,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음 / C-arm 지연 15분,4
+OP25-1068,OP25-1068.pdf,20824601,2025-06-18,F교수,정형외과,Room04,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인,5
+OP25-1071,OP25-1071.pdf,34219672,2025-06-19,D교수,정형외과,Room04,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1080,OP25-1080.pdf,12979240,2025-06-19,D교수,정형외과,Room09,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1089,OP25-1089.docx,36088497,2025-06-20,A교수,신경외과,Room05,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1093,OP25-1093.pdf,27701310,2025-06-23,D교수,정형외과,Room07,Rt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-1099,OP25-1099.pdf,24132071,2025-06-24,D교수,정형외과,Room10,Rt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-1106,OP25-1106.docx,11090293,2025-06-24,D교수,정형외과,Room02,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-1113,OP25-1113.pdf,35116373,2025-06-25,D교수,정형외과,Room06,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-D-ARCR,거즈·바늘·기구 수 일치 확인,1
+OP25-1118,OP25-1118.pdf,26299118,2025-06-25,D교수,정형외과,Room03,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-1123,OP25-1123.pdf,39679899,2025-06-27,A교수,신경외과,Room04,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-1132,OP25-1132.pdf,17973862,2025-06-27,D교수,정형외과,Room01,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-D-ARCR,수술 전후 계수 일치,1
+OP25-1138,OP25-1138.pdf,36264822,2025-06-30,D교수,정형외과,Room06,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음,4
+OP25-1142,OP25-1142.docx,11311915,2025-06-30,F교수,정형외과,Room10,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음,5
+OP25-1147,OP25-1147.pdf,16776420,2025-07-01,B교수,신경외과,Room10,Lumbar L3-4-5,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·바늘·기구 수 일치 확인,5
+OP25-1153,OP25-1153.pdf,20500137,2025-07-01,D교수,정형외과,Room06,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음 / C-arm 지연 15분,4
+OP25-1159,OP25-1159.pdf,37182659,2025-07-02,D교수,정형외과,Room04,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-1163,OP25-1163.pdf,25328690,2025-07-04,C교수,신경외과,Room09,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-C-TLIF2,수술 전후 계수 일치,6
+OP25-1166,OP25-1166.pdf,10072952,2025-07-04,D교수,정형외과,Room04,Rt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음 / 체위변경 시 피부 상태 이상 없음,4
+OP25-1175,OP25-1175.pdf,24781344,2025-07-07,A교수,신경외과,Room05,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1181,OP25-1181.pdf,14289144,2025-07-07,D교수,정형외과,Room12,Lt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-1186,OP25-1186.docx,15830165,2025-07-08,A교수,신경외과,Room05,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-1188,OP25-1188.pdf,29995424,2025-07-08,C교수,신경외과,Room02,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,수술 전후 계수 일치,1
+OP25-1190,OP25-1190.pdf,36336883,2025-07-08,E교수,정형외과,Room01,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,수술 전후 계수 일치,1
+OP25-1197,OP25-1197.pdf,32160185,2025-07-08,E교수,정형외과,Room03,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·기구 수 확인 이상 없음,1
+OP25-1206,OP25-1206.pdf,39178602,2025-07-09,A교수,신경외과,Room06,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·바늘·기구 수 일치 확인,1
+OP25-1214,OP25-1214.pdf,21627214,2025-07-09,A교수,신경외과,Room07,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-1217,OP25-1217.pdf,29246885,2025-07-09,B교수,신경외과,Room05,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·바늘·기구 수 일치 확인,6
+OP25-1221,OP25-1221.pdf,31101978,2025-07-14,A교수,신경외과,Room07,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,수술 전후 계수 일치,1
+OP25-1224,OP25-1224.docx,38564463,2025-07-14,F교수,정형외과,Room08,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,거즈·바늘·기구 수 일치 확인,2
+OP25-1230,OP25-1230.pdf,27965532,2025-07-15,B교수,신경외과,Room09,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,7
+OP25-1236,OP25-1236.pdf,33300869,2025-07-15,B교수,신경외과,Room08,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,7
+OP25-1244,OP25-1244.pdf,30387297,2025-07-15,F교수,정형외과,Room06,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음,4
+OP25-1250,OP25-1250.pdf,21172944,2025-07-16,D교수,정형외과,Room05,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1256,OP25-1256.pdf,14767356,2025-07-18,A교수,신경외과,Room02,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1260,OP25-1260.docx,27982035,2025-07-22,B교수,신경외과,Room04,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,5
+OP25-1266,OP25-1266.pdf,16467562,2025-07-22,B교수,신경외과,Room07,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,5
+OP25-1270,OP25-1270.pdf,23143412,2025-07-23,A교수,신경외과,Room06,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인 / 수술 중 수혈 1 unit,4
+OP25-1272,OP25-1272.pdf,31237460,2025-07-24,A교수,신경외과,Room08,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,4
+OP25-1280,OP25-1280.pdf,19241637,2025-07-24,D교수,정형외과,Room01,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-1288,OP25-1288.pdf,15235382,2025-07-25,E교수,정형외과,Room05,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-1296,OP25-1296.docx,30066320,2025-07-28,A교수,신경외과,Room02,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,수술 전후 계수 일치,1
+OP25-1298,OP25-1298.pdf,29507484,2025-07-28,B교수,신경외과,Room05,Lumbar L3-L4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치 / 수술 중 수혈 1 unit,8
+OP25-1304,OP25-1304.pdf,23873765,2025-07-29,D교수,정형외과,Room07,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1313,OP25-1313.docx,39310381,2025-07-31,B교수,신경외과,Room01,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,8
+OP25-1322,OP25-1322.docx,21918712,2025-08-04,F교수,정형외과,Room11,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,거즈·기구 수 확인 이상 없음,2
+OP25-1327,OP25-1327.pdf,24271937,2025-08-05,A교수,신경외과,Room05,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-1335,OP25-1335.pdf,38184189,2025-08-05,F교수,정형외과,Room02,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,수술 전후 계수 일치,2
+OP25-1342,OP25-1342.pdf,24996483,2025-08-07,A교수,신경외과,Room06,Lumbar L5-S1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인,4
+OP25-1344,OP25-1344.pdf,12789614,2025-08-07,E교수,정형외과,Room11,Lt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Lt.,X2076,SET-E-RTSA,수술 전후 계수 일치,1
+OP25-1346,OP25-1346.pdf,29095453,2025-08-11,D교수,정형외과,Room03,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,4
+OP25-1350,OP25-1350.docx,19441959,2025-08-11,E교수,정형외과,Room06,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,수술 전후 계수 일치 / C-arm 지연 15분,2
+OP25-1359,OP25-1359.pdf,28039476,2025-08-13,A교수,신경외과,Room01,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1364,OP25-1364.pdf,13513237,2025-08-14,A교수,신경외과,Room06,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치 / C-arm 지연 15분,4
+OP25-1369,OP25-1369.docx,38338546,2025-08-14,F교수,정형외과,Room01,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,수술 전후 계수 일치,4
+OP25-1372,OP25-1372.pdf,19058675,2025-08-18,C교수,신경외과,Room09,Lumbar L3-L4,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L3-L4,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,1
+OP25-1376,OP25-1376.pdf,16223214,2025-08-21,A교수,신경외과,Room02,Lumbar L3-L4,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L3-L4",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-1384,OP25-1384.pdf,31010583,2025-08-21,A교수,신경외과,Room02,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-1391,OP25-1391.pdf,11622810,2025-08-21,B교수,신경외과,Room05,L2 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L2,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-1400,OP25-1400.pdf,32715843,2025-08-21,C교수,신경외과,Room06,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,0
+OP25-1406,OP25-1406.pdf,16463436,2025-08-21,E교수,정형외과,Room03,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인 / C-arm 지연 15분,2
+OP25-1410,OP25-1410.pdf,22669991,2025-08-22,A교수,신경외과,Room07,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-1412,OP25-1412.docx,26961443,2025-08-22,C교수,신경외과,Room07,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-C-TLIF2,거즈·기구 수 확인 이상 없음,6
+OP25-1418,OP25-1418.pdf,15085518,2025-08-22,E교수,정형외과,Room12,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,1
+OP25-1421,OP25-1421.docx,38941826,2025-08-25,A교수,신경외과,Room08,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,4
+OP25-1428,OP25-1428.pdf,17109180,2025-08-25,F교수,정형외과,Room01,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,수술 전후 계수 일치,2
+OP25-1435,OP25-1435.pdf,24795875,2025-08-27,A교수,신경외과,Room02,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,4
+OP25-1437,OP25-1437.pdf,18297449,2025-08-27,E교수,정형외과,Room12,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,거즈·기구 수 확인 이상 없음,1
+OP25-1439,OP25-1439.pdf,16561208,2025-08-29,B교수,신경외과,Room12,Lumbar L4-5-1,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L4-5-1 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,7
+OP25-1445,OP25-1445.pdf,37379173,2025-08-29,D교수,정형외과,Room11,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인,4
+OP25-1451,OP25-1451.pdf,27683458,2025-08-29,F교수,정형외과,Room03,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,수술 전후 계수 일치,2
+OP25-1460,OP25-1460.pdf,15296617,2025-09-01,D교수,정형외과,Room08,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음 / 체위변경 시 피부 상태 이상 없음,4
+OP25-1462,OP25-1462.pdf,10745116,2025-09-02,F교수,정형외과,Room09,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인,3
+OP25-1469,OP25-1469.pdf,33512537,2025-09-03,A교수,신경외과,Room01,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인 / 수술 중 수혈 1 unit,5
+OP25-1472,OP25-1472.docx,22616864,2025-09-04,A교수,신경외과,Room03,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-1478,OP25-1478.pdf,11404065,2025-09-04,C교수,신경외과,Room09,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,0
+OP25-1483,OP25-1483.pdf,14722372,2025-09-05,B교수,신경외과,Room11,Lumbar L3-4-5,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,6
+OP25-1492,OP25-1492.pdf,33314518,2025-09-08,C교수,신경외과,Room03,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,7
+OP25-1495,OP25-1495.pdf,25353799,2025-09-08,E교수,정형외과,Room07,Lt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Lt.,X2076,SET-E-RTSA,거즈·기구 수 확인 이상 없음,1
+OP25-1497,OP25-1497.pdf,33752160,2025-09-09,B교수,신경외과,Room07,T12 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : T12,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-1500,OP25-1500.pdf,26502368,2025-09-10,C교수,신경외과,Room02,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,수술 전후 계수 일치,6
+OP25-1502,OP25-1502.pdf,18363213,2025-09-10,D교수,정형외과,Room02,Lt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,거즈·바늘·기구 수 일치 확인,4
+OP25-1511,OP25-1511.pdf,28967609,2025-09-10,E교수,정형외과,Room01,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인,1
+OP25-1516,OP25-1516.pdf,14553293,2025-09-10,F교수,정형외과,Room03,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-F-ARCR,거즈·바늘·기구 수 일치 확인,2
+OP25-1522,OP25-1522.pdf,12314095,2025-09-11,C교수,신경외과,Room04,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인,6
+OP25-1527,OP25-1527.pdf,27140622,2025-09-11,E교수,정형외과,Room03,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,수술 전후 계수 일치,1
+OP25-1534,OP25-1534.docx,28351092,2025-09-12,A교수,신경외과,Room07,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-1539,OP25-1539.pdf,17126438,2025-09-12,A교수,신경외과,Room02,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음 / C-arm 지연 15분,4
+OP25-1547,OP25-1547.pdf,39983415,2025-09-12,E교수,정형외과,Room03,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-1554,OP25-1554.pdf,19678554,2025-09-12,E교수,정형외과,Room12,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·바늘·기구 수 일치 확인,1
+OP25-1562,OP25-1562.pdf,19163110,2025-09-15,A교수,신경외과,Room04,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음 / C-arm 지연 15분,4
+OP25-1565,OP25-1565.pdf,17143733,2025-09-15,B교수,신경외과,Room03,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,거즈·기구 수 확인 이상 없음,6
+OP25-1572,OP25-1572.pdf,11376830,2025-09-15,B교수,신경외과,Room03,Lumbar L5-S1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-B-TLIF1,거즈·바늘·기구 수 일치 확인,6
+OP25-1574,OP25-1574.pdf,34654816,2025-09-16,B교수,신경외과,Room03,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-B-TLIF1,거즈·바늘·기구 수 일치 확인 / C-arm 지연 15분,8
+OP25-1581,OP25-1581.docx,26313553,2025-09-17,D교수,정형외과,Room10,Lt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,4
+OP25-1587,OP25-1587.pdf,33234394,2025-09-17,D교수,정형외과,Room10,Rt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음,4
+OP25-1595,OP25-1595.docx,19834451,2025-09-17,E교수,정형외과,Room07,Rt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Rt.,X2076,SET-E-RTSA,수술 전후 계수 일치,1
+OP25-1600,OP25-1600.pdf,39724276,2025-09-18,E교수,정형외과,Room04,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,수술 전후 계수 일치,1
+OP25-1608,OP25-1608.pdf,19967479,2025-09-18,E교수,정형외과,Room08,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-1613,OP25-1613.pdf,13864173,2025-09-19,A교수,신경외과,Room04,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-1622,OP25-1622.docx,32918492,2025-09-19,A교수,신경외과,Room07,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1625,OP25-1625.pdf,37552650,2025-09-19,B교수,신경외과,Room12,T12 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : T12,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-1628,OP25-1628.pdf,14809494,2025-09-19,C교수,신경외과,Room09,Lumbar L3-L4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-C-TLIF1,거즈·기구 수 확인 이상 없음,5
+OP25-1636,OP25-1636.pdf,26684839,2025-09-22,F교수,정형외과,Room01,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인 / 수술 중 수혈 1 unit,3
+OP25-1644,OP25-1644.pdf,17919938,2025-09-22,F교수,정형외과,Room02,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,거즈·기구 수 확인 이상 없음,2
+OP25-1653,OP25-1653.pdf,35584090,2025-09-23,A교수,신경외과,Room03,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,수술 전후 계수 일치,5
+OP25-1661,OP25-1661.pdf,30003067,2025-09-23,D교수,정형외과,Room11,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1667,OP25-1667.docx,39462593,2025-09-24,A교수,신경외과,Room04,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,수술 전후 계수 일치,1
+OP25-1675,OP25-1675.pdf,15830660,2025-09-24,A교수,신경외과,Room02,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,수술 전후 계수 일치,1
+OP25-1677,OP25-1677.pdf,35224458,2025-09-24,A교수,신경외과,Room06,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-A-TLIF1,수술 전후 계수 일치,4
+OP25-1680,OP25-1680.pdf,16053868,2025-09-24,A교수,신경외과,Room12,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1685,OP25-1685.docx,31884236,2025-09-24,D교수,정형외과,Room01,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음,4
+OP25-1689,OP25-1689.docx,16566603,2025-09-25,B교수,신경외과,Room09,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L4-5-1 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치,5
+OP25-1691,OP25-1691.pdf,28590508,2025-09-25,B교수,신경외과,Room01,Lumbar L3-4-5,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·바늘·기구 수 일치 확인,7
+OP25-1695,OP25-1695.docx,18231851,2025-09-25,E교수,정형외과,Room10,Rt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Rt.,X2076,SET-E-RTSA,거즈·기구 수 확인 이상 없음,1
+OP25-1699,OP25-1699.docx,17465115,2025-09-29,A교수,신경외과,Room07,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1705,OP25-1705.pdf,21547817,2025-09-29,C교수,신경외과,Room05,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인 / C-arm 지연 15분,6
+OP25-1712,OP25-1712.pdf,16683646,2025-09-29,D교수,정형외과,Room08,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-1718,OP25-1718.pdf,29806639,2025-09-30,A교수,신경외과,Room02,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-1720,OP25-1720.docx,38337881,2025-09-30,D교수,정형외과,Room01,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1722,OP25-1722.pdf,38587406,2025-10-01,C교수,신경외과,Room01,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,수술 전후 계수 일치,1
+OP25-1731,OP25-1731.pdf,19758529,2025-10-01,D교수,정형외과,Room03,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1733,OP25-1733.pdf,23929152,2025-10-02,A교수,신경외과,Room06,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-1741,OP25-1741.pdf,11202392,2025-10-03,C교수,신경외과,Room12,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,거즈·기구 수 확인 이상 없음,6
+OP25-1744,OP25-1744.pdf,19802727,2025-10-06,A교수,신경외과,Room08,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-1753,OP25-1753.pdf,11376585,2025-10-06,D교수,정형외과,Room09,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·바늘·기구 수 일치 확인,4
+OP25-1758,OP25-1758.pdf,31827457,2025-10-07,C교수,신경외과,Room05,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인 / 수술 중 수혈 1 unit,1
+OP25-1764,OP25-1764.docx,34781326,2025-10-08,B교수,신경외과,Room04,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L4-5-1 ( bilateral ),X0468,SET-B-PLIF2,거즈·바늘·기구 수 일치 확인,8
+OP25-1766,OP25-1766.pdf,29794419,2025-10-08,E교수,정형외과,Room05,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,수술 전후 계수 일치,1
+OP25-1769,OP25-1769.pdf,19557919,2025-10-09,B교수,신경외과,Room11,Lumbar L5-S1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치 / 수술 중 수혈 1 unit,6
+OP25-1771,OP25-1771.docx,38963788,2025-10-09,F교수,정형외과,Room12,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,수술 전후 계수 일치,2
+OP25-1777,OP25-1777.pdf,27304727,2025-10-10,B교수,신경외과,Room03,Lumbar L5-S1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,5
+OP25-1786,OP25-1786.pdf,23073130,2025-10-13,B교수,신경외과,Room11,Lumbar L2-3-4,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-1795,OP25-1795.pdf,17300276,2025-10-13,E교수,정형외과,Room10,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·기구 수 확인 이상 없음,1
+OP25-1799,OP25-1799.pdf,24278958,2025-10-15,D교수,정형외과,Room10,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·바늘·기구 수 일치 확인,4
+OP25-1807,OP25-1807.pdf,15918739,2025-10-15,F교수,정형외과,Room06,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-F-ARCR,거즈·바늘·기구 수 일치 확인,2
+OP25-1816,OP25-1816.pdf,39248809,2025-10-16,B교수,신경외과,Room01,T12 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : T12,X0471,SET-B-PVP,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,2
+OP25-1821,OP25-1821.docx,13596189,2025-10-20,A교수,신경외과,Room11,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·바늘·기구 수 일치 확인,1
+OP25-1829,OP25-1829.pdf,13934618,2025-10-20,F교수,정형외과,Room05,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,거즈·기구 수 확인 이상 없음,2
+OP25-1834,OP25-1834.pdf,38107116,2025-10-21,C교수,신경외과,Room03,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,수술 전후 계수 일치 / C-arm 지연 15분,6
+OP25-1842,OP25-1842.pdf,34053037,2025-10-21,E교수,정형외과,Room03,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·기구 수 확인 이상 없음,1
+OP25-1844,OP25-1844.pdf,31367180,2025-10-23,C교수,신경외과,Room05,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-C-TLIF1,거즈·기구 수 확인 이상 없음,6
+OP25-1847,OP25-1847.docx,28395497,2025-10-23,F교수,정형외과,Room03,Lt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Lt.",X0607,SET-F-FNF,거즈·기구 수 확인 이상 없음,2
+OP25-1851,OP25-1851.pdf,39977674,2025-10-24,E교수,정형외과,Room05,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,거즈·기구 수 확인 이상 없음,1
+OP25-1856,OP25-1856.pdf,16437647,2025-10-27,C교수,신경외과,Room01,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-C-TLIF2,수술 전후 계수 일치 / 수술 중 수혈 1 unit,6
+OP25-1858,OP25-1858.pdf,29499341,2025-10-27,E교수,정형외과,Room08,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-1867,OP25-1867.docx,21352910,2025-10-28,A교수,신경외과,Room03,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,4
+OP25-1875,OP25-1875.pdf,34102192,2025-10-31,A교수,신경외과,Room06,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-1877,OP25-1877.docx,26917546,2025-10-31,B교수,신경외과,Room05,L2 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L2,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-1885,OP25-1885.docx,12859172,2025-10-31,C교수,신경외과,Room09,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,거즈·바늘·기구 수 일치 확인,6
+OP25-1888,OP25-1888.pdf,16387653,2025-10-31,D교수,정형외과,Room11,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-D-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-1896,OP25-1896.pdf,20312417,2025-10-31,D교수,정형외과,Room11,Lt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-1905,OP25-1905.pdf,30601969,2025-11-03,A교수,신경외과,Room09,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,수술 전후 계수 일치 / 체위변경 시 피부 상태 이상 없음,1
+OP25-1908,OP25-1908.pdf,19595868,2025-11-03,C교수,신경외과,Room09,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,수술 전후 계수 일치,6
+OP25-1913,OP25-1913.pdf,29694320,2025-11-04,D교수,정형외과,Room07,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1918,OP25-1918.pdf,19805406,2025-11-06,A교수,신경외과,Room01,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·기구 수 확인 이상 없음,1
+OP25-1927,OP25-1927.pdf,13817865,2025-11-06,A교수,신경외과,Room03,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,5
+OP25-1934,OP25-1934.pdf,39259094,2025-11-06,A교수,신경외과,Room07,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,4
+OP25-1937,OP25-1937.pdf,29330602,2025-11-07,E교수,정형외과,Room05,Rt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Rt.,X2076,SET-E-RTSA,거즈·바늘·기구 수 일치 확인,1
+OP25-1944,OP25-1944.pdf,34392549,2025-11-10,B교수,신경외과,Room01,Lumbar L2-3-4,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L2-3-4 ( bilateral ),X0468,SET-B-PLIF2,거즈·바늘·기구 수 일치 확인,6
+OP25-1950,OP25-1950.pdf,10625057,2025-11-10,C교수,신경외과,Room10,Lumbar L4-L5,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L4-L5,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,0
+OP25-1952,OP25-1952.docx,21840722,2025-11-10,F교수,정형외과,Room01,Lt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Lt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인 / C-arm 지연 15분,4
+OP25-1957,OP25-1957.pdf,29333051,2025-11-13,D교수,정형외과,Room11,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1965,OP25-1965.docx,13734397,2025-11-14,B교수,신경외과,Room05,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,7
+OP25-1973,OP25-1973.pdf,22269326,2025-11-14,D교수,정형외과,Room10,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-1978,OP25-1978.pdf,29230893,2025-11-14,D교수,정형외과,Room04,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-1984,OP25-1984.pdf,39514233,2025-11-17,A교수,신경외과,Room06,Lumbar L2-3-4,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치 / C-arm 지연 15분,4
+OP25-1986,OP25-1986.docx,31462088,2025-11-18,A교수,신경외과,Room03,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,4
+OP25-1989,OP25-1989.pdf,32454857,2025-11-18,E교수,정형외과,Room10,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,거즈·바늘·기구 수 일치 확인,1
+OP25-1995,OP25-1995.docx,39283661,2025-11-20,A교수,신경외과,Room09,Lumbar L4-5-1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·바늘·기구 수 일치 확인,5
+OP25-2004,OP25-2004.pdf,21769553,2025-11-20,A교수,신경외과,Room05,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,5
+OP25-2009,OP25-2009.pdf,21856151,2025-11-21,A교수,신경외과,Room12,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,수술 전후 계수 일치,4
+OP25-2016,OP25-2016.pdf,30302960,2025-11-25,C교수,신경외과,Room07,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-C-TLIF2,거즈·바늘·기구 수 일치 확인,6
+OP25-2024,OP25-2024.pdf,13904863,2025-11-25,E교수,정형외과,Room03,Rt. shoulder,회전근개 파열 관절병증,RTSA (reverse total shoulder arthroplasty) : Rt.,X2076,SET-E-RTSA,거즈·기구 수 확인 이상 없음,1
+OP25-2029,OP25-2029.pdf,39999844,2025-11-26,B교수,신경외과,Room11,L2 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L2,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-2038,OP25-2038.pdf,28519731,2025-11-26,D교수,정형외과,Room12,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-D-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-2046,OP25-2046.pdf,35037304,2025-11-27,B교수,신경외과,Room03,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-2053,OP25-2053.pdf,19555935,2025-11-27,B교수,신경외과,Room08,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,수술 전후 계수 일치,6
+OP25-2058,OP25-2058.pdf,21213085,2025-11-27,D교수,정형외과,Room08,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-2060,OP25-2060.docx,11465770,2025-11-28,B교수,신경외과,Room12,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-B-TLIF1,거즈·기구 수 확인 이상 없음,7
+OP25-2068,OP25-2068.pdf,18014166,2025-11-28,D교수,정형외과,Room08,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-2074,OP25-2074.pdf,38203489,2025-11-28,F교수,정형외과,Room05,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인,5
+OP25-2077,OP25-2077.docx,17172841,2025-12-01,A교수,신경외과,Room03,Lumbar L3-L4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-L4 ( bilateral ),X0469,SET-A-TLIF1,거즈·기구 수 확인 이상 없음,4
+OP25-2086,OP25-2086.pdf,18086964,2025-12-02,C교수,신경외과,Room12,Lumbar L5-S1,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-C-TLIF1,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,5
+OP25-2095,OP25-2095.pdf,14789605,2025-12-03,D교수,정형외과,Room03,Lt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음,4
+OP25-2104,OP25-2104.docx,21919321,2025-12-08,A교수,신경외과,Room04,Lumbar L5-S1,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L5-S1",X0464,SET-A-LAM,거즈·바늘·기구 수 일치 확인,2
+OP25-2112,OP25-2112.docx,12124372,2025-12-08,E교수,정형외과,Room09,Lt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Lt.,X0937,SET-E-BANKART,수술 전후 계수 일치,1
+OP25-2120,OP25-2120.pdf,28902609,2025-12-09,C교수,신경외과,Room06,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,거즈·바늘·기구 수 일치 확인,5
+OP25-2123,OP25-2123.pdf,15797508,2025-12-10,A교수,신경외과,Room07,Lumbar L4-L5,"척추협착, 요추부","Laminectomy, lumbar (decompression) : L4-L5",X0464,SET-A-LAM,거즈·바늘·기구 수 일치 확인,1
+OP25-2128,OP25-2128.docx,34860041,2025-12-10,A교수,신경외과,Room01,Lumbar L5-S1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L5-S1 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인,4
+OP25-2134,OP25-2134.pdf,14748073,2025-12-10,A교수,신경외과,Room08,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-2139,OP25-2139.pdf,16882979,2025-12-10,B교수,신경외과,Room02,L3 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L3,X0471,SET-B-PVP,수술 전후 계수 일치,2
+OP25-2148,OP25-2148.docx,38731307,2025-12-10,C교수,신경외과,Room05,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,수술 전후 계수 일치,1
+OP25-2156,OP25-2156.pdf,29625483,2025-12-11,A교수,신경외과,Room10,Lumbar L2-3-4,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L2-3-4 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,4
+OP25-2161,OP25-2161.docx,38462568,2025-12-11,D교수,정형외과,Room08,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·바늘·기구 수 일치 확인,4
+OP25-2167,OP25-2167.docx,18125140,2025-12-11,F교수,정형외과,Room09,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,거즈·바늘·기구 수 일치 확인,2
+OP25-2172,OP25-2172.pdf,33883840,2025-12-12,B교수,신경외과,Room03,Lumbar L3-4-5,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·바늘·기구 수 일치 확인 / 수술 중 수혈 1 unit,6
+OP25-2175,OP25-2175.pdf,33768949,2025-12-12,E교수,정형외과,Room10,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,거즈·기구 수 확인 이상 없음,1
+OP25-2182,OP25-2182.pdf,20563316,2025-12-17,D교수,정형외과,Room08,Lt. hip,"원발성 고관절증, 양측성 이외",THA (total hip arthroplasty) : Lt.,X2070,SET-D-THA,수술 전후 계수 일치,4
+OP25-2190,OP25-2190.pdf,32116270,2025-12-17,E교수,정형외과,Room10,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-E-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-2192,OP25-2192.pdf,21802204,2025-12-17,F교수,정형외과,Room04,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·바늘·기구 수 일치 확인,5
+OP25-2200,OP25-2200.pdf,28631518,2025-12-18,F교수,정형외과,Room01,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-F-ARCR,거즈·기구 수 확인 이상 없음,2
+OP25-2207,OP25-2207.pdf,27371113,2025-12-19,A교수,신경외과,Room08,Lumbar L4-L5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-A-TLIF1,거즈·바늘·기구 수 일치 확인,4
+OP25-2215,OP25-2215.pdf,34135861,2025-12-19,C교수,신경외과,Room11,Lumbar L3-L4,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L3-L4,X0461,SET-C-MED,수술 전후 계수 일치,0
+OP25-2221,OP25-2221.docx,31891247,2025-12-19,C교수,신경외과,Room10,Lumbar L4-L5,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-L5 ( bilateral ),X0469,SET-C-TLIF1,거즈·바늘·기구 수 일치 확인,5
+OP25-2224,OP25-2224.pdf,34745876,2025-12-22,B교수,신경외과,Room02,Lumbar L4-5-1,"척추협착, 요추부",PLIF (posterior lumbar interbody fusion) : L4-5-1 ( bilateral ),X0468,SET-B-PLIF2,수술 전후 계수 일치 / C-arm 지연 15분,7
+OP25-2232,OP25-2232.docx,21254096,2025-12-22,D교수,정형외과,Room06,Lt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Lt.,X2072,SET-D-TKA,수술 전후 계수 일치,4
+OP25-2237,OP25-2237.pdf,35425903,2025-12-22,D교수,정형외과,Room07,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·기구 수 확인 이상 없음,4
+OP25-2245,OP25-2245.pdf,21669386,2025-12-23,D교수,정형외과,Room08,Lt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Lt.,X0935,SET-D-ARCR,거즈·기구 수 확인 이상 없음,1
+OP25-2251,OP25-2251.pdf,36936591,2025-12-23,D교수,정형외과,Room06,Rt. hip,"특발성 무균성 골괴사, 대퇴골두",THA (total hip arthroplasty) : Rt.,X2070,SET-D-THA,거즈·기구 수 확인 이상 없음,4
+OP25-2256,OP25-2256.pdf,35227089,2025-12-24,A교수,신경외과,Room09,Lumbar L4-5-1,"퇴행성 척추전방전위증, 요추부",TLIF (transforaminal lumbar interbody fusion) : L4-5-1 ( bilateral ),X0469,SET-A-TLIF2,수술 전후 계수 일치,5
+OP25-2264,OP25-2264.pdf,28221267,2025-12-24,D교수,정형외과,Room07,Rt. knee,"원발성 무릎관절증, 양측성 이외",TKA (total knee arthroplasty) : Rt.,X2072,SET-D-TKA,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,4
+OP25-2266,OP25-2266.pdf,17958452,2025-12-24,F교수,정형외과,Room03,Rt. hip (femoral neck),"대퇴골 경부의 골절, 폐쇄성","Internal fixation with cannulated screws, femoral neck : Rt.",X0607,SET-F-FNF,수술 전후 계수 일치,2
+OP25-2275,OP25-2275.pdf,30978605,2025-12-25,E교수,정형외과,Room01,Rt. shoulder,회전근개 증후군 (완전 파열),ARCR (arthroscopic rotator cuff repair) : Rt.,X0935,SET-E-ARCR,거즈·바늘·기구 수 일치 확인 / 체위변경 시 피부 상태 이상 없음,1
+OP25-2277,OP25-2277.pdf,19743810,2025-12-26,B교수,신경외과,Room11,L3 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L3,X0471,SET-B-PVP,거즈·기구 수 확인 이상 없음,2
+OP25-2282,OP25-2282.pdf,16915366,2025-12-26,E교수,정형외과,Room12,Rt. shoulder,재발성 어깨관절 탈구,Arthroscopic Bankart repair : Rt.,X0937,SET-E-BANKART,거즈·기구 수 확인 이상 없음 / 수술 중 수혈 1 unit,1
+OP25-2290,OP25-2290.pdf,27462256,2025-12-26,F교수,정형외과,Room01,Rt. wrist (distal radius),"요골 하단의 골절, 폐쇄성","ORIF with volar locking plate, distal radius : Rt.",X0603,SET-F-DRF,거즈·기구 수 확인 이상 없음,4
+OP25-2293,OP25-2293.pdf,29290579,2025-12-30,B교수,신경외과,Room09,Lumbar L3-4-5,"퇴행성 척추전방전위증, 요추부",PLIF (posterior lumbar interbody fusion) : L3-4-5 ( bilateral ),X0468,SET-B-PLIF2,거즈·기구 수 확인 이상 없음,7
+OP25-2300,OP25-2300.pdf,10379428,2025-12-30,C교수,신경외과,Room07,Lumbar L5-S1,신경뿌리병증을 동반한 요추 추간판장애,MED (microendoscopic discectomy) : L5-S1,X0461,SET-C-MED,거즈·바늘·기구 수 일치 확인,2
+OP25-2307,OP25-2307.pdf,10658727,2025-12-31,A교수,신경외과,Room12,Lumbar L3-4-5,"척추협착, 요추부",TLIF (transforaminal lumbar interbody fusion) : L3-4-5 ( bilateral ),X0469,SET-A-TLIF2,거즈·기구 수 확인 이상 없음,4
+OP25-2316,OP25-2316.pdf,37333141,2025-12-31,B교수,신경외과,Room12,L2 vertebral body,"병적 골절을 동반한 골다공증, 요추",Percutaneous vertebroplasty : L2,X0471,SET-B-PVP,거즈·바늘·기구 수 일치 확인,2
