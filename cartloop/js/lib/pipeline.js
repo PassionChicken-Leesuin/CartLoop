@@ -41,7 +41,7 @@ export async function extractWithCache(llm, cache, text, mode = 'live') {
   }
 }
 
-export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', installDate = 'auto', onStage = () => {}, onProgress = () => {}, onFile = () => {} } = {}) {
+export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', installDate = 'auto', onStage = () => {}, onProgress = () => {}, onFile = () => {}, onInfo = () => {} } = {}) {
   const db = createDB();
   const report = { files: [], extract: { llm: 0, cache: 0, failed: 0, errors: [] }, alias: null, rulesVia: '', ms: {} };
   const t = k => { report.ms[k] = Date.now(); };
@@ -58,6 +58,8 @@ export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', i
   report.files = read.map(r => ({ name: r.name, kind: r.kind, why: r.why, size: r.size, rows: r.rows?.length, headerRow: r.headerRow, error: r.error }));
   db.files = report.files;
   tEnd('read');
+  { const k = {}; for (const f of report.files) k[f.kind] = (k[f.kind] || 0) + 1;
+    onInfo('read', `파일 ${files.length}개 → 기록지 ${k.record || 0} · 청구 목록 ${k.claims || 0} · 재료 마스터 ${k.master || 0} · 세트 목록 ${k.sets || 0} · 공지 ${k.notices || 0}${k.unknown ? ` · 판별 불가 ${k.unknown}` : ''}`); }
 
   // 2) 표
   onStage('tables'); t('tables');
@@ -66,6 +68,7 @@ export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', i
   for (const r of read) if (r.kind === 'sets') ingestSets(db, r.rows);
   if (!Object.keys(db.master).length) throw new Error('재료 마스터 파일을 찾지 못했습니다. 재료코드 · 품명 · 상한금액 열이 있는 표가 필요합니다.');
   tEnd('tables');
+  onInfo('tables', `수술 ${Object.keys(db.claims).length.toLocaleString()}건 · 청구 ${Object.values(db.claims).reduce((n, c) => n + c.lines.length, 0).toLocaleString()}줄 · 재료 ${Object.keys(db.master).length}품목 · 세트 ${Object.keys(db.sets).length}개`);
 
   // 3) 공지 → 규칙
   onStage('rules'); t('rules');
@@ -81,6 +84,7 @@ export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', i
     }
   }
   tEnd('rules');
+  onInfo('rules', db.rules.length ? `공지 ${db.rules.length}건 → 규칙 ${db.rules.filter(r => r.type !== 'info').length}개 (${report.rulesVia === 'llm' ? 'LLM이 공지문을 읽음' : '저장 결과'})` : '공지 없음');
 
   // 4) 기록지 추출 (LLM, 여러 키로 동시에)
   onStage('extract'); t('extract');
@@ -99,6 +103,7 @@ export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', i
     return out;
   }));
   tEnd('extract');
+  onInfo('extract', `기록지 ${report.extract.llm + report.extract.cache}건 추출 (${report.extract.llm ? `LLM 실시간 ${report.extract.llm}건` : ''}${report.extract.cache ? `저장 결과 ${report.extract.cache}건` : ''})${report.extract.failed ? ` · 실패 ${report.extract.failed}` : ''}`);
 
   // 설치 기준일: 마지막 청구일에서 석 달 전의 1일
   const dates = Object.values(db.claims).map(c => c.date).filter(Boolean).sort();
@@ -126,6 +131,7 @@ export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', i
   report.alias = await learnAliases(db, llm, pre, { onProgress: (d, n) => onProgress('alias', d, n) });
   await learnProcedures(db, llm, [...pre, ...Object.values(db.pending).map(p => p.rec).filter(Boolean)]);
   tEnd('alias');
+  onInfo('alias', `호칭 ${report.alias.learned}종 연결 · 코드가 적힌 줄에서 ${report.alias.fromCode}종 · LLM 제안 ${report.alias.proposed}종 · 청구 기록으로 교정 ${report.alias.corrected}종`);
 
   // 6) 구축
   onStage('build'); t('build');
@@ -135,11 +141,13 @@ export async function buildFromFiles(files, { llm, deps, cache, mode = 'live', i
   db.builtAt = new Date().toISOString();
   bumpVersion(db, '설치 · 파일 업로드', { addedOps: pre.length, newAliases: Object.keys(db.aliases).length });
   tEnd('build');
+  { const sm = summary(db); onInfo('build', `Loop DB v1 · 표기 ${sm.notations}종 → 재료코드 ${sm.codes}개 · 기록 줄 ${sm.resolvedLines}/${sm.recordLines} 연결 · 설치 기준일 ${db.installDate}`); }
 
   // 7) 과거 대조
   onStage('audit'); t('audit');
   const alerts = auditAll(db);
   tEnd('audit');
+  onInfo('audit', `수술 ${new Set(alerts.map(a => a.op)).size}건에서 확인할 항목 ${alerts.length}개`);
   onStage('done');
   return { db, alerts, report, summary: summary(db) };
 }

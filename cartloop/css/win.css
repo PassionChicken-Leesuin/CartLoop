@@ -155,3 +155,23 @@ table.use td.zero { color: #b9c3c1; }
   .pair, .ehrgrid { grid-template-columns: 1fr; }
   .pair > .arrow, .ehrgrid > .arrow { display: none; }
 }
+
+/* 분석 과정: 단계가 차례로 나타난다 */
+.steps { display: grid; gap: 6px; }
+.steps .step { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 10px; align-items: start; border: 1px solid #e3e9e8; border-radius: 9px; padding: 8px 12px; background: #fff; animation: stepin .35s ease both; }
+.steps .step .ck { width: 16px; height: 16px; border-radius: 50%; background: var(--teal); color: #fff; font-size: 10px; display: grid; place-items: center; margin-top: 2px; }
+.steps .step .ck.wait { background: #d5dedc; }
+.steps .step .ck.run { background: none; border: 2px solid var(--amber); border-top-color: transparent; animation: spin .8s linear infinite; }
+.steps .step b { font-size: 13.5px; display: block; }
+.steps .step small { color: var(--ink-2); font-size: 12px; display: block; }
+.steps .step .bar { display: block; margin-top: 6px; min-width: 0; }
+.steps .step.run { border-color: var(--amber); background: #fffaf0; }
+.steps .step.wait { opacity: .45; animation: none; }
+@keyframes stepin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .steps .step, .steps .step .ck.run { animation: none; } }
+.strip .keys { flex-wrap: nowrap; gap: 2px; }
+.strip .keys i { width: 9px; height: 12px; border-radius: 2px; background: #c9e2de; }
+.strip .keys i.on { background: var(--teal); }
+
+/* 화면 전체 높이를 채운다 */
+#app { height: 100%; }

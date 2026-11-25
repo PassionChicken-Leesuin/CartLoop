@@ -26,7 +26,7 @@ const llm = createLLM({ endpoint: '/api/llm', concurrency: 20 });
 const S = {
   route: location.hash.replace(/^#\/?/, '') || 'start',
   db: null, snap: null, chat: [],
-  mode: 'live', stage: null, building: null, buildError: null, resultHidden: false,
+  mode: 'live', stage: null, building: null, buildError: null, resultHidden: false, revealed: false,
   toast: null, health: null,
   ehr: { op: null, busy: false, result: null, dismissed: {}, hl: null, hlRaw: null, entry: { code: '', qty: '' } },
   dbTab: 'alias', kbFile: 'README.md', aliasQ: '', auditType: 'all', asking: false, batch: null, valid: null, validBusy: false,
@@ -84,7 +84,7 @@ async function stageFiles(getFiles, append = false) {
   S.buildError = null;
   const prev = append && S.stage ? S.stage.files : [];
   S.stage = { files: prev, groups: append ? (S.stage?.groups || []) : [], busy: '파일을 읽는 중', prog: null };
-  S.building = null; S.resultHidden = true; // 아직 분석하지 않은 파일이므로 이전 결과는 보이지 않게 한다
+  S.building = null; S.resultHidden = true; S.revealed = false; // 아직 분석하지 않은 파일이므로 이전 결과는 보이지 않게 한다
   draw();
   try {
     const got = await getFiles((d, n) => { S.stage.prog = [d, n]; draw(); });
@@ -121,7 +121,8 @@ async function startBuild() {
   const files = S.stage?.files;
   if (!files?.length) return toast('먼저 파일을 올려 주세요.');
   S.buildError = null;
-  S.building = { stage: 'read', prog: {}, t0: Date.now() };
+  S.building = { stage: 'read', prog: {}, info: {}, at: { read: Date.now() }, took: {}, t0: Date.now() };
+  S.resultHidden = false;
   draw();
   try {
     await loadSampleCache();
@@ -129,7 +130,8 @@ async function startBuild() {
     let lastDraw = 0;
     const res = await buildFromFiles(files, {
       llm, deps: await deps(), cache, mode: S.mode,
-      onStage: s => { if (s !== 'done') { S.building.stage = s; draw(); } },
+      onStage: s => { if (s !== 'done') { S.building.stage = s; S.building.at[s] = Date.now(); draw(); } },
+      onInfo: (s, text) => { S.building.info[s] = text; S.building.took[s] = (Date.now() - (S.building.at[s] || Date.now())) / 1000; draw(); },
       onProgress: (s, d, n) => { S.building.prog[s] = [d, n]; if (Date.now() - lastDraw > 120 || d === n) { lastDraw = Date.now(); draw(); } },
     });
     const keys = Object.keys(llm.stats.byKey).filter(k => (llm.stats.byKey[k] || 0) > (before.byKey[k] || 0)).length;
@@ -140,8 +142,11 @@ async function startBuild() {
       llm: { calls: llm.stats.calls - before.calls, inTok: llm.stats.inTok - before.inTok, outTok: llm.stats.outTok - before.outTok, keys, peak: llm.stats.peak },
     };
     S.chat = []; S.valid = null; S.setSel = null; S.ehr = { ...S.ehr, op: null, result: null, dismissed: {} };
+    S.snap.process = { info: S.building.info, took: S.building.took };
+    persist();
+    await new Promise(r => setTimeout(r, 700)); // 마지막 단계가 끝난 것을 보여 주고 결과로 넘어간다
     S.building.stage = 'done'; S.resultHidden = false;
-    persist(); draw();
+    draw();
   } catch (e) {
     console.error(e);
     S.buildError = String(e?.message || e); S.building = null; draw();
@@ -242,7 +247,7 @@ function UploadWin({ restored }) {
     <div class="btnrow">
       <button class="btn" id="load-sample" disabled=${running || !!st?.busy} onClick=${() => stageFiles(fetchSample)}>샘플 파일 올리기</button>
       <button class="btn" disabled=${running || !!st?.busy} onClick=${() => fileRef.current.click()}>파일 더 추가</button>
-      <button class="btn pri" id="start-build" disabled=${running || !!st?.busy || !canStart} onClick=${startBuild}>${running ? '분석 중…' : restored && !canStart ? '분석 완료' : '분석 시작'}</button>
+      <button class="btn pri" id="start-build" disabled=${running || !!st?.busy || (!canStart && !restored)} onClick=${canStart ? startBuild : reanalyze}>${running ? '분석 중…' : '분석 시작'}</button>
     </div>
     <div class="wfoot">EHR 연동 없음 · 파일 판독은 이 브라우저 안에서 처리 · <button class="linkbtn" style="color:var(--teal-ink)" onClick=${() => dirRef.current.click()}>폴더째 올리기</button></div>
     <label class="wfoot" style="display:flex;gap:6px;justify-content:center;align-items:center"><input id="mode-cache" type="checkbox" checked=${S.mode === 'cache'} onChange=${e => { S.mode = e.target.checked ? 'cache' : 'live'; draw(); }} />저장해 둔 추출 결과 사용 (LLM 호출 없이 빠르게)${S.health ? ` · OpenRouter 키 ${S.health.keys}개 연결` : ''}</label>
@@ -274,6 +279,22 @@ function ResultWin() {
   const files = sn?.report.files || [];
   const hdr = k => files.find(f => f.kind === k)?.headerRow || 1;
   const nRule = db ? db.rules.filter(r => r.type !== 'info').length : 0;
+  if (running) {
+    const act = llm.stats.active;
+    return html`<${Win} title="처음 설정" sub="2 / 2 분석 중" id="win-result"><div class="wbody">
+      <div class="wh">파일 내용과 구조를 <em>읽고 있어요</em></div>
+      <div class="underline" style=${`width:${Math.max(6, (cur + 0.5) / order.length * 100)}%;transition:width .4s`}></div>
+      <div class="strip busy">에이전트 처리 중 · LLM 동시 호출 ${act}건 <span class="keys" style="margin-left:auto">${Array.from({ length: 20 }, (_, i) => html`<i class=${i < act ? 'on' : ''}></i>`)}</span></div>
+      <div class="steps">${STAGES.map(([id, name, desc], i) => {
+        if (i > cur) return html`<div class="step wait" key=${id}><span class="ck wait"></span><div><b>${name}</b><small>${desc}</small></div><span></span></div>`;
+        const pr = b.prog[id], done = i < cur || b.info[id];
+        return html`<div class=${'step ' + (done ? 'done' : 'run')} key=${id}><span class=${'ck ' + (done ? '' : 'run')}>${done ? '✓' : ''}</span>
+          <div><b>${name}</b><small>${b.info[id] || desc}</small>${!done && pr ? html`<span class="bar"><i style=${`width:${pr[0] / pr[1] * 100}%`}></i></span>` : ''}</div>
+          <span class="num small muted">${done ? (b.took[id] != null ? b.took[id].toFixed(1) + '초' : '') : pr ? `${pr[0]} / ${pr[1]}` : ''}</span></div>`;
+      })}</div>
+      <div class="wfoot">${((Date.now() - b.t0) / 1000).toFixed(0)}초 지남 · 키 20개로 나눠 동시에 처리</div>
+    </div><//>`;
+  }
   return html`<${Win} title="처음 설정" sub="2 / 2 분석 결과" id="win-result"><div class="wbody">
     <div class="wh">${running ? html`파일 내용과 구조를 <em>읽고 있어요</em>` : html`파일 내용과 구조를 읽어 <em>DB를 만들었어요</em>`}</div>
     <div class="underline" style=${running ? `width:${Math.max(6, (cur + 1) / order.length * 100)}%` : ''}></div>
@@ -295,6 +316,7 @@ function ResultWin() {
       <div><span class=${'ck ' + st('rules')}>${mark('rules')}</span><b>기준 규칙화</b><span>${running ? '기준 변경 공지를 점검 규칙으로' : `공지 ${v1.rules}건 → 규칙 ${nRule}개`}</span></div>
       <div><span class=${'ck ' + st('audit')}>${mark('audit')}</span><b>과거 기록 대조</b><span>${running ? '쌓인 기록에서 확인할 항목 찾기' : `수술 ${new Set(alerts.map(a => a.op)).size}건에서 확인할 항목 ${alerts.length}개`}</span></div>
     </div>
+    ${!running && sn.process && html`<details><summary class="evlink">처리 과정 보기 (${STAGES.length}단계 · ${sn.sec.toFixed(1)}초)</summary><div class="steps" style="margin-top:8px">${STAGES.map(([id, name]) => html`<div class="step done"><span class="ck">✓</span><div><b>${name}</b><small>${sn.process.info[id] || ''}</small></div><span class="num small muted">${sn.process.took[id] != null ? sn.process.took[id].toFixed(1) + '초' : ''}</span></div>`)}</div></details>`}
     ${!running && html`<div class="ambox"><b>과거 기록을 서로 대조한 결과 (가상 금액)</b>누락 ${cnt(['missing'])} · 수량 ${cnt(['qty_mismatch'])} · 규격 ${cnt(['spec_mismatch'])} · 급여 기준 ${cnt(RULE_TYPES)} · 참고 ${cnt(['unrecorded'])}건 — 청구에서 빠진 금액 추정 ${manwon(missed)}</div>
     <div class="wfoot">판정은 규칙 · 통계 기반 · 사람이 입력한 것 없음</div>`}
   </div><//>`;
@@ -312,13 +334,13 @@ function groupsFromDB(db) {
 }
 function StartPage() {
   const running = S.building && S.building.stage !== 'done';
-  // 출력 화면은 분석을 시작한 뒤에만 보인다. 새 파일을 올려 두고 아직 분석하지 않았으면 이전 결과도 감춘다.
-  const showResult = running || (S.db && !S.resultHidden);
+  // 출력 화면은 "분석 시작"을 누른 뒤에만 보인다. 저장된 DB가 있어도 먼저 띄우지 않는다.
+  const showResult = running || (S.db && S.building && !S.resultHidden) || (S.db && S.revealed && !S.resultHidden);
   const restored = S.db && !S.stage && !S.building; // 이 브라우저에 저장돼 있던 DB
   return html`<div class="page">
     <div class="head"><div><h1>파일을 올리면 Loop DB v1이 만들어집니다</h1><p class="sub">병원에 이미 있는 파일을 그대로 올립니다. 파일 이름이나 서식을 맞출 필요가 없고, EHR에는 연결하지 않습니다.</p></div></div>
     ${S.buildError && html`<div class="notice amber"><b>마치지 못했습니다.</b> ${S.buildError}</div>`}
-    ${restored && html`<div class="notice">이 브라우저에 저장해 둔 Loop DB v${S.db.version}을 불러왔습니다 (${new Date(S.db.builtAt).toLocaleString('ko-KR')}에 분석). 처음부터 다시 보려면 왼쪽 아래 "처음부터 다시"를 누르거나, 파일을 새로 올려 분석하세요.</div>`}
+    ${restored && !S.revealed && html`<div class="notice">이 브라우저에 지난번 분석한 Loop DB v${S.db.version}이 저장돼 있습니다. "분석 시작"을 누르면 같은 파일로 처음부터 다시 분석합니다. <button class="linkbtn" id="reveal-saved" style="color:inherit;font-size:inherit" onClick=${() => { S.revealed = true; draw(); }}>다시 분석하지 않고 저장된 결과 보기</button></div>`}
     <div class="pair">
       <div class="col"><${TagHead}>병원에 이미 있는 파일<//><${UploadWin} restored=${restored ? groupsFromDB(S.db) : null} /></div>
       ${showResult ? html`<div class="arrow">→</div>
@@ -326,6 +348,16 @@ function StartPage() {
     </div>
     ${showResult && !running && html`<div class="row"><a class="btn pri" href="#/audit">과거 대조 결과 보기</a><a class="btn" href="#/db">Loop DB 열어 보기</a><a class="btn" href="#/ehr">설치 후 수술 ${Object.keys(S.db.pending).length}건 읽기</a></div>`}
   </div>`;
+}
+// 저장된 DB만 있고 파일은 메모리에 없을 때: 같은 가상 병원 데이터를 다시 받아 처음부터 분석한다
+async function reanalyze() {
+  const man = await (await fetch('sample/manifest.json')).json();
+  const names = new Set(man.files.map(f => f.name));
+  const fromSample = (S.db.files || []).length && S.db.files.every(f => names.has(f.name));
+  if (!fromSample) return toast('직접 올린 파일로 만든 DB입니다. 다시 분석하려면 파일을 다시 올려 주세요.');
+  if (!confirm('저장된 Loop DB를 지우고 같은 파일로 처음부터 다시 분석할까요? (읽은 수술, 승인한 세트 개정도 처음으로 돌아갑니다)')) return;
+  await stageFiles(fetchSample);
+  if (S.stage?.files?.length) startBuild();
 }
 
 // ───────────────────────── 2. Loop DB ─────────────────────────
