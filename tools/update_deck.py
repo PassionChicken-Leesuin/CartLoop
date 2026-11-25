@@ -58,6 +58,16 @@ TABLE_15 = [
     ('기준 변경 공지', [None, None, '시행일이 있는 산정 불가 · 정액 포함 · 수량 한도 · 단가 조정 · 사용 중지 · 세트 개정 기준 안내']),
 ]
 RUN_EDITS = {15: [('생성 시드를 고정해 같은 데이터를 언제든 다시 만들 수 있음', '정답지는 생성 스크립트로 언제든 같은 결과를 다시 만들 수 있음')]}
+# 문단 하나만 바꾸기: (슬라이드, 옛 문단의 일부, 새 문단)
+PARA_EDITS = [
+    (14, '파일시스템 기반 지식 관리', '별칭 사전 · 세트 · 규칙 · 수술 기록을 서로 연결해 저장'),
+    (14, '기준을 파일과 링크로 저장', 'Loop DB 하나에 모아 버전으로 관리'),
+]
+# 문단 덧붙이기: (슬라이드, 그 글상자에 들어 있는 말, 덧붙일 문단)
+PARA_ADDS = [
+    (29, 'EHR의 새 한계가 보일 때마다', '지침 · 공지 같은 문서 지식이 늘면 파일 · 링크 기반으로 전환'),
+]
+TEXTS[17].append((None, '기준을 파일과 링크로 저장', '별칭 · 세트 · 규칙 · 수술을 연결해 저장'))
 RESULTS_25 = ['99.99 %', '100 %', '0 %']
 TABLE_25 = {'A-1': '99.99% (10,415 / 10,416 필드)', 'A-2': '표기 100% (547 / 547) · 줄 100% (1,699 / 1,699)', 'A-3': '100% (504 / 504 항목)',
             'B-1': '재현율 100% (30 / 30) · 정밀도 100%', 'B-2': '100% (23 / 23) · 오탐 0건', 'B-3': '제안 3건 모두 정답과 일치 (설치 시점 2 · 3개월 뒤 1)'}
@@ -96,6 +106,25 @@ def main(src, dst, shots):
             if sh is None: print(f'!! {no}장 {name}: "{part}" 글을 찾지 못함'); continue
             old = sh.text_frame.text.replace('\n', ' '); set_text(sh.text_frame, new)
             print(f'{no}장 글 "{old}" → "{new}"')
+    for no, part, text in PARA_EDITS:
+        for sh in prs.slides[no - 1].shapes:
+            if not sh.has_text_frame: continue
+            for para in sh.text_frame.paragraphs:
+                if part in ''.join(r.text for r in para.runs):
+                    old_text = ''.join(r.text for r in para.runs)
+                    para.runs[0].text = text
+                    for r in para.runs[1:]: r._r.getparent().remove(r._r)
+                    print(f'{no}장 문단 "{old_text}" → "{text}"')
+    import copy
+    for no, part, text in PARA_ADDS:
+        for sh in prs.slides[no - 1].shapes:
+            if sh.has_text_frame and part in sh.text_frame.text:
+                last = sh.text_frame.paragraphs[-1]
+                new_p = copy.deepcopy(last._p); last._p.addnext(new_p)
+                para = sh.text_frame.paragraphs[-1]
+                para.runs[0].text = text
+                for r in para.runs[1:]: r._r.getparent().remove(r._r)
+                print(f'{no}장 문단 추가: "{text}"')
     # 15장 표
     for sh in prs.slides[14].shapes:
         if sh.shape_type != 19: continue
