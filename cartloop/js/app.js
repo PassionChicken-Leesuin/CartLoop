@@ -602,40 +602,51 @@ const rawMatch = (raw, l) => raw && raw.some(r => r.replace(/\s/g, '') === `${l.
 function showRow(code, raw) { S.ehr.hl = code; S.ehr.hlRaw = raw || null; draw(); setTimeout(() => document.getElementById('cl-' + code)?.scrollIntoView({ block: 'center', behavior: 'smooth' }), 30); }
 function fillEntry(code, qty, raw) { S.ehr.entry = { code, qty: String(qty) }; S.ehr.hl = null; S.ehr.hlRaw = raw || null; draw(); setTimeout(() => document.getElementById('entry-code')?.focus(), 30); }
 
+// ── 병원 EHR(HIS) 창: CartLoop와 무관한 남의 프로그램이다. 윈도우 위에 떠 있는 병원 전산 화면 모양으로 그린다. ──
+const HisWin = ({ title, id, kinds, menu = true, status, children }) => html`<section class=${'his' + (kinds ? scanningWin(kinds) : '')} id=${id}>
+  ${kinds && scanningWin(kinds) ? html`<div class="capture"><${Logo} />CartLoop이 이 화면의 글자를 읽는 중</div>` : ''}
+  <div class="his-title"><span class="his-ico">H</span><span>OO병원 통합의료정보시스템 - [${title}]</span><span class="his-ctl"><i>─</i><i>☐</i><i class="x">✕</i></span></div>
+  ${menu && html`<div class="his-menu"><span>파일(F)</span><span>편집(E)</span><span>조회(V)</span><span>서식(O)</span><span>창(W)</span><span>도움말(H)</span></div>
+  <div class="his-tool"><button>조회</button><button>저장</button><button>인쇄</button><button>임시저장</button><span class="sep"></span><button>이전 기록</button><button>원무 전송</button></div>`}
+  ${children}
+  <div class="his-status"><span>${status || '조회 완료'}</span><span>사용자: 수술실 간호사</span><span>HIS-APP07</span><span>가상 데이터</span></div>
+</section>`;
 function EHRRecordWin({ p, id = 'win-ehr-record' }) {
   const E = S.ehr, r = p.rec;
-  if (!r) return html`<${Win} brand=${false} cls="ehr2" title="OO병원 | 수술간호기록" sub="HIS-APP07" id=${id}><div class="empty">이 수술은 기록지가 없습니다.</div><//>`;
+  if (!r) return html`<${HisWin} title="수술간호기록" id=${id}><div class="his-empty">이 수술은 기록지가 없습니다.</div><//>`;
   const mats = r.lines.filter(l => l.src === 'material'), drains = r.lines.filter(l => l.src === 'drain');
   const dept = /신경/.test(r.dept) ? 'NS' : /정형/.test(r.dept) ? 'OS' : r.dept;
-  return html`<${Win} brand=${false} cls=${'ehr2' + scanningWin(['meta', 'rec', 'drain'])} title="OO병원 | 수술간호기록" sub=${html`HIS-APP07 <span class="chip" style="margin-left:6px">가상 데이터</span>`} id=${id}>
-    <div class=${'meta' + scanCls('meta', 0)}><span>수술번호<b>${p.op}</b></span><span>수술일<b>${r.date}</b></span><span>환자<b>${r.pid}</b></span><span>진료과<b>${r.dept}</b></span><span>집도의<b>${r.surgeon}</b></span><span>수술실<b>${r.room}</b></span></div>
-    <div class=${'meta' + scanCls('meta', 1)}><span>진단명<b>${r.diagnosis || r.site}</b></span><span>수술명<b>${r.opName}</b></span></div>
-    <div class="sect">Implants</div>
-    <table><thead><tr><th>진료과</th><th>부위</th><th>종류</th><th>Manufacturer</th><th>수량</th><th>재료코드</th><th>규격</th></tr></thead><tbody>
-      ${mats.map((l, i) => html`<tr class=${(rawMatch(E.hlRaw, l) ? 'hl' : '') + scanCls('rec', i)}><td>${dept}</td><td>OP site</td><td>${l.rawName.replace(/\s*\(.*$/, '')}</td><td>${(/\(([^)]*)\)/.exec(l.rawName) || [])[1] || ''}</td><td>${l.qty}</td><td>${l.givenCode}</td><td>${l.rawSpec}</td></tr>`)}
-      ${!mats.length && html`<tr><td colspan="7" class="muted">기록된 치료재료 없음</td></tr>`}
+  const f = (label, value, w) => html`<label>${label}<input readonly value=${value || ''} style=${w ? `width:${w}px` : ''} /></label>`;
+  return html`<${HisWin} title="수술간호기록" id=${id} kinds=${['meta', 'rec', 'drain']} status=${`수술간호기록 1건 조회 · 재료 ${mats.length}줄`}>
+    <div class=${'his-form' + scanCls('meta', 0)}>${f('수술번호', p.op, 92)}${f('수술일', r.date, 84)}${f('등록번호', r.pid, 78)}${f('진료과', r.dept, 74)}${f('집도의', r.surgeon, 62)}${f('수술실', r.room, 62)}</div>
+    <div class=${'his-form' + scanCls('meta', 1)}>${f('진단명', r.diagnosis || r.site, 210)}${f('수술명', r.opName, 360)}</div>
+    <div class="his-sec">■ Implants</div>
+    <table class="his-grid"><thead><tr><th style="width:26px"></th><th>진료과</th><th>부위</th><th>종류</th><th>Manufacturer</th><th>수량</th><th>재료코드</th><th>규격</th></tr></thead><tbody>
+      ${mats.map((l, i) => html`<tr class=${(rawMatch(E.hlRaw, l) ? 'hl' : '') + scanCls('rec', i)}><td class="no">${i + 1}</td><td>${dept}</td><td>OP site</td><td>${l.rawName.replace(/\s*\(.*$/, '')}</td><td>${(/\(([^)]*)\)/.exec(l.rawName) || [])[1] || ''}</td><td class="c">${l.qty}</td><td>${l.givenCode}</td><td>${l.rawSpec}</td></tr>`)}
+      ${!mats.length && html`<tr><td class="no"></td><td colspan="7" style="color:#888">기록된 치료재료 없음</td></tr>`}
     </tbody></table>
-    <div class="sect">Drain and Catheter</div>
-    <table><thead><tr><th>종류</th><th>수량</th><th>규격</th></tr></thead><tbody>
-      ${drains.map((l, i) => html`<tr class=${(rawMatch(E.hlRaw, l) ? 'hl' : '') + scanCls('drain', i)}><td>${l.rawName}</td><td>${l.qty}</td><td>${l.rawSpec}</td></tr>`)}
-      ${!drains.length && html`<tr><td colspan="3" class="muted">없음</td></tr>`}
+    <div class="his-sec">■ Drain and Catheter</div>
+    <table class="his-grid"><thead><tr><th style="width:26px"></th><th>종류</th><th>수량</th><th>규격</th></tr></thead><tbody>
+      ${drains.map((l, i) => html`<tr class=${(rawMatch(E.hlRaw, l) ? 'hl' : '') + scanCls('drain', i)}><td class="no">${i + 1}</td><td>${l.rawName}</td><td class="c">${l.qty}</td><td>${l.rawSpec}</td></tr>`)}
+      ${!drains.length && html`<tr><td class="no"></td><td colspan="3" style="color:#888">없음</td></tr>`}
     </tbody></table>
   <//>`;
 }
 function EHRClaimWin({ p, id = 'win-ehr-claim', readonly }) {
   const E = S.ehr, db = S.db;
   const ec = E.entry.code?.trim().toUpperCase();
-  return html`<${Win} brand=${false} cls=${'ehr2' + (readonly ? '' : scanningWin(['claim']))} title="수술 재료 청구 목록" sub="Case Cart 전송 재료 · 원무 전송 전" id=${id}>
-    <div class="scroll" id=${id + '-scroll'}><table style="margin-top:0"><thead><tr><th>순번</th><th>재료명</th><th>코드</th><th>규격</th><th>수량</th><th>급여</th><th></th></tr></thead><tbody>
-      ${p.claim.lines.map((l, i) => html`<tr class=${(E.hl === l.code ? 'hl' : '') + (readonly ? '' : scanCls('claim', i))} id=${readonly ? null : 'cl-' + l.code}><td id=${readonly ? null : 'crow-' + i}>${i + 1}</td><td>${l.name}</td><td class="mono">${l.code}</td><td>${l.spec}</td>
-        <td><input type="number" min="0" style="width:48px" value=${l.qty} disabled=${readonly} onChange=${e => claimQty(i, e.target.value)} /></td><td>${l.benefit}</td>
-        <td><button class="del" title="이 줄 삭제" disabled=${readonly} onClick=${() => claimDel(i)}>🗑</button></td></tr>`)}
+  const total = p.claim.lines.reduce((n, l) => n + l.amount, 0);
+  return html`<${HisWin} title="수술 재료 청구 목록 (원무 전송 전)" id=${id} kinds=${readonly ? null : ['claim']} menu=${false} status=${`${p.claim.lines.length}줄 · 합계 ${total.toLocaleString()}원`}>
+    <div class="his-scroll" id=${id + '-scroll'}><table class="his-grid"><thead><tr><th style="width:30px">순번</th><th>재료코드</th><th>재료명</th><th>규격</th><th>수량</th><th>단가</th><th>급여구분</th><th></th></tr></thead><tbody>
+      ${p.claim.lines.map((l, i) => html`<tr class=${(E.hl === l.code ? 'hl' : '') + (readonly ? '' : scanCls('claim', i))} id=${readonly ? null : 'cl-' + l.code}><td class="no" id=${readonly ? null : 'crow-' + i}>${i + 1}</td><td>${l.code}</td><td>${l.name}</td><td>${l.spec}</td>
+        <td class="c"><input type="number" min="0" style="width:44px" value=${l.qty} disabled=${readonly} onChange=${e => claimQty(i, e.target.value)} /></td><td class="r">${l.price.toLocaleString()}</td><td>${l.benefit}</td>
+        <td class="c"><button disabled=${readonly} onClick=${() => claimDel(i)}>삭제</button></td></tr>`)}
     </tbody></table></div>
-    <div class=${'entry' + (E.entry.code ? ' hl' : '')}><b>재료 추가</b>
-      <input id=${readonly ? null : 'entry-code'} type="text" placeholder="재료코드" style="width:110px" value=${E.entry.code} disabled=${readonly} onInput=${e => { E.entry.code = e.target.value; draw(); }} />
-      <input id=${readonly ? null : 'entry-qty'} type="number" min="1" placeholder="1" style="width:54px" value=${E.entry.qty} disabled=${readonly} onInput=${e => { E.entry.qty = e.target.value; draw(); }} />
-      <button class="mini" disabled=${readonly} onClick=${claimAdd}>추가</button>
-      <span class="small muted">${db.master[ec] ? `${db.master[ec].name} ${db.master[ec].spec}` : ''}</span></div>
+    <div class=${'his-entry' + (E.entry.code ? ' hl' : '')}><b>재료 추가</b>
+      <label>재료코드<input id=${readonly ? null : 'entry-code'} type="text" style="width:96px" value=${E.entry.code} disabled=${readonly} onInput=${e => { E.entry.code = e.target.value; draw(); }} /></label>
+      <label>수량<input id=${readonly ? null : 'entry-qty'} type="number" min="1" style="width:48px" value=${E.entry.qty} disabled=${readonly} onInput=${e => { E.entry.qty = e.target.value; draw(); }} /></label>
+      <button disabled=${readonly} onClick=${claimAdd}>추가</button>
+      <span style="color:#555">${db.master[ec] ? `${db.master[ec].name} ${db.master[ec].spec}` : ''}</span></div>
   <//>`;
 }
 const ICON = { missing: ['!', ''], non_billable: ['!', ''], bundled: ['!', ''], qty_mismatch: ['≠', 'neq'], spec_mismatch: ['≠', 'neq'], qty_limit: ['≠', 'neq'], bundle_dup: ['≠', 'neq'], unrecorded: ['?', 'q'], price: ['₩', 'q'], discontinued: ['×', 'q'], duplicate: ['2', 'q'], unmapped: ['?', 'q'] };
@@ -708,13 +719,15 @@ function EHRPage() {
       <${Win} brand=${false} title=${`오늘의 수술 ${list.length}건`} sub=""><div class="oplist2">${list.map(x => html`<div class=${'opitem' + (x.op === E.op ? ' on' : '')} onClick=${() => selectOp(x.op)}>
         <div class="row" style="gap:6px"><b class="mono">${x.op}</b><span class="small muted num">${x.date.slice(5)}</span></div>
         <div class="small">${x.rec ? `${x.rec.surgeon} · ${(x.rec.opName || '').split('(')[0].split(':')[0].trim().slice(0, 22)}` : '기록지 없음'}</div></div>`)}</div><//>
-      <div class="pc"><div class="pcscreen">
-        <div class="pcbar"><span class="pcdot"></span>수술실 간호사 PC · Room ${p?.rec?.room?.replace(/\D/g, '') || ''}<span style="margin-left:auto">CartLoop는 이 화면에 보이는 글자만 읽습니다</span></div>
+      <div class="pc"><div class="pccap"><span class="tag">입력 화면</span>수술실 간호사 PC에 떠 있는 기존 EHR 두 화면 <span style="margin-left:auto;display:flex;gap:10px;align-items:center"><span class="tag out">출력 화면</span>오른쪽 CartLoop 창</span></div>
+      <div class="pcscreen">
         ${p && p.claim ? html`<div class="pcgrid">
-          <div class="col"><div class="pclabel"><span class="tag">입력 화면</span>기존 EHR 두 화면 (기록지 · 청구 목록)</div><div class="stack" id="ehr-pair"><${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} /></div></div>
-          <div class="col"><div class="pclabel"><span class="tag out">출력 화면</span>CartLoop 청구 도우미</div><${AssistWin} p=${p} /></div>
+          <div class="stack" id="ehr-pair"><${EHRRecordWin} p=${p} /><${EHRClaimWin} p=${p} /></div>
+          <${AssistWin} p=${p} />
         </div>` : html`<div class="empty">왼쪽에서 수술을 고르세요.</div>`}
-        <div class="pctask"><span>⊞</span><span class="pcsearch">🔍 검색</span><span class="pcapp">OO병원 HIS</span><span class="pcapp on"><span style="width:22px;display:inline-flex"><${Logo} /></span>CartLoop</span><span style="margin-left:auto" class="num">${p?.date || ''}</span></div>
+        <div class="pctask"><span class="pctray"></span><span class="pcicons"><span class="winlogo"><i></i><i></i><i></i><i></i></span><span class="pcsearch">🔍 검색</span>
+          <span class="pcapp on"><span class="his-ico">H</span>OO병원 HIS</span><span class="pcapp on"><span style="width:22px;display:inline-flex"><${Logo} /></span>CartLoop</span></span>
+          <span class="pctray num">한 ㅣ ${p?.date || ''}</span></div>
       </div><div class="pcstand"></div></div>
     </div>`}
   </div>`;

@@ -207,3 +207,58 @@ table.use td.zero { color: #b9c3c1; }
 .readlog div.now { color: #fff; }
 .readlog div.now::after { content: " ▌"; color: var(--amber); }
 @media (max-width: 1100px) { .ehrgrid2, .pcgrid { grid-template-columns: 1fr; } }
+
+/* ───────── 윈도우 바탕화면과 병원 EHR(HIS) 창 ─────────
+   EHR은 CartLoop가 아닌 남의 프로그램이다. 글꼴 · 색 · 모서리를 모두 병원 전산 화면처럼 따로 쓴다. */
+.pccap { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); margin-bottom: 8px; }
+.pcscreen { background: radial-gradient(1200px 600px at 70% 110%, #7db7f5 0%, #2f6fd0 35%, #173f8f 70%, #0d2a66 100%); border: 12px solid #15181c; border-radius: 18px; }
+.pcgrid { grid-template-columns: minmax(0, 1.45fr) minmax(330px, .75fr); padding: 18px 18px 20px; }
+.pctask { display: grid; grid-template-columns: 1fr auto 1fr; background: #e9eef6f2; border-top: 1px solid #ffffff80; padding: 5px 14px; font-family: "Segoe UI", "Malgun Gothic", sans-serif; }
+.pcicons { display: flex; align-items: center; gap: 12px; }
+.pctray { justify-self: end; font-size: 12px; color: #333; }
+.winlogo { display: grid; grid-template-columns: 9px 9px; gap: 2px; }
+.winlogo i { width: 9px; height: 9px; background: #1a73e8; display: block; }
+.pcsearch { background: #fff; border: 1px solid #d5dbe5; border-radius: 99px; padding: 3px 44px 3px 12px; font-size: 12px; }
+.pcapp { font-size: 12px; font-weight: 500; }
+.pcapp.on { border-bottom: 3px solid #1a73e8; padding-bottom: 1px; }
+.his-ico { width: 16px; height: 16px; background: #1f5fb8; color: #fff; font: 700 11px/16px Arial, sans-serif; text-align: center; border-radius: 2px; flex: none; display: inline-block; }
+
+.his { position: relative; background: #f0f0f0; border: 1px solid #6b7280; border-radius: 7px 7px 0 0; box-shadow: 0 10px 30px #00000055; font-family: "Malgun Gothic", "맑은 고딕", Gulim, sans-serif; font-size: 12px; color: #111; min-width: 0; }
+.his-title { display: flex; align-items: center; gap: 8px; height: 30px; padding-left: 9px; background: #fff; border-radius: 7px 7px 0 0; font-family: "Segoe UI", "Malgun Gothic", sans-serif; font-size: 12px; overflow: hidden; white-space: nowrap; }
+.his-ctl { margin-left: auto; display: flex; height: 100%; }
+.his-ctl i { font-style: normal; width: 42px; display: grid; place-items: center; font-size: 11px; color: #333; }
+.his-ctl i.x:hover { background: #e81123; color: #fff; }
+.his-menu { display: flex; gap: 14px; padding: 3px 9px; background: #f7f7f7; border-top: 1px solid #e3e3e3; border-bottom: 1px solid #d0d0d0; }
+.his-tool { display: flex; gap: 3px; align-items: center; padding: 4px 7px; background: linear-gradient(#fbfbfb, #e6e8ec); border-bottom: 1px solid #b9bec7; }
+.his button { font: inherit; border: 1px solid #8f96a3; background: linear-gradient(#ffffff, #dde1e7); border-radius: 2px; padding: 1px 9px; color: #111; cursor: pointer; white-space: nowrap; }
+.his button:disabled { color: #999; }
+.his-tool .sep { width: 1px; height: 18px; background: #b9bec7; margin: 0 5px; }
+.his-form { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 6px 9px; background: #dfe8f4; border-bottom: 1px solid #b7c4d6; position: relative; }
+.his-form label { display: flex; align-items: center; gap: 5px; color: #1d3557; font-weight: 700; white-space: nowrap; }
+.his input { font: inherit; border: 1px solid #7f8a99; border-radius: 0; background: #fff; padding: 1px 4px; height: 21px; color: #111; }
+.his input[readonly] { background: #f6f8fb; }
+.his-sec { background: #3b5f93; color: #fff; font-weight: 700; padding: 3px 9px; margin-top: 6px; }
+.his-grid { width: 100%; border-collapse: collapse; background: #fff; }
+.his-grid th { background: linear-gradient(#f4f6f9, #dfe4eb); border: 1px solid #aab3c0; padding: 3px 6px; text-align: center; font-weight: 700; white-space: nowrap; position: sticky; top: 0; }
+.his-grid td { border: 1px solid #c9d0da; padding: 2px 6px; height: 24px; position: relative; }
+.his-grid td.no { background: #e8ecf2; text-align: center; color: #445; }
+.his-grid td.c { text-align: center; }
+.his-grid td.r { text-align: right; }
+.his-scroll { max-height: 236px; overflow-y: auto; border-bottom: 1px solid #aab3c0; }
+.his-entry { display: flex; align-items: center; gap: 10px; padding: 6px 9px; background: #e9edf3; border-top: 1px solid #b9bec7; flex-wrap: wrap; }
+.his-entry label { display: flex; align-items: center; gap: 5px; }
+.his-status { display: flex; gap: 0; background: #e6e6e6; border-top: 1px solid #b5b5b5; color: #333; font-size: 11.5px; }
+.his-status span { padding: 2px 10px; border-right: 1px solid #c4c4c4; }
+.his-status span:first-child { flex: 1; }
+.his-empty { padding: 30px; text-align: center; color: #666; background: #fff; }
+
+/* CartLoop가 남의 화면 위에 덧씌우는 표시: 읽는 창의 점선 테두리, 읽는 줄의 형광 표시, 알림이 가리키는 줄 */
+.his.scanning { outline: 2px dashed #19b3a3; outline-offset: 3px; }
+.capture { position: absolute; right: 10px; top: -13px; z-index: 3; display: flex; align-items: center; gap: 6px; background: var(--teal); color: #fff; border-radius: 99px; padding: 2px 12px 2px 8px; font: 700 11.5px var(--font); box-shadow: 0 2px 8px #0005; }
+.capture svg { width: 20px; height: 13px; background: #fff; border-radius: 99px; padding: 1px 2px; }
+.his-grid tr.scan-now td::after, .his-form.scan-now::after { content: ""; position: absolute; inset: 0; background: #2fe0c855; border-top: 2px solid #19b3a3; border-bottom: 2px solid #19b3a3; pointer-events: none; }
+.his-grid tr.hl td::after { content: ""; position: absolute; inset: 0; background: #f2a93b40; border-top: 2px solid var(--amber); border-bottom: 2px solid var(--amber); pointer-events: none; }
+.his-entry.hl { box-shadow: inset 0 0 0 2px var(--amber); background: #fdf2dd; }
+
+/* 스크롤할 때 머리글이 줄 위에 오도록 */
+.his-grid th { z-index: 2; }
